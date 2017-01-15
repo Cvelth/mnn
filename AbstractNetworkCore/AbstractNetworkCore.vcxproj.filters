@@ -3,7 +3,4 @@
   <ItemGroup>
     <ClInclude Include="Neuron.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Neuron.cpp" />
-  </ItemGroup>
 </Project>
