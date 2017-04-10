@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'GuiTestingImplementation.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -35,7 +35,7 @@ public:
 
     void retranslateUi(QWidget *GuiTestingImplementationClass)
     {
-        GuiTestingImplementationClass->setWindowTitle(QApplication::translate("GuiTestingImplementationClass", "GuiTestingImplementation", 0));
+        GuiTestingImplementationClass->setWindowTitle(QApplication::translate("GuiTestingImplementationClass", "GuiTestingImplementation", Q_NULLPTR));
     } // retranslateUi
 
 };

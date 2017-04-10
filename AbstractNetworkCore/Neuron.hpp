@@ -1,52 +1,39 @@
 #pragma once
-
-#include <initializer_list>
-#include <vector>
-	namespace std {
-		template<class _Elem> class initializer_list;
-	}
-#define Container std::vector
+#include "Container.hpp"
+#include "AbstractNeuron.hpp"
+#include "Link.hpp"
 
 namespace MNN {
 	template <typename T>
-	class AbstractNeuron {
-	private:
-		T m_value;
-		bool m_isValuated;
+	class VectorNeuron : public AbstractNeuron<T> {
 	protected:
-		Container<T> m_inputs;
+		Container<Link<T>> m_links;
 	protected:
-		virtual T& calculate() abstract;
-		static T& normalize(T& input) {
-			return input;
+		virtual void calculate() override {
+			T value = T(0);
+			for (Link<T> t : m_links)
+				value += t.unit->value() * t.weight;
+			this->setValue(value);
+		};
+		virtual T normalize(const T& value) override {
+			return value; //Does Nothing
 		}
 	public:
-		AbstractNeuron(const T& value) : m_isValuated(true), m_value(value) {}
-		AbstractNeuron() : m_isValuated(false) {}
-
-		void setInputs(const std::initializer_list<T>& l) {
-			m_inputs.clear();
-			m_inputs.reserve(l.size());
-			for (T t : l) m_inputs.push_back(t);
+		using AbstractNeuron<T>::AbstractNeuron;
+		inline void setInputs(const Container<AbstractNeuron<T>*>& c) {
+			m_links.clear();
+			m_links.reserve(c.size());
+			this->addInputs(c);
+			this->changed();
 		}
-
-		T value() {
-			if (m_isValuated)
-				return m_value;
-			else {
-				m_isValuated = true;
-				return m_value = normalize(calculate());
-			}
+		inline void addInputs(const Container<AbstractNeuron<T>*>& c) {
+			for (AbstractNeuron<T>* t : c)
+				this->addInput(t);
+		}
+		inline void addInput(AbstractNeuron<T>* i) {
+			m_links.push_back(Link<T>(i, 1.f));
 		}
 	};
 
-	class Neuron : public AbstractNeuron<float> {
-	protected:
-		virtual float& calculate() override {
-			float result = 0;
-			for (float t : m_inputs)
-				result += t;
-			return result;
-		}
-	};
+	using Neuron = VectorNeuron<float>;
 }

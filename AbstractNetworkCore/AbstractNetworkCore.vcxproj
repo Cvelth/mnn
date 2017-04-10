@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractNeuron.hpp" />
+    <ClInclude Include="Container.hpp" />
+    <ClInclude Include="Link.hpp" />
     <ClInclude Include="Neuron.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Neuron.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D5E03652-9B0D-4C7F-8565-24C0027058C7}</ProjectGuid>
@@ -90,10 +96,10 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
