@@ -1,13 +1,13 @@
 #pragma once
-#include "Container.hpp"
+#include "NeuronContainer.hpp"
 #include "AbstractNeuron.hpp"
 #include "Link.hpp"
 
 namespace MNN {
 	template <typename T>
-	class VectorNeuron : public AbstractNeuron<T> {
+	class AbstractDataContainerNeuron : public AbstractNeuron<T> {
 	protected:
-		Container<Link<T>> m_links;
+		NeuronDataContainer<Link<T>> m_links;
 	protected:
 		virtual void calculate() override {
 			T value = T(0);
@@ -19,21 +19,26 @@ namespace MNN {
 			return value; //Does Nothing
 		}
 	public:
-		using AbstractNeuron<T>::AbstractNeuron;
-		inline void setInputs(const Container<AbstractNeuron<T>*>& c) {
+		AbstractDataContainerNeuron(const T& value) : AbstractNeuron(value) {}
+		AbstractDataContainerNeuron() : AbstractNeuron() {}
+		inline virtual void addInput(AbstractNeuron<T>* i) override {
+			m_links.push_back(Link<T>(i, 1.f));
+			this->changed();
+		}
+		inline void addInputs(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
+			for (AbstractNeuron<T>* t : c)
+				m_links.push_back(Link<T>(t, 1.f));
+			this->changed();
+		}
+		inline void setInputs(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
 			m_links.clear();
 			m_links.reserve(c.size());
 			this->addInputs(c);
-			this->changed();
 		}
-		inline void addInputs(const Container<AbstractNeuron<T>*>& c) {
-			for (AbstractNeuron<T>* t : c)
-				this->addInput(t);
-		}
-		inline void addInput(AbstractNeuron<T>* i) {
-			m_links.push_back(Link<T>(i, 1.f));
+		AbstractDataContainerNeuron(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
+			this->setInputs(c);
 		}
 	};
 
-	using Neuron = VectorNeuron<float>;
+	using Neuron = AbstractDataContainerNeuron<float>;
 }

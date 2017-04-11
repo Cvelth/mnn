@@ -12,6 +12,7 @@ namespace MNN {
 	public:
 		AbstractNeuron(const T& value) : m_isValuated(true), m_value(value) {}
 		AbstractNeuron() : m_isValuated(false) {}
+		inline virtual void addInput(AbstractNeuron<T>* i) abstract;
 
 		inline T value() {
 			if (!m_isValuated)

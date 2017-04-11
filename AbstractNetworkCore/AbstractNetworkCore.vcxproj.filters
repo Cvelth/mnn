@@ -1,12 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Neuron.hpp" />
-    <ClInclude Include="Link.hpp" />
-    <ClInclude Include="AbstractNeuron.hpp" />
-    <ClInclude Include="Container.hpp" />
+    <ClInclude Include="Neuron.hpp">
+      <Filter>Neuron</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractNeuron.hpp">
+      <Filter>Neuron</Filter>
+    </ClInclude>
+    <ClInclude Include="Link.hpp">
+      <Filter>Neuron</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractLayer.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerContainer.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuronContainer.hpp">
+      <Filter>Neuron</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkContainer.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractNetwork.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerNetwork.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractLayerNetwork.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Neuron.cpp" />
+    <Filter Include="Neuron">
+      <UniqueIdentifier>{329c1c4a-ea8e-4ea1-b3ac-94be33b0b959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Layer">
+      <UniqueIdentifier>{b923e798-f17a-4605-9504-ac8c2e1b5737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{633607ed-da65-4507-b941-e823cbfa1094}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Neuron</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

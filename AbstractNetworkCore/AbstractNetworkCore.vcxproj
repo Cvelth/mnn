@@ -19,12 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractLayer.hpp" />
+    <ClInclude Include="AbstractLayerNetwork.hpp" />
+    <ClInclude Include="AbstractNetwork.hpp" />
     <ClInclude Include="AbstractNeuron.hpp" />
-    <ClInclude Include="Container.hpp" />
+    <ClInclude Include="Layer.hpp" />
+    <ClInclude Include="LayerNetwork.hpp" />
+    <ClInclude Include="NetworkContainer.hpp" />
+    <ClInclude Include="NeuronContainer.hpp" />
+    <ClInclude Include="LayerContainer.hpp" />
     <ClInclude Include="Link.hpp" />
     <ClInclude Include="Neuron.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
