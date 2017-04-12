@@ -24,7 +24,26 @@ MNN::AbstractLayerNetwork* MNN::generateTypicalLayerNeuralNetwork(size_t inputs_
 	switch (connection) {
 		case MNN::ConnectionPattern::NoDefaultConnection:
 			break;
-		case MNN::ConnectionPattern::EachFromPreviousLayer:
+		case MNN::ConnectionPattern::EachFromPreviousLayerWithBias:
+			MNN::AbstractNeuron *bias = new MNN::Neuron(1.f);
+			MNN::AbstractLayer *temp = in;
+			ret->for_each_hidden([&temp, &weightFunction, &bias](MNN::AbstractLayer* layer) {
+				layer->for_each([&temp, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
+					temp->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
+						neuron->addInput(input, weightFunction(neuron, input));
+					});
+					neuron->addInput(bias, weightFunction(neuron, bias));
+				});
+				temp = layer;
+			});
+			ret->for_each_output([&temp, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
+				temp->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
+					neuron->addInput(input, weightFunction(neuron, input));
+				});
+				neuron->addInput(bias, weightFunction(neuron, bias));
+			});
+			break;
+		case MNN::ConnectionPattern::EachFromPreviousLayerWithoutBias:
 			MNN::AbstractLayer *temp = in;
 			ret->for_each_hidden([&temp, &weightFunction](MNN::AbstractLayer* l) {
 				l->for_each([&temp, &weightFunction](MNN::AbstractNeuron* n) {

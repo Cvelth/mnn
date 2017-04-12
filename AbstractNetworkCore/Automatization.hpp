@@ -5,7 +5,7 @@ namespace MNN {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
 	enum class ConnectionPattern {
-		NoDefaultConnection, EachFromPreviousLayer
+		NoDefaultConnection, EachFromPreviousLayerWithBias, EachFromPreviousLayerWithoutBias,
 	};
 
 	/*
@@ -21,7 +21,7 @@ namespace MNN {
 	*/
 	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
 															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
-															ConnectionPattern connection = ConnectionPattern::NoDefaultConnection,
+															ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
 															std::function<float(AbstractNeuron*, AbstractNeuron*)> weightFunction = 
 																[](AbstractNeuron* neuron, AbstractNeuron* input) -> float {
 																	return 1.f;
