@@ -1,8 +1,9 @@
 #pragma once
-#include "AbstractNeuron.hpp"
+#include <functional>
 
 namespace MNN {
-	template <typename T>
+	class AbstractNeuron;
+
 	class AbstractLayer {
 	private:
 
@@ -10,9 +11,11 @@ namespace MNN {
 
 	public:
 		AbstractLayer() {}
-		inline virtual void add(AbstractNeuron<T>* i) abstract;
-		inline virtual void remove(AbstractNeuron<T>* i) abstract;
+		inline virtual void add(AbstractNeuron* i) abstract;
+		inline virtual void remove(AbstractNeuron* i) abstract;
 
 		inline virtual void calculate() abstract;
+
+		inline virtual void for_each(std::function<void(AbstractNeuron*)> lambda) abstract;
 	};
 }

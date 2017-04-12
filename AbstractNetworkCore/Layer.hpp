@@ -3,36 +3,38 @@
 #include "AbstractLayer.hpp"
 
 namespace MNN {
-	template <typename T>
-	class AbstractDataContainerLayer : public AbstractLayer<T> {
+	class AbstractDataContainerLayer : public AbstractLayer {
 	protected:
-		LayerDataContainer<AbstractNeuron<T>*> m_neurons;
+		LayerDataContainer<AbstractNeuron*> m_neurons;
 	public:
 		AbstractDataContainerLayer() : AbstractLayer() {}
-		inline virtual void add(AbstractNeuron<T>* i) override {
+		inline virtual void add(AbstractNeuron* i) override {
 			m_neurons.insert(i);
 		}
-		inline void addAll(const LayerDataContainer<AbstractNeuron<T>*>& c) {
+		inline void addAll(const LayerDataContainer<AbstractNeuron*>& c) {
 			for (auto t : c)
 				this->add(t);
 		}
-		AbstractDataContainerLayer(const LayerDataContainer<AbstractNeuron<T>*>& c) : AbstractDataContainerLayer() {
+		inline AbstractDataContainerLayer(const LayerDataContainer<AbstractNeuron*>& c) : AbstractDataContainerLayer() {
 			this->addAll(c);
 		}
 
-		inline virtual void remove(AbstractNeuron<T>* i) override {
+		inline virtual void remove(AbstractNeuron* i) override {
 			m_neurons.erase(i);
 		}
-		inline void removeAll(const LayerDataContainer<AbstractNeuron<T>*>& c) {
+		inline void removeAll(const LayerDataContainer<AbstractNeuron*>& c) {
 			for (auto t : c)
 				this->remove(t);
 		}
-
 		inline virtual void calculate() override {
 			for (auto t : m_neurons)
 				t->value();
 		}
+		inline virtual void for_each(std::function<void(AbstractNeuron*)> lambda) override {
+			for (auto it : m_neurons)
+				lambda(it);
+		}
 	};
 
-	using Layer = AbstractDataContainerLayer<float>;
+	using Layer = AbstractDataContainerLayer;
 }

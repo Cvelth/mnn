@@ -1,15 +1,22 @@
 #pragma once
+#include <functional>
 #include "AbstractNetwork.hpp"
-#include "AbstractLayer.hpp"
 
 namespace MNN {
-	template <typename T>
-	class AbstractLayerNetwork : public AbstractNetwork<T> {
+	class AbstractNeuron;
+	class AbstractLayer;
+
+	class AbstractLayerNetwork : public AbstractNetwork {
 	private:
 
-	protected:
-		inline virtual void addLayer(AbstractLayer<T>* l) abstract;
 	public:
+		inline virtual void addLayer(AbstractLayer* l) abstract;
 		virtual void calculate() abstract;
+
+		inline virtual void for_each_hidden(std::function<void(AbstractLayer*)> lambda) abstract;
+		inline virtual void for_each(std::function<void(AbstractLayer*)> lambda) abstract;
+		inline virtual void for_each_input(std::function<void(AbstractNeuron*)> lambda) abstract;
+		inline virtual void for_each_output(std::function<void(AbstractNeuron*)> lambda) abstract;
+		inline virtual void for_each_neuron(std::function<void(AbstractNeuron*)> lambda) abstract;
 	};
 }

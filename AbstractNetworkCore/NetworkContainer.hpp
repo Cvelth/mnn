@@ -1,6 +1,4 @@
-#pragma once
-#include <vector>
-
 #ifndef NetworkDataContainer
+#include <vector>
 #define NetworkDataContainer std::vector
 #endif

@@ -1,6 +1,4 @@
-#pragma once
-#include <set>
-
 #ifndef LayerDataContainer
+#include <set>
 #define LayerDataContainer std::set
 #endif

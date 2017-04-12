@@ -1,7 +1,6 @@
 #pragma once
 
 namespace MNN {
-	template <typename T>
 	class AbstractNetwork {
 	private:
 

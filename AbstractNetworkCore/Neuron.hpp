@@ -4,41 +4,38 @@
 #include "Link.hpp"
 
 namespace MNN {
-	template <typename T>
-	class AbstractDataContainerNeuron : public AbstractNeuron<T> {
+	class AbstractDataContainerNeuron : public AbstractNeuron {
 	protected:
-		NeuronDataContainer<Link<T>> m_links;
+		NeuronDataContainer<Link> m_links;
 	protected:
-		virtual void calculate() override {
-			T value = T(0);
-			for (Link<T> t : m_links)
-				value += t.unit->value() * t.weight;
-			this->setValue(value);
-		};
-		virtual T normalize(const T& value) override {
-			return value; //Does Nothing
-		}
+		virtual void calculate() override;
+		virtual float normalize(const float& value) override;
 	public:
-		AbstractDataContainerNeuron(const T& value) : AbstractNeuron(value) {}
+		AbstractDataContainerNeuron(const float& value) : AbstractNeuron(value) {}
 		AbstractDataContainerNeuron() : AbstractNeuron() {}
-		inline virtual void addInput(AbstractNeuron<T>* i) override {
-			m_links.push_back(Link<T>(i, 1.f));
+		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) override {
+			m_links.push_back(Link(i, weight));
 			this->changed();
 		}
-		inline void addInputs(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
-			for (AbstractNeuron<T>* t : c)
-				m_links.push_back(Link<T>(t, 1.f));
+		inline void addInputs(const NeuronDataContainer<AbstractNeuron*>& c) {
+			for (AbstractNeuron* t : c)
+				m_links.push_back(Link(t, 1.f));
 			this->changed();
 		}
-		inline void setInputs(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
+		inline void setInputs(const NeuronDataContainer<AbstractNeuron*>& c) {
 			m_links.clear();
 			m_links.reserve(c.size());
 			this->addInputs(c);
 		}
-		AbstractDataContainerNeuron(const NeuronDataContainer<AbstractNeuron<T>*>& c) {
+		inline AbstractDataContainerNeuron(const NeuronDataContainer<AbstractNeuron*>& c) {
 			this->setInputs(c);
+		}
+
+		inline virtual void for_each(std::function<void(Link&)> lambda) override {
+			for (auto it : m_links)
+				lambda(it);
 		}
 	};
 
-	using Neuron = AbstractDataContainerNeuron<float>;
+	using Neuron = AbstractDataContainerNeuron;
 }

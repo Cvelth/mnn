@@ -1,6 +1,4 @@
-#pragma once
-#include <vector>
-
 #ifndef NeuronDataContainer
+#include <vector>
 #define NeuronDataContainer std::vector
 #endif
