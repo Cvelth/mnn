@@ -37,6 +37,9 @@
     <ClInclude Include="Automatization.hpp">
       <Filter>Automatization</Filter>
     </ClInclude>
+    <ClInclude Include="Sigmoids.hpp">
+      <Filter>Neuron\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -51,6 +54,9 @@
     <Filter Include="Automatization">
       <UniqueIdentifier>{cfd6e33d-e82b-4a37-94d6-351568ddedf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Neuron\Math">
+      <UniqueIdentifier>{a49c883e-9aee-423f-ba3f-a7a515a17272}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Neuron.cpp">
@@ -61,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="Automatization.cpp">
       <Filter>Automatization</Filter>
+    </ClCompile>
+    <ClCompile Include="Sigmoids.cpp">
+      <Filter>Neuron\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

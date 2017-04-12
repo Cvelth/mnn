@@ -1,4 +1,5 @@
 #include "Neuron.hpp"
+#include "Sigmoids.hpp"
 
 void MNN::AbstractDataContainerNeuron::calculate() {
 	float value = 0.f;
@@ -7,5 +8,5 @@ void MNN::AbstractDataContainerNeuron::calculate() {
 	this->setValue(value);
 }
 float MNN::AbstractDataContainerNeuron::normalize(const float & value) {
-	return value; //Does Nothing
+	return MNN::tanh_sigmoid(value);
 }

@@ -31,11 +31,13 @@
     <ClInclude Include="LayerContainer.hpp" />
     <ClInclude Include="Link.hpp" />
     <ClInclude Include="Neuron.hpp" />
+    <ClInclude Include="Sigmoids.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="Sigmoids.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D5E03652-9B0D-4C7F-8565-24C0027058C7}</ProjectGuid>
