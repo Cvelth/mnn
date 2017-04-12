@@ -21,42 +21,41 @@ MNN::AbstractLayerNetwork* MNN::generateTypicalLayerNeuralNetwork(size_t inputs_
 		ret->addLayer(hd);
 	}
 
+	MNN::AbstractLayer *tempLayer = in;
 	switch (connection) {
 		case MNN::ConnectionPattern::NoDefaultConnection:
 			break;
+		case MNN::ConnectionPattern::EachFromPreviousLayerWithoutBias:
+			ret->for_each_hidden([&tempLayer, &weightFunction](MNN::AbstractLayer* l) {
+				l->for_each([&tempLayer, &weightFunction](MNN::AbstractNeuron* n) {
+					tempLayer->for_each([&n, &weightFunction](MNN::AbstractNeuron* in) {
+						n->addInput(in, weightFunction(n, in));
+					});
+				});
+				tempLayer = l;
+			});
+			ret->for_each_output([&tempLayer, &weightFunction](MNN::AbstractNeuron* n) {
+				tempLayer->for_each([&n, &weightFunction](MNN::AbstractNeuron* in) {
+					n->addInput(in, weightFunction(n, in));
+				});
+			});
+			break;
 		case MNN::ConnectionPattern::EachFromPreviousLayerWithBias:
 			MNN::AbstractNeuron *bias = new MNN::Neuron(1.f);
-			MNN::AbstractLayer *temp = in;
-			ret->for_each_hidden([&temp, &weightFunction, &bias](MNN::AbstractLayer* layer) {
-				layer->for_each([&temp, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
-					temp->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
+			ret->for_each_hidden([&tempLayer, &weightFunction, &bias](MNN::AbstractLayer* layer) {
+				layer->for_each([&tempLayer, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
+					tempLayer->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
 						neuron->addInput(input, weightFunction(neuron, input));
 					});
 					neuron->addInput(bias, weightFunction(neuron, bias));
 				});
-				temp = layer;
+				tempLayer = layer;
 			});
-			ret->for_each_output([&temp, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
-				temp->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
+			ret->for_each_output([&tempLayer, &weightFunction, &bias](MNN::AbstractNeuron* neuron) {
+				tempLayer->for_each([&neuron, &weightFunction](MNN::AbstractNeuron* input) {
 					neuron->addInput(input, weightFunction(neuron, input));
 				});
 				neuron->addInput(bias, weightFunction(neuron, bias));
-			});
-			break;
-		case MNN::ConnectionPattern::EachFromPreviousLayerWithoutBias:
-			MNN::AbstractLayer *temp = in;
-			ret->for_each_hidden([&temp, &weightFunction](MNN::AbstractLayer* l) {
-				l->for_each([&temp, &weightFunction](MNN::AbstractNeuron* n) {
-					temp->for_each([&n, &weightFunction](MNN::AbstractNeuron* in) {
-						n->addInput(in, weightFunction(n, in));
-					});
-				});
-				temp = l;
-			});
-			ret->for_each_output([&temp, &weightFunction](MNN::AbstractNeuron* n) {
-				temp->for_each([&n, &weightFunction](MNN::AbstractNeuron* in) {
-					n->addInput(in, weightFunction(n, in));
-				});
 			});
 			break;
 	}
