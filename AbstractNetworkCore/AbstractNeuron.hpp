@@ -16,10 +16,14 @@ namespace MNN {
 		AbstractNeuron() : m_isValuated(false) {}
 		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) abstract;
 
-		inline float value() {
+		inline const float& value() {
 			if (!m_isValuated)
 				calculate();
 			return m_value;
+		}
+		inline void setValueUnnormalized(const float& value) {
+			m_value = value;
+			m_isValuated = true;
 		}
 		inline void setValue(const float& value) {
 			m_value = normalize(value);

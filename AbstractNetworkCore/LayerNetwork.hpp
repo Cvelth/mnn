@@ -24,7 +24,15 @@ namespace MNN {
 			this->addLayers(c);
 		}
 
-		virtual void calculate() override {
+		virtual void newInputs(const std::initializer_list<float>& inputs, bool normalize = true) override;
+		virtual void newInputs(size_t number, float* inputs, bool normalize = true) override;
+		virtual void newInputs(const NetworkDataContainer<float>& inputs, bool normalize = true);
+
+		void calculateWithInputs(const NetworkDataContainer<float>& inputs, bool normalize = true);
+
+		virtual const float* getOutputs() const override;
+		
+		inline virtual void calculate() override {
 			m_outputs->calculate();
 		}
 

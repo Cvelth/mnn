@@ -1,9 +1,13 @@
 #pragma once
 
 namespace MNN {
-	float erf_sigmoid(const float& value);
-	float tanh_sigmoid(const float& value);
-	float root_sigmoid(const float& value);
-	float atan_sigmoid(const float& value);
-	float abs_sigmoid(const float& value);
+	float erf_sigmoid(const float& x);
+	float tanh_sigmoid(const float& x);
+	float root_sigmoid(const float& x);
+	float atan_sigmoid(const float& x);
+	float erf_sigmoid_derivative(const float& x);
+	float tanh_sigmoid_derivative(const float& x);
+	float tanh_sigmoid_derivative_approximated(const float& x);
+	float root_sigmoid_derivative(const float& x);
+	float atan_sigmoid_derivative(const float& x);
 }

@@ -1,23 +1,37 @@
 #include "GuiTestingImplementation.h"
 #include <QtWidgets/QApplication>
+#include <qerrormessage.h>
+#include <random>
+#include <initializer_list>
 
 #include "Automatization.hpp"
 #include "AbstractNeuron.hpp"
 #include "AbstractLayerNetwork.hpp"
+#include "Exceptions.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-	auto *n = MNN::generateTypicalLayerNeuralNetwork(8, 2, 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias);
+	GuiTestingImplementation w;
+	w.show();
 
-	float f = 0.f;
-	n->for_each_input([&f](MNN::AbstractNeuron* n) {
-		n->setValue(f += 0.1f);
+	std::random_device rd;
+	std::mt19937_64 g(rd());
+	std::uniform_real_distribution<float> d;
+	auto *n = MNN::generateTypicalLayerNeuralNetwork(8, 2, 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
+													 [&](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
+		return d(g);
 	});
-	n->calculate();
 
-    GuiTestingImplementation w;
-    w.show();
+	try {
+		n->calculateWithInputs({0, .1f, .2f, .3f, .4f, .5f, .6f, .7f});
+	} catch (MNN::Exceptions::WrongInputsNumberException e) {
+		//To handle wrong input;
+		QErrorMessage *t = new QErrorMessage;
+		t->showMessage("Wrong input.");
+	}
+
+	auto t = n->getOutputs();
     return a.exec();
 }

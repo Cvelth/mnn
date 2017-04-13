@@ -26,6 +26,10 @@ namespace MNN {
 			for (auto t : c)
 				this->remove(t);
 		}
+
+		inline virtual size_t size() const override {
+			return m_neurons.size();
+		}
 		inline virtual void calculate() override {
 			for (auto t : m_neurons)
 				t->value();

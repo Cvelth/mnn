@@ -40,6 +40,7 @@
     <ClInclude Include="Sigmoids.hpp">
       <Filter>Neuron\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Exceptions.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
