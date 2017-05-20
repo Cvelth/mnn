@@ -2,22 +2,25 @@
 #include "Neuron.hpp"
 #include "Layer.hpp"
 #include "LayerNetwork.hpp"
+#include "ErrorSystem.h"
 
-MNN::AbstractLayerNetwork* MNN::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer, ConnectionPattern connection, std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> weightFunction) {
+MNN::AbstractLayerNetwork* MNN::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer, 
+																  ConnectionPattern connection, std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> weightFunction, 
+																  float eta, float alpha) {
 	size_t i;
 	MNN::AbstractLayer* in = new MNN::Layer();
 	for (i = 0; i < inputs_number; i++)
-		in->add(new MNN::Neuron());
+		in->add(new MNN::Neuron(NeuronConstants(eta, alpha)));
 	MNN::AbstractLayer* out = new MNN::Layer();
 	for (i = 0; i < outputs_number; i++)
-		out->add(new MNN::Neuron());
+		out->add(new MNN::Neuron(NeuronConstants(eta, alpha)));
 
-	MNN::AbstractLayerNetwork* ret = new MNN::LayerNetwork(in, out);
+	MNN::AbstractLayerNetwork* ret = new MNN::LayerNetwork(in, out, new RootMeanSquareError());
 		
 	for (i = 0; i < hidden_layers_number; i++) {
 		MNN::AbstractLayer* hd = new MNN::Layer();
 		for (size_t j = 0; j < neurons_per_hidden_layer; j++)
-			hd->add(new MNN::Neuron());
+			hd->add(new MNN::Neuron(NeuronConstants(eta, alpha)));
 		ret->addLayer(hd);
 	}
 

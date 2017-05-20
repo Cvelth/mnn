@@ -4,6 +4,9 @@
 #include "Link.hpp"
 
 namespace MNN {
+	class AbstractLayer;
+}
+namespace MNN {
 	class AbstractDataContainerNeuron : public AbstractNeuron {
 	protected:
 		NeuronDataContainer<Link> m_links;
@@ -11,8 +14,8 @@ namespace MNN {
 		virtual void calculate() override;
 		virtual float normalize(const float& value) override;
 	public:
-		AbstractDataContainerNeuron(const float& value) : AbstractNeuron(value) {}
-		AbstractDataContainerNeuron() : AbstractNeuron() {}
+		AbstractDataContainerNeuron(const float& value, NeuronConstants c = NeuronConstants(0.15f, 0.5f)) : AbstractNeuron(value, c) {}
+		AbstractDataContainerNeuron(NeuronConstants c = NeuronConstants(0.15f, 0.5f)) : AbstractNeuron(c) {}
 		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) override {
 			m_links.push_back(Link(i, weight));
 			this->changed();
@@ -31,12 +34,18 @@ namespace MNN {
 			this->setInputs(c);
 		}
 
+		virtual void calculateGradient(float expectedValue) override;
+		virtual void calculateGradient(AbstractLayer* nextLayer) override;
+		virtual float getWeightTo(AbstractNeuron* neuron) override;
+		virtual void recalculateWeights() override;
+
 		inline virtual void for_each(std::function<void(Link&)> lambda, bool firstToLast = true) override {
-			for (auto it = firstToLast ? m_links.begin() : m_links.end();
-				 it != (firstToLast ? m_links.end() : m_links.begin());
-				 firstToLast ? it++ : it--) {
-				lambda(*it);
-			}
+			if (firstToLast)
+				for (auto it = m_links.begin(); it != m_links.end(); it++)
+					lambda(*it);
+			else
+				for (auto it = m_links.rbegin(); it != m_links.rend(); it++)
+					lambda(*it);
 		}
 	};
 

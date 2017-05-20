@@ -23,6 +23,14 @@ namespace MNN {
 			newInputs(number, inputs, normalize);
 			calculate();
 		}
+		void learningProcess(const std::initializer_list<float>& outputs) {
+			float tempNetworkError = calculateNetworkError(outputs);
+			calculateGradients(outputs);
+			updateWeights();
+		}
+		virtual float calculateNetworkError(const std::initializer_list<float>& outputs) abstract;
+		virtual void calculateGradients(const std::initializer_list<float>& outputs) abstract;
+		virtual void updateWeights() abstract;
 
 		virtual const size_t getInputsNumber() const abstract;
 		virtual const size_t getOutputsNumber() const abstract;

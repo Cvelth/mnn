@@ -7,16 +7,14 @@ namespace MNN {
 
 namespace MNN {
 	class AbstractErrorSystem {
-	protected:
-		AbstractLayerNetwork* m_network;
 	public:
-		AbstractErrorSystem(AbstractLayerNetwork* network) : m_network(network) {}
-		virtual float calculateNetworkError(const NetworkDataContainer<float>& outputs) abstract;
+		AbstractErrorSystem() {}
+		virtual float calculateNetworkError(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) abstract;
 	};
 
 	class RootMeanSquareError : public AbstractErrorSystem {
 	public:
-		RootMeanSquareError(AbstractLayerNetwork* network) : AbstractErrorSystem(network) {}
-		virtual float calculateNetworkError(const NetworkDataContainer<float>& outputs) override;
+		RootMeanSquareError() : AbstractErrorSystem() {}
+		virtual float calculateNetworkError(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) override;
 	};
 }

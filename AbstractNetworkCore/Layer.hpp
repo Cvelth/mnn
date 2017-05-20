@@ -35,11 +35,12 @@ namespace MNN {
 				t->value();
 		}
 		inline virtual void for_each(std::function<void(AbstractNeuron*)> lambda, bool firstToLast = true) override {
-			for (auto it = firstToLast ? m_neurons.begin() : m_neurons.end();
-				 it != (firstToLast ? m_neurons.end() : m_neurons.begin());
-				 firstToLast ? it++ : it--) {
-				lambda(*it);
-			}
+			if (firstToLast)
+				for (auto it = m_neurons.begin(); it != m_neurons.end(); it++)
+					lambda(*it);
+			else
+				for (auto it = m_neurons.rbegin(); it != m_neurons.rend(); it++)
+					lambda(*it);
 		}
 	};
 
