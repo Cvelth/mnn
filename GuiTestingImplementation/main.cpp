@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
 	std::random_device rd;
 	std::mt19937_64 g(rd());
 	std::uniform_real_distribution<float> d;
-	auto *n = MNN::generateTypicalLayerNeuralNetwork(8, 2, 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
-													 [&](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
+	auto *n = MNN::generateTypicalLayerNeuralNetwork(8, 2, 3, 8, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
+													 [&d, &g](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
 		return d(g);
 	});
 

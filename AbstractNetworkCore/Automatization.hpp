@@ -14,7 +14,7 @@ namespace MNN {
 	*
 	* WeightFunction is an lambda-function-argument which takes the arguments:
 	* * The neuron is being linked to
-	* * The neuron is being linking
+	* * The neuron is being linked
 	* It returns a float -> weight of the Link.
 	*
 	* Default Links weight is equal to 1.f.
