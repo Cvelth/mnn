@@ -31,9 +31,12 @@ namespace MNN {
 			this->setInputs(c);
 		}
 
-		inline virtual void for_each(std::function<void(Link&)> lambda) override {
-			for (auto it : m_links)
-				lambda(it);
+		inline virtual void for_each(std::function<void(Link&)> lambda, bool firstToLast = true) override {
+			for (auto it = firstToLast ? m_links.begin() : m_links.end();
+				 it != (firstToLast ? m_links.end() : m_links.begin());
+				 firstToLast ? it++ : it--) {
+				lambda(*it);
+			}
 		}
 	};
 

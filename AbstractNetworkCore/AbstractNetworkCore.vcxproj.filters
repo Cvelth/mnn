@@ -38,9 +38,12 @@
       <Filter>Automatization</Filter>
     </ClInclude>
     <ClInclude Include="Sigmoids.hpp">
-      <Filter>Neuron\Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Exceptions.hpp" />
+    <ClInclude Include="ErrorSystem.h">
+      <Filter>Math\Errors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -55,8 +58,11 @@
     <Filter Include="Automatization">
       <UniqueIdentifier>{cfd6e33d-e82b-4a37-94d6-351568ddedf3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Neuron\Math">
+    <Filter Include="Math">
       <UniqueIdentifier>{a49c883e-9aee-423f-ba3f-a7a515a17272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Errors">
+      <UniqueIdentifier>{941e508d-b4e0-438e-adc6-c5c0524e8d4a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +76,10 @@
       <Filter>Automatization</Filter>
     </ClCompile>
     <ClCompile Include="Sigmoids.cpp">
-      <Filter>Neuron\Math</Filter>
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorSystem.cpp">
+      <Filter>Math\Errors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -24,6 +24,9 @@ namespace MNN {
 			calculate();
 		}
 
+		virtual const size_t getInputsNumber() const abstract;
+		virtual const size_t getOutputsNumber() const abstract;
+
 		virtual const float* getOutputs() const abstract;
 	};
 }

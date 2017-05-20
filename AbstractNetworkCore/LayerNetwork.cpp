@@ -2,6 +2,7 @@
 #include "AbstractNeuron.hpp"
 #include "Exceptions.hpp"
 #include <initializer_list>
+#include "ErrorSystem.h"
 
 void MNN::LayerNetwork::newInputs(const std::initializer_list<float>& inputs, bool normalize) {
 	if (inputs.size() != m_inputs->size())
@@ -45,6 +46,10 @@ void MNN::LayerNetwork::newInputs(const NetworkDataContainer<float>& inputs, boo
 void MNN::LayerNetwork::calculateWithInputs(const NetworkDataContainer<float>& inputs, bool normalize) {
 	newInputs(inputs, normalize);
 	calculate();
+}
+
+void MNN::LayerNetwork::learningProcess(const NetworkDataContainer<float>& outputs) {
+	float tempNetworkError = m_errorSystem->calculateNetworkError(outputs);
 }
 
 const float* MNN::LayerNetwork::getOutputs() const {

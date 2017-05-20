@@ -37,6 +37,6 @@ namespace MNN {
 			return m_isValuated;
 		}
 
-		inline virtual void for_each(std::function<void(Link&)> lambda) abstract;
+		inline virtual void for_each(std::function<void(Link&)> lambda, bool firstToLast = true) abstract;
 	};
 }
