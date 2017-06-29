@@ -1,11 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>moc;h;cpp</Extensions>
@@ -20,6 +15,15 @@
       <UniqueIdentifier>{80a1ba2a-f50d-4358-8b7b-cc95a3cce036}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{e36420c2-ee36-44bc-b242-42b65875d1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{c4bf0d7b-0f28-45c3-b7d2-292aaad5d2da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Additional">
+      <UniqueIdentifier>{45b764ae-621b-4502-acb7-181e3fdd1d06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +47,15 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_GuiTestingImplementation.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticDataTest.hpp">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractTest.hpp">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomEngine.hpp">
+      <Filter>Additional</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

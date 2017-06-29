@@ -109,7 +109,10 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractTest.hpp" />
     <ClInclude Include="GeneratedFiles\ui_GuiTestingImplementation.h" />
+    <ClInclude Include="RandomEngine.hpp" />
+    <ClInclude Include="StaticDataTest.hpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GuiTestingImplementation.qrc">

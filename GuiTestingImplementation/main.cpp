@@ -1,47 +1,30 @@
 #include "GuiTestingImplementation.h"
 #include <QtWidgets/QApplication>
 #include <qerrormessage.h>
-#include <random>
-#include <initializer_list>
 
-#include "Automatization.hpp"
-#include "AbstractNeuron.hpp"
-#include "AbstractLayerNetwork.hpp"
-#include "Exceptions.hpp"
+#include "StaticDataTest.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-	GuiTestingImplementation w;
-	w.show();
+	MNNT::AbstractTest *test;
 
-	std::random_device rd;
-	std::mt19937_64 g(rd());
-	std::uniform_real_distribution<float> d;
-	auto *n = MNN::generateTypicalLayerNeuralNetwork(4, 2, 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
-													 [&d, &g](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
-		return d(g);
-	}, 0.15f, 0.5f);
+	test = new MNNT::StaticDataTest({ .0f, .01f, .02f, .03f }, { .2f, .3f });
 
-	try {
-		n->calculateWithInputs({.0f, .01f, .02f, .03f});
-		auto t1 = n->getOutputs();
+	test->generateNeuralNetwork();
+	test->calculate();
 
-		for (int i = 0; i < 100; i++) {
-			n->learningProcess({.2f, .3f});
-			n->calculateWithInputs({.0f, .01f, .02f, .03f});
-		}
-		auto t2 = n->getOutputs();
-	} catch (MNN::Exceptions::WrongInputsNumberException e) {
-		//To handle wrong input;
-		QErrorMessage *t = new QErrorMessage;
-		t->showMessage("Wrong input data.");
-	} catch (MNN::Exceptions::WrongOutputNumberException e) {
-		//To handle wrong output;
-		QErrorMessage *t = new QErrorMessage;
-		t->showMessage("Wrong output data.");
+	float o1[100], o2[100];
+	for (int i = 0; i < 100; i++) {
+		o1[i] = test->getOutput(0);
+		o2[i] = test->getOutput(1);
+		test->learningProcess();
 	}
 
+	delete test;
+
+	GuiTestingImplementation w;
+	w.show();
     return a.exec();
 }
