@@ -7,21 +7,20 @@ namespace MNN {
 }
 
 namespace MNNT {
-	/*
-	 *Enum holding all the possible function values for the test.
-	 */
+
+	//Enum holding all the possible function values for the test.
 	enum class LogicalFunction {
 		And, Or, ExOr
 	};
 
 	/*
-	 * Neural Network test realization allowing to check the adaptivity of the Network.
-	 * During learning it feeds the network with tho binary numbers 
-	 * The learning process is executed of the resulting function, choosen from the enum.
-	 * Function is choosen in the Constructor
-	 *
-	 * All the methods inherit base class's, For more details see AbstractTest.hpps
-	 */
+	Neural Network test realization allowing to check the adaptivity of the Network.
+	During learning it feeds the network with tho binary numbers 
+	The learning process is executed of the resulting function, choosen from the enum.
+	Function is choosen in the Constructor
+	
+	All the methods inherit base class's, For more details see AbstractTest.hpps
+	*/
 	class LogicalFunctionTest : public AbstractTest {
 	protected:
 		MNN::AbstractLayerNetwork* m_network;
@@ -38,10 +37,10 @@ namespace MNNT {
 		void newIteration(); 
 	public:
 		/*
-		 * Constructor of logical function test class.
-		 * Parameters:
-		 * * function - choosen test function.
-		 */
+		Constructor of logical function test class.
+		Parameters:
+		* function - choosen test function.
+		*/
 		LogicalFunctionTest(LogicalFunction function);
 		~LogicalFunctionTest();
 		virtual void generateNeuralNetwork() override;

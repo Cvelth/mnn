@@ -22,9 +22,6 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{c4bf0d7b-0f28-45c3-b7d2-292aaad5d2da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Additional">
-      <UniqueIdentifier>{45b764ae-621b-4502-acb7-181e3fdd1d06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests\Headers">
       <UniqueIdentifier>{e88b5226-850e-4d06-990f-581dbd17098f}</UniqueIdentifier>
     </Filter>
@@ -33,17 +30,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GuiTestingImplementation.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GuiTestingImplementation.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_GuiTestingImplementation.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GuiTestingImplementation.cpp" />
     <ClCompile Include="LogicalFunctionTest.cpp">
       <Filter>Tests\Source</Filter>
     </ClCompile>
@@ -52,17 +39,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="GuiTestingImplementation.ui" />
-    <CustomBuild Include="GuiTestingImplementation.qrc" />
-    <CustomBuild Include="GuiTestingImplementation.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_GuiTestingImplementation.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomEngine.hpp">
-      <Filter>Additional</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractTest.hpp">
       <Filter>Tests\Headers</Filter>
     </ClInclude>

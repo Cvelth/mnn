@@ -1,4 +1,3 @@
-#include "GuiTestingImplementation.h"
 #include <QtWidgets/QApplication>
 #include "qtextbrowser.h"
 
@@ -13,7 +12,7 @@ int main(int argc, char *argv[])
 	test.generateNeuralNetwork();
 	test.calculate();
 
-	const size_t ITERATIONS = 20000;
+	const size_t ITERATIONS = 2000;
 
 	QString output;
 
