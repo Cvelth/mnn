@@ -27,7 +27,10 @@ namespace MNNT {
 		virtual void learningProcess() abstract;
 
 		//*number_of_iterations* of *learningProcess* fuction calls.
-		virtual void repeatedLearning(size_t number_of_iterations) abstract;
+		inline void repeatedLearning(size_t number_of_iterations) {
+			for (size_t i = 0; i < number_of_iterations; i++)
+				learningProcess();
+		}
 
 		//Returns number of output neuron in the network. 
 		virtual const size_t getOutputsNumber() abstract;

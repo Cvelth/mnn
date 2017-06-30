@@ -24,4 +24,5 @@ namespace MNNT {
 	};
 
 	using RealRandomEngine = AbstractRandomEngine<std::mt19937_64, std::uniform_real_distribution<float>, float>;
+	using BinaryRandomEngine = AbstractRandomEngine<std::mt19937_64, std::discrete_distribution<float>, float>;
 }

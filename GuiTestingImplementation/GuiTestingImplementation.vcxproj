@@ -82,7 +82,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GuiTestingImplementation.cpp" />
+    <ClCompile Include="LogicalFunctionTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StaticDataTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GuiTestingImplementation.h">
@@ -111,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractTest.hpp" />
     <ClInclude Include="GeneratedFiles\ui_GuiTestingImplementation.h" />
+    <ClInclude Include="LogicalFunctionTest.hpp" />
     <ClInclude Include="RandomEngine.hpp" />
     <ClInclude Include="StaticDataTest.hpp" />
   </ItemGroup>

@@ -1,10 +1,9 @@
 #pragma once
 #include "AbstractTest.hpp"
 
-#include "Automatization.hpp"
-#include "AbstractNeuron.hpp"
-#include "AbstractLayerNetwork.hpp"
-#include "Exceptions.hpp"
+namespace MNN {
+	class AbstractLayerNetwork;
+}
 
 namespace MNNT {
 	/*
@@ -29,34 +28,12 @@ namespace MNNT {
 		 */
 		StaticDataTest(std::initializer_list<float> static_inputs, std::initializer_list<float> static_outputs) 
 						: AbstractTest(), m_inputs(static_inputs), m_outputs(static_outputs) {}
-		virtual void generateNeuralNetwork() override {
-			m_network = MNN::generateTypicalLayerNeuralNetwork(m_inputs.size(), m_outputs.size(), 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
-				[&](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
-					return m_random();
-				}, 0.15f, 0.5f);
-		}
-		virtual void calculate() override {
-			m_network->calculateWithInputs(m_inputs);
-		}
-		virtual void learningProcess() override {
-			m_network->learningProcess(m_outputs);
-			calculate();
-		}
-		virtual void repeatedLearning(size_t number_of_iterations) override {
-			for (size_t i = 0; i < number_of_iterations; i++)
-				learningProcess();
-		}
-		virtual const size_t getOutputsNumber() override {
-			return m_network->getOutputsNumber();
-		}
-		virtual const float* getOutputs() override {
-			return m_network->getOutputs();
-		}
-		virtual const float getOutput(size_t index) override {
-			if (index < m_network->getOutputsNumber())
-				return m_network->getOutputs()[index];
-			else
-				throw MNN::Exceptions::NonExistingIndexException();
-		}
+		~StaticDataTest();
+		virtual void generateNeuralNetwork() override;
+		virtual void calculate() override;
+		virtual void learningProcess() override;
+		virtual const size_t getOutputsNumber() override;
+		virtual const float* getOutputs() override;
+		virtual const float getOutput(size_t index) override;
 	};
 }

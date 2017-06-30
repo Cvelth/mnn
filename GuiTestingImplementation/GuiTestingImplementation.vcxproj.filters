@@ -25,6 +25,12 @@
     <Filter Include="Additional">
       <UniqueIdentifier>{45b764ae-621b-4502-acb7-181e3fdd1d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Headers">
+      <UniqueIdentifier>{e88b5226-850e-4d06-990f-581dbd17098f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Source">
+      <UniqueIdentifier>{72d3632b-ec4b-42f2-b9ef-879f087367ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_GuiTestingImplementation.cpp">
@@ -38,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GuiTestingImplementation.cpp" />
+    <ClCompile Include="LogicalFunctionTest.cpp">
+      <Filter>Tests\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticDataTest.cpp">
+      <Filter>Tests\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GuiTestingImplementation.ui" />
@@ -48,14 +60,17 @@
     <ClInclude Include="GeneratedFiles\ui_GuiTestingImplementation.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="StaticDataTest.hpp">
-      <Filter>Tests</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractTest.hpp">
-      <Filter>Tests</Filter>
-    </ClInclude>
     <ClInclude Include="RandomEngine.hpp">
       <Filter>Additional</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractTest.hpp">
+      <Filter>Tests\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalFunctionTest.hpp">
+      <Filter>Tests\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticDataTest.hpp">
+      <Filter>Tests\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

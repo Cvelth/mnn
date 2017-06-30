@@ -1,30 +1,38 @@
 #include "GuiTestingImplementation.h"
 #include <QtWidgets/QApplication>
-#include <qerrormessage.h>
+#include "qtextbrowser.h"
 
-#include "StaticDataTest.hpp"
+#include "LogicalFunctionTest.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-	MNNT::AbstractTest *test;
+	MNNT::LogicalFunctionTest test(MNNT::LogicalFunction::ExOr);
 
-	test = new MNNT::StaticDataTest({ .0f, .01f, .02f, .03f }, { .2f, .3f });
+	test.generateNeuralNetwork();
+	test.calculate();
 
-	test->generateNeuralNetwork();
-	test->calculate();
+	const size_t ITERATIONS = 20000;
 
-	float o1[100], o2[100];
-	for (int i = 0; i < 100; i++) {
-		o1[i] = test->getOutput(0);
-		o2[i] = test->getOutput(1);
-		test->learningProcess();
+	QString output;
+
+	float i1[ITERATIONS], i2[ITERATIONS];
+	float o1[ITERATIONS], o2[ITERATIONS];
+	float sum1 = 0.f, sum2 = 0.f;
+	for (int i = 0; i < ITERATIONS; i++) {
+		i1[i] = test.getInput(0);
+		sum1 += i1[i];
+		i2[i] = test.getInput(1);
+		sum2 += i2[i];
+		o1[i] = test.getOutput(0);
+		o2[i] = float(bool(i1[i]) ^ bool(i2[i]));
+		test.learningProcess();
+		output += QString::number(i1[i]) + "   " + QString::number(i2[i]) + '\t' + QString::number(o2[i]) + "   " + QString::number(o1[i]) + '\n';
 	}
 
-	delete test;
-
-	GuiTestingImplementation w;
+	QTextBrowser w;
+	w.setText(output);
 	w.show();
     return a.exec();
 }
