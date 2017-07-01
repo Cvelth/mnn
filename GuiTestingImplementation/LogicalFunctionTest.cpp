@@ -19,7 +19,11 @@ MNNT::LogicalFunctionTest::~LogicalFunctionTest()
 }
 
 void MNNT::LogicalFunctionTest::generateNeuralNetwork() {
-	m_network = MNN::generateTypicalLayerNeuralNetwork(2, 1, 0, 0, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
+	generateNeuralNetwork(2, 1, 0, 0);
+}
+
+void MNNT::LogicalFunctionTest::generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) {
+	m_network = MNN::generateTypicalLayerNeuralNetwork(inputs, outputs, hidden, per_hidden, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
 		[&](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
 		return m_random();
 	}, 0.15f, 0.5f);
@@ -35,22 +39,22 @@ void MNNT::LogicalFunctionTest::learningProcess() {
 	calculate();
 }
 
-const size_t MNNT::LogicalFunctionTest::getOutputsNumber() {
+const size_t MNNT::LogicalFunctionTest::getOutputsNumber() const {
 	return m_network->getOutputsNumber();
 }
 
-const float* MNNT::LogicalFunctionTest::getOutputs() {
+const float* MNNT::LogicalFunctionTest::getOutputs() const {
 	return m_network->getOutputs();
 }
 
-const float MNNT::LogicalFunctionTest::getOutput(size_t index) {
+const float MNNT::LogicalFunctionTest::getOutput(size_t index) const {
 	if (index < m_network->getOutputsNumber())
 		return m_network->getOutputs()[index];
 	else
 		throw MNN::Exceptions::NonExistingIndexException();
 }
 
-const float MNNT::LogicalFunctionTest::getInput(size_t index) {
+const float MNNT::LogicalFunctionTest::getInput(size_t index) const {
 	switch (index) {
 	case 0: return m_current_i1;
 	case 1: return m_current_i2;

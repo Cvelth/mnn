@@ -18,7 +18,7 @@ namespace MNNT {
 		AbstractTest() {}
 
 		//Generates new neural network using *MNN::generateTypicalLayerNeuralNetwork* (see Automatization.hpp).
-		virtual void generateNeuralNetwork() abstract;
+		virtual void generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) abstract;
 
 		//One iteration of network using the *static_input* data.
 		virtual void calculate() abstract;
@@ -33,13 +33,13 @@ namespace MNNT {
 		}
 
 		//Returns number of output neuron in the network. 
-		virtual const size_t getOutputsNumber() abstract;
+		virtual const size_t getOutputsNumber() const abstract;
 
 		//Returns array of outputs.
-		virtual const float* getOutputs() abstract;
+		virtual const float* getOutputs() const abstract;
 
 		//Returns one output with *index*.
-		virtual const float getOutput(size_t index) abstract;
+		virtual const float getOutput(size_t index) const abstract;
 	protected:
 		RealRandomEngine m_random;
 	};

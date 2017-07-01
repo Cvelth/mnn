@@ -34,7 +34,9 @@ namespace MNNT {
 
 	protected:
 		bool operation(bool i1, bool i2);
-		void newIteration(); 
+		void newIteration();
+
+		virtual void generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) override;
 	public:
 		/*
 		Constructor of logical function test class.
@@ -43,12 +45,12 @@ namespace MNNT {
 		*/
 		LogicalFunctionTest(LogicalFunction function);
 		~LogicalFunctionTest();
-		virtual void generateNeuralNetwork() override;
+		virtual void generateNeuralNetwork();
 		virtual void calculate() override;
 		virtual void learningProcess() override;
-		virtual const size_t getOutputsNumber() override;
-		virtual const float* getOutputs() override;
-		virtual const float getOutput(size_t index) override;
-		virtual const float getInput(size_t index);
+		virtual const size_t getOutputsNumber() const override;
+		virtual const float* getOutputs() const override;
+		virtual const float getOutput(size_t index) const override;
+		virtual const float getInput(size_t index) const;
 	};
 }
