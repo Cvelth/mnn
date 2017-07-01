@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		o1[i] = test.getOutput(0);
 		o2[i] = float(bool(i1[i]) ^ bool(i2[i]));
 		test.learningProcess();
-		output += QString::number(i1[i]) + "   " + QString::number(i2[i]) + '\t' + QString::number(o2[i]) + "   " + QString::number(o1[i]) + '\n';
+		output += QString::number(i1[i]) + "   " + QString::number(i2[i]) + '\t' + QString::number(o2[i]) + "   " + (fabs(o1[i]) > 0.5f ? '1' : '0') + "   " + QString::number(o1[i]) + '\n';
 	}
 
 	QTextBrowser w;

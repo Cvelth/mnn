@@ -69,5 +69,5 @@ bool MNNT::LogicalFunctionTest::operation(bool i1, bool i2) {
 void MNNT::LogicalFunctionTest::newIteration() {
 	m_current_i1 = (*m_d)(*m_g);
 	m_current_i2 = (*m_d)(*m_g);
-	m_current_o = operation(m_current_i1, m_current_o);
+	m_current_o = operation(m_current_i1, m_current_i2);
 }
