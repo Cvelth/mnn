@@ -6,25 +6,23 @@ namespace MNN {
 }
 
 namespace MNN {
-	class AbstractErrorSystem {
-	protected:
-		virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) abstract;
-	public:
-		AbstractErrorSystem() {}
-		virtual float calculateNetworkError(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) {
-			if (outputs.size() != network->getOutputsNumber())
-				throw Exceptions::WrongOutputNumberException();
-			return calculate(network, outputs);
-		}
-	};
+	namespace ErrorSystems {
+		class AbstractErrorSystem {
+		protected:
+			virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) abstract;
+		public:
+			AbstractErrorSystem() {}
+			float calculateNetworkError(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs);
+		};
 
-	class MeanSquareError : public AbstractErrorSystem {
-	protected:
-		virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) abstract;
-	};
+		class MeanSquareError : public AbstractErrorSystem {
+		protected:
+			virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) override;
+		};
 
-	class RootMeanSquareError : public AbstractErrorSystem {
-	protected:
-		virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) abstract;
-	};
+		class RootMeanSquareError : public AbstractErrorSystem {
+		protected:
+			virtual float calculate(AbstractLayerNetwork* network, const NetworkDataContainer<float>& outputs) override;
+		};
+	}
 }

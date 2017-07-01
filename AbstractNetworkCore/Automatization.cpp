@@ -15,7 +15,7 @@ MNN::AbstractLayerNetwork* MNN::generateTypicalLayerNeuralNetwork(size_t inputs_
 	for (i = 0; i < outputs_number; i++)
 		out->add(new MNN::Neuron(NeuronConstants(eta, alpha)));
 
-	MNN::AbstractLayerNetwork* ret = new MNN::LayerNetwork(in, out, new RootMeanSquareError());
+	MNN::AbstractLayerNetwork* ret = new MNN::LayerNetwork(in, out, new ErrorSystems::MeanSquareError());
 		
 	for (i = 0; i < hidden_layers_number; i++) {
 		MNN::AbstractLayer* hd = new MNN::Layer();

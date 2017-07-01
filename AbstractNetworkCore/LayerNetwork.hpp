@@ -4,7 +4,9 @@
 #include "AbstractLayer.hpp"
 
 namespace MNN {
-	class AbstractErrorSystem;
+	namespace ErrorSystems {
+		class AbstractErrorSystem;
+	}
 }
 
 namespace MNN {
@@ -15,9 +17,9 @@ namespace MNN {
 		NetworkDataContainer<AbstractLayer*> m_layers;
 		AbstractLayer* m_inputs;
 		AbstractLayer* m_outputs;
-		AbstractErrorSystem* m_errorSystem;
+		ErrorSystems::AbstractErrorSystem* m_errorSystem;
 	public:
-		explicit LayerNetwork(AbstractLayer* inputs, AbstractLayer* outputs, AbstractErrorSystem* errorSystem) : m_inputs(inputs), m_outputs(outputs), m_errorSystem(errorSystem) {}
+		explicit LayerNetwork(AbstractLayer* inputs, AbstractLayer* outputs, ErrorSystems::AbstractErrorSystem* errorSystem) : m_inputs(inputs), m_outputs(outputs), m_errorSystem(errorSystem) {}
 		inline virtual void addLayer(AbstractLayer* l) override {
 			m_layers.push_back(l);
 		}
@@ -25,7 +27,7 @@ namespace MNN {
 			for (auto t : c)
 				this->addLayer(t);
 		}
-		explicit LayerNetwork(AbstractLayer* inputs, AbstractLayer* outputs, AbstractErrorSystem* errorSystem, const NetworkDataContainer<AbstractLayer*>& c) 
+		explicit LayerNetwork(AbstractLayer* inputs, AbstractLayer* outputs, ErrorSystems::AbstractErrorSystem* errorSystem, const NetworkDataContainer<AbstractLayer*>& c)
 							: LayerNetwork(inputs, outputs, errorSystem) {
 			this->addLayers(c);
 		}
