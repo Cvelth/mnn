@@ -1,8 +1,17 @@
+#include "NetworkGenerationWindow.h"
+#include <QtWidgets\QApplication>
+
+int main(int argc, char **argv) {
+	QApplication app(argc, argv);
+	NetworkGenerationWindow w;
+	w.show();
+	return app.exec();
+}
+
+/*
 #include <QtWidgets/QApplication>
 #include "qtextbrowser.h"
-
 #include "LogicalFunctionTest.hpp"
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -35,3 +44,4 @@ int main(int argc, char *argv[])
 	w.show();
     return a.exec();
 }
+*/

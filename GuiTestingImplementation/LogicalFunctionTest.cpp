@@ -70,6 +70,7 @@ bool MNNT::LogicalFunctionTest::operation(bool i1, bool i2) {
 		case MNNT::LogicalFunction::And: return i1 & i2;
 		case MNNT::LogicalFunction::Or: return i1 | i2;
 		case MNNT::LogicalFunction::ExOr: return i1 ^ i2;
+		default: return false;
 	}
 }
 
