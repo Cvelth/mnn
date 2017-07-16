@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	test.generateNeuralNetwork();
 	test.calculate();
 
-	const size_t ITERATIONS = 2000;
+	const size_t ITERATIONS = 8000;
 
 	QString output;
 
