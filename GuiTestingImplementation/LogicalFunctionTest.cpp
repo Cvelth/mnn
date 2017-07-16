@@ -19,7 +19,10 @@ MNNT::LogicalFunctionTest::~LogicalFunctionTest()
 }
 
 void MNNT::LogicalFunctionTest::generateNeuralNetwork() {
-	generateNeuralNetwork(2, 1, 4, 4);
+	if (m_function == LogicalFunction::ExOr)
+		generateNeuralNetwork(2, 1, 1, 2);
+	else
+		generateNeuralNetwork(2, 1, 0, 0);
 }
 
 void MNNT::LogicalFunctionTest::generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) {
