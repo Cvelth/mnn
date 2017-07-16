@@ -43,24 +43,21 @@
     <ClCompile Include="NetworkGenerationWindow.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_NetworkGenerationWindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_NetworkGenerationWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GuiTestWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_GuiTestWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NetworkGenerationWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NetworkGenerationWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="GuiTestWindow.ui">
-      <Filter>GUI</Filter>
-    </CustomBuild>
-    <CustomBuild Include="NetworkGenerationWindow.h">
       <Filter>GUI</Filter>
     </CustomBuild>
     <CustomBuild Include="NetworkGenerationWindow.ui">
@@ -76,6 +73,9 @@
       <Filter>Tests\Headers</Filter>
     </CustomBuild>
     <CustomBuild Include="GuiTestWindow.h">
+      <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="NetworkGenerationWindow.h">
       <Filter>GUI</Filter>
     </CustomBuild>
   </ItemGroup>
