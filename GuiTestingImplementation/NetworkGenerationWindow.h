@@ -14,7 +14,7 @@ class NetworkGenerationWindow : public QWidget {
 	Q_OBJECT
 
 public:
-	NetworkGenerationWindow(QObject* receiver, void(QObject::*slot)(), QWidget *parent = Q_NULLPTR);
+	NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork*)> slot, QWidget *parent = Q_NULLPTR);
 
 protected:
 	void hideAdditionalFields();

@@ -13,7 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -21,12 +25,42 @@ QT_BEGIN_NAMESPACE
 class Ui_GuiTestWindowClass
 {
 public:
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *generateLayerNetwork;
+    QSpacerItem *verticalSpacer;
 
     void setupUi(QWidget *GuiTestWindowClass)
     {
         if (GuiTestWindowClass->objectName().isEmpty())
             GuiTestWindowClass->setObjectName(QStringLiteral("GuiTestWindowClass"));
-        GuiTestWindowClass->resize(600, 400);
+        GuiTestWindowClass->resize(844, 591);
+        verticalLayout = new QVBoxLayout(GuiTestWindowClass);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        generateLayerNetwork = new QPushButton(GuiTestWindowClass);
+        generateLayerNetwork->setObjectName(QStringLiteral("generateLayerNetwork"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(generateLayerNetwork->sizePolicy().hasHeightForWidth());
+        generateLayerNetwork->setSizePolicy(sizePolicy);
+
+        horizontalLayout->addWidget(generateLayerNetwork);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        verticalSpacer = new QSpacerItem(348, 501, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
+
+        verticalLayout->setStretch(0, 1);
+        verticalLayout->setStretch(1, 8);
 
         retranslateUi(GuiTestWindowClass);
 
@@ -36,6 +70,7 @@ public:
     void retranslateUi(QWidget *GuiTestWindowClass)
     {
         GuiTestWindowClass->setWindowTitle(QApplication::translate("GuiTestWindowClass", "MNN Tester v0.1.dev.001", Q_NULLPTR));
+        generateLayerNetwork->setText(QApplication::translate("GuiTestWindowClass", "Generate new BackPropaganion Layer-based Neural Network", Q_NULLPTR));
     } // retranslateUi
 
 };

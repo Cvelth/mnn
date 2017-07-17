@@ -1,6 +1,6 @@
 #include "NetworkGenerationWindow.h"
 
-NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, void(QObject::*slot)(), QWidget *parent)
+NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork)> slot, QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -17,11 +17,9 @@ NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, void(QObject
 void NetworkGenerationWindow::hideAdditionalFields() {
 	ui.eta_label->hide();
 	ui.eta->hide();
-	//ui.eta_layout->hide();
 
 	ui.alpha_label->hide();
 	ui.alpha->hide();
-	//ui.alpha_layout->hide();
 
 	ui.moreButton->setText("More");
 	areAdditionalFieldsShown = false;
@@ -30,11 +28,9 @@ void NetworkGenerationWindow::hideAdditionalFields() {
 void NetworkGenerationWindow::showAdditionalFields() {
 	ui.eta_label->show();
 	ui.eta->show();
-	//ui.eta_layout->show();
 
 	ui.alpha_label->show();
 	ui.alpha->show();
-	//ui.alpha_layout->show();
 
 	ui.moreButton->setText("Less");
 	areAdditionalFieldsShown = true;
@@ -70,20 +66,21 @@ MNN::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
 #include <random>
 std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
 	std::mt19937_64 g = std::random_device()();
+	std::uniform_real_distribution<> d;
 	switch (index) {
 		default:
 		case 0: //Random (-1.f, 1.f)
-			std::uniform_real_distribution<> d(-1.f, +1.f);
+			d = std::uniform_real_distribution<>(-1.f, +1.f);
 			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
 				return d(g);
 			};
 		case 1: //Random (-0.f, 1.f)
-			std::uniform_real_distribution<> d(-0.f, +1.f);
+			d = std::uniform_real_distribution<>(-0.f, +1.f);
 			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
 				return d(g);
 			};
 		case 2: //Random (-1.f, 0.f)
-			std::uniform_real_distribution<> d(-1.f, +0.f);
+			d = std::uniform_real_distribution<>(-1.f, +0.f);
 			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
 				return d(g);
 			};
