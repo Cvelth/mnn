@@ -28,6 +28,9 @@
     <Filter Include="Tests\Source">
       <UniqueIdentifier>{72d3632b-ec4b-42f2-b9ef-879f087367ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Additional">
+      <UniqueIdentifier>{6b6cf14f-08eb-41dd-bb92-a37c0e3bbc62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -78,5 +81,10 @@
     <CustomBuild Include="NetworkGenerationWindow.h">
       <Filter>GUI</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RandomEngine.hpp">
+      <Filter>Additional</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

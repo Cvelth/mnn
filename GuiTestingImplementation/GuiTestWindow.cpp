@@ -3,6 +3,8 @@
 GuiTestWindow::GuiTestWindow(QWidget *parent)
 	: QWidget(parent) {
 	ui.setupUi(this);
+
+	connect(ui.generateLayerNetworkButton, &QPushButton::clicked, this, &GuiTestWindow::generateNetworkButtonSlot);
 }
 
 void GuiTestWindow::insertNetwork(MNN::AbstractLayerNetwork* network) {
@@ -11,7 +13,7 @@ void GuiTestWindow::insertNetwork(MNN::AbstractLayerNetwork* network) {
 
 #include "NetworkGenerationWindow.h"
 #include "AbstractLayerNetwork.hpp"
-void generateNetworkButtonSlot() {
-	std::function<void(MNN::AbstractLayerNetwork*)> f = &GuiTestWindow::insertNetwork;
-	NetworkGenerationWindow* w = new NetworkGenerationWindow(f);
+using namespace std::placeholders;
+void GuiTestWindow::generateNetworkButtonSlot() {
+	auto w = new NetworkGenerationWindow(this, std::bind(&GuiTestWindow::insertNetwork, this, _1));
 }

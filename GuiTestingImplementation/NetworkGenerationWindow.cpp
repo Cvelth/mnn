@@ -1,17 +1,10 @@
 #include "NetworkGenerationWindow.h"
 
-NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork)> slot, QWidget *parent)
-	: QWidget(parent)
-{
-	ui.setupUi(this);
+bool NetworkGenerationWindow::isGeneratorInitialized = false;
+MNNT::RealRandomEngine* NetworkGenerationWindow::m_random_generator = nullptr;
 
-	hideAdditionalFields();
-
-	connect(ui.moreButton, &QPushButton::clicked, this, &NetworkGenerationWindow::toggleAdditionalFields);
-	connect(ui.generateButton, &QPushButton::clicked, this, &NetworkGenerationWindow::startGeneration);
-	connect(this, &NetworkGenerationWindow::returnNetwork, receiver, slot);
-
-	show();
+NetworkGenerationWindow::~NetworkGenerationWindow() {
+	if (isGeneratorInitialized) delete m_random_generator;
 }
 
 void NetworkGenerationWindow::hideAdditionalFields() {
@@ -49,6 +42,7 @@ void NetworkGenerationWindow::startGeneration() {
 														  chooseConnection(ui.connection->currentIndex()), chooseDefaultWeights(ui.default_weight->currentIndex()),
 														  ui.eta->value(), ui.alpha->value());
 	emit returnNetwork(network);
+	delete this;
 }
 
 MNN::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
@@ -62,27 +56,48 @@ MNN::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
 			return MNN::ConnectionPattern::NoDefaultConnection;
 	}
 }
+
+#include <AbstractLayerNetwork.hpp>
+NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork*)> slot, QWidget *parent)
+	: QWidget(parent) {
+	ui.setupUi(this);
+
+	hideAdditionalFields();
+
+	connect(ui.moreButton, &QPushButton::clicked, this, &NetworkGenerationWindow::toggleAdditionalFields);
+	connect(ui.generateButton, &QPushButton::clicked, this, &NetworkGenerationWindow::startGeneration);
+	connect(this, &NetworkGenerationWindow::returnNetwork, receiver, slot);
+
+	show();
+}
+
 #include "AbstractNeuron.hpp"
-#include <random>
+#include "RandomEngine.hpp"
 std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
-	std::mt19937_64 g = std::random_device()();
-	std::uniform_real_distribution<> d;
+	if (!isGeneratorInitialized) {
+		m_random_generator = new MNNT::RealRandomEngine();
+		isGeneratorInitialized = true;
+	}
+	auto generatorPointer = m_random_generator;
 	switch (index) {
 		default:
 		case 0: //Random (-1.f, 1.f)
-			d = std::uniform_real_distribution<>(-1.f, +1.f);
-			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
-				return d(g);
+			if (!isGeneratorInitialized)
+				m_random_generator->changeDistribution(-1.f, +1.f);
+			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+				return (*generatorPointer)();
 			};
 		case 1: //Random (-0.f, 1.f)
-			d = std::uniform_real_distribution<>(-0.f, +1.f);
-			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
-				return d(g);
+			if (!isGeneratorInitialized)
+				m_random_generator->changeDistribution(-0.f, +1.f);
+			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+				return (*generatorPointer)();
 			};
 		case 2: //Random (-1.f, 0.f)
-			d = std::uniform_real_distribution<>(-1.f, +0.f);
-			return [&g, &d](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
-				return d(g);
+			if (!isGeneratorInitialized)
+				m_random_generator->changeDistribution(-1.f, +0.f);
+			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+				return (*generatorPointer)();
 			};
 		case 3: //Always +1.f
 			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {

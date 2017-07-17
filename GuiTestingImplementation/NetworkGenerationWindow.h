@@ -9,12 +9,16 @@ namespace MNN {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
 }
+namespace MNNT {
+	class RealRandomEngine;
+}
 
 class NetworkGenerationWindow : public QWidget {
 	Q_OBJECT
 
 public:
 	NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork*)> slot, QWidget *parent = Q_NULLPTR);
+	~NetworkGenerationWindow();
 
 protected:
 	void hideAdditionalFields();
@@ -26,6 +30,9 @@ protected:
 private:
 	Ui::NetworkGenerationWindowClass ui;
 	bool areAdditionalFieldsShown;
+
+	static MNNT::RealRandomEngine* m_random_generator;
+	static bool isGeneratorInitialized;
 
 protected slots:
 	void toggleAdditionalFields();

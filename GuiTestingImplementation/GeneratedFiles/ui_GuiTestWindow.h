@@ -27,7 +27,7 @@ class Ui_GuiTestWindowClass
 public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QPushButton *generateLayerNetwork;
+    QPushButton *generateLayerNetworkButton;
     QSpacerItem *verticalSpacer;
 
     void setupUi(QWidget *GuiTestWindowClass)
@@ -42,15 +42,15 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        generateLayerNetwork = new QPushButton(GuiTestWindowClass);
-        generateLayerNetwork->setObjectName(QStringLiteral("generateLayerNetwork"));
+        generateLayerNetworkButton = new QPushButton(GuiTestWindowClass);
+        generateLayerNetworkButton->setObjectName(QStringLiteral("generateLayerNetworkButton"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(generateLayerNetwork->sizePolicy().hasHeightForWidth());
-        generateLayerNetwork->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(generateLayerNetworkButton->sizePolicy().hasHeightForWidth());
+        generateLayerNetworkButton->setSizePolicy(sizePolicy);
 
-        horizontalLayout->addWidget(generateLayerNetwork);
+        horizontalLayout->addWidget(generateLayerNetworkButton);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -70,7 +70,7 @@ public:
     void retranslateUi(QWidget *GuiTestWindowClass)
     {
         GuiTestWindowClass->setWindowTitle(QApplication::translate("GuiTestWindowClass", "MNN Tester v0.1.dev.001", Q_NULLPTR));
-        generateLayerNetwork->setText(QApplication::translate("GuiTestWindowClass", "Generate new BackPropaganion Layer-based Neural Network", Q_NULLPTR));
+        generateLayerNetworkButton->setText(QApplication::translate("GuiTestWindowClass", "Generate new BackPropaganion Layer-based Neural Network", Q_NULLPTR));
     } // retranslateUi
 
 };
