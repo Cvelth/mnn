@@ -137,12 +137,12 @@ new network generation:</string>
     <widget class="QComboBox" name="connection">
      <item>
       <property name="text">
-       <string>Connect to each neuron from previous layer</string>
+       <string>Connect to each neuron from previous layer including bias neuron</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Connect to each neuron from previous layer including bias neuron</string>
+       <string>Connect to each neuron from previous layer</string>
       </property>
      </item>
      <item>
@@ -165,17 +165,17 @@ new network generation:</string>
       <widget class="QComboBox" name="default_weight">
        <item>
         <property name="text">
-         <string>random (-1.f, 1.f) (recommended)</string>
+         <string>Random (-1.f, 1.f) (recommended)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>random (0.f, 1.f)</string>
+         <string>Random (0.f, 1.f)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>random (-1.f, 0.f)</string>
+         <string>Random (-1.f, 0.f)</string>
         </property>
        </item>
        <item>
@@ -208,16 +208,9 @@ new network generation:</string>
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="moreButton">
-     <property name="text">
-      <string>More</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1">
+    <layout class="QHBoxLayout" name="eta_layout" stretch="0,1">
      <item>
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="eta_label">
        <property name="text">
         <string>eta:</string>
        </property>
@@ -239,9 +232,9 @@ new network generation:</string>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
+    <layout class="QHBoxLayout" name="alpha_layout" stretch="0,1">
      <item>
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="alpha_label">
        <property name="text">
         <string>alpha:</string>
        </property>
@@ -263,6 +256,13 @@ new network generation:</string>
     </layout>
    </item>
    <item>
+    <widget class="QPushButton" name="moreButton">
+     <property name="text">
+      <string>More</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -279,7 +279,7 @@ new network generation:</string>
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="generateButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>

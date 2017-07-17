@@ -48,15 +48,15 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_6;
     QComboBox *default_weight;
-    QPushButton *moreButton;
-    QHBoxLayout *horizontalLayout_6;
-    QLabel *label_7;
+    QHBoxLayout *eta_layout;
+    QLabel *eta_label;
     QDoubleSpinBox *eta;
-    QHBoxLayout *horizontalLayout_7;
-    QLabel *label_8;
+    QHBoxLayout *alpha_layout;
+    QLabel *alpha_label;
     QDoubleSpinBox *alpha;
+    QPushButton *moreButton;
     QSpacerItem *verticalSpacer_2;
-    QPushButton *pushButton;
+    QPushButton *generateButton;
 
     void setupUi(QWidget *NetworkGenerationWindowClass)
     {
@@ -182,18 +182,13 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_5);
 
-        moreButton = new QPushButton(NetworkGenerationWindowClass);
-        moreButton->setObjectName(QStringLiteral("moreButton"));
+        eta_layout = new QHBoxLayout();
+        eta_layout->setSpacing(6);
+        eta_layout->setObjectName(QStringLiteral("eta_layout"));
+        eta_label = new QLabel(NetworkGenerationWindowClass);
+        eta_label->setObjectName(QStringLiteral("eta_label"));
 
-        verticalLayout->addWidget(moreButton);
-
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        label_7 = new QLabel(NetworkGenerationWindowClass);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        horizontalLayout_6->addWidget(label_7);
+        eta_layout->addWidget(eta_label);
 
         eta = new QDoubleSpinBox(NetworkGenerationWindowClass);
         eta->setObjectName(QStringLiteral("eta"));
@@ -201,19 +196,19 @@ public:
         eta->setSingleStep(0.05);
         eta->setValue(0.15);
 
-        horizontalLayout_6->addWidget(eta);
+        eta_layout->addWidget(eta);
 
-        horizontalLayout_6->setStretch(1, 1);
+        eta_layout->setStretch(1, 1);
 
-        verticalLayout->addLayout(horizontalLayout_6);
+        verticalLayout->addLayout(eta_layout);
 
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        label_8 = new QLabel(NetworkGenerationWindowClass);
-        label_8->setObjectName(QStringLiteral("label_8"));
+        alpha_layout = new QHBoxLayout();
+        alpha_layout->setSpacing(6);
+        alpha_layout->setObjectName(QStringLiteral("alpha_layout"));
+        alpha_label = new QLabel(NetworkGenerationWindowClass);
+        alpha_label->setObjectName(QStringLiteral("alpha_label"));
 
-        horizontalLayout_7->addWidget(label_8);
+        alpha_layout->addWidget(alpha_label);
 
         alpha = new QDoubleSpinBox(NetworkGenerationWindowClass);
         alpha->setObjectName(QStringLiteral("alpha"));
@@ -221,25 +216,30 @@ public:
         alpha->setSingleStep(0.05);
         alpha->setValue(0.5);
 
-        horizontalLayout_7->addWidget(alpha);
+        alpha_layout->addWidget(alpha);
 
-        horizontalLayout_7->setStretch(1, 1);
+        alpha_layout->setStretch(1, 1);
 
-        verticalLayout->addLayout(horizontalLayout_7);
+        verticalLayout->addLayout(alpha_layout);
+
+        moreButton = new QPushButton(NetworkGenerationWindowClass);
+        moreButton->setObjectName(QStringLiteral("moreButton"));
+
+        verticalLayout->addWidget(moreButton);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         verticalLayout->addItem(verticalSpacer_2);
 
-        pushButton = new QPushButton(NetworkGenerationWindowClass);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        generateButton = new QPushButton(NetworkGenerationWindowClass);
+        generateButton->setObjectName(QStringLiteral("generateButton"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy1);
+        sizePolicy1.setHeightForWidth(generateButton->sizePolicy().hasHeightForWidth());
+        generateButton->setSizePolicy(sizePolicy1);
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(generateButton);
 
 
         retranslateUi(NetworkGenerationWindowClass);
@@ -258,26 +258,26 @@ public:
         label_5->setText(QApplication::translate("NetworkGenerationWindowClass", "Neurons per a hidden layer:", Q_NULLPTR));
         connection->clear();
         connection->insertItems(0, QStringList()
-         << QApplication::translate("NetworkGenerationWindowClass", "Connect to each neuron from previous layer", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "Connect to each neuron from previous layer including bias neuron", Q_NULLPTR)
+         << QApplication::translate("NetworkGenerationWindowClass", "Connect to each neuron from previous layer", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "No connections (Not recommended)", Q_NULLPTR)
         );
         label_6->setText(QApplication::translate("NetworkGenerationWindowClass", "Default weight function:", Q_NULLPTR));
         default_weight->clear();
         default_weight->insertItems(0, QStringList()
-         << QApplication::translate("NetworkGenerationWindowClass", "random (-1.f, 1.f) (recommended)", Q_NULLPTR)
-         << QApplication::translate("NetworkGenerationWindowClass", "random (0.f, 1.f)", Q_NULLPTR)
-         << QApplication::translate("NetworkGenerationWindowClass", "random (-1.f, 0.f)", Q_NULLPTR)
+         << QApplication::translate("NetworkGenerationWindowClass", "Random (-1.f, 1.f) (recommended)", Q_NULLPTR)
+         << QApplication::translate("NetworkGenerationWindowClass", "Random (0.f, 1.f)", Q_NULLPTR)
+         << QApplication::translate("NetworkGenerationWindowClass", "Random (-1.f, 0.f)", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "1.f", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "0.5f", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "0.f (Not recommended)", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "-0.5f", Q_NULLPTR)
          << QApplication::translate("NetworkGenerationWindowClass", "-1.f", Q_NULLPTR)
         );
+        eta_label->setText(QApplication::translate("NetworkGenerationWindowClass", "eta:", Q_NULLPTR));
+        alpha_label->setText(QApplication::translate("NetworkGenerationWindowClass", "alpha:", Q_NULLPTR));
         moreButton->setText(QApplication::translate("NetworkGenerationWindowClass", "More", Q_NULLPTR));
-        label_7->setText(QApplication::translate("NetworkGenerationWindowClass", "eta:", Q_NULLPTR));
-        label_8->setText(QApplication::translate("NetworkGenerationWindowClass", "alpha:", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("NetworkGenerationWindowClass", "Generate", Q_NULLPTR));
+        generateButton->setText(QApplication::translate("NetworkGenerationWindowClass", "Generate", Q_NULLPTR));
     } // retranslateUi
 
 };
