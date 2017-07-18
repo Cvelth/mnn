@@ -17,6 +17,9 @@ namespace MNN {
 	private:
 		float m_value;
 		bool m_isValuated;
+
+		size_t m_id;
+		static size_t NUMBER_OF_NEURONS_CREATED;
 	protected:
 		float m_gradient;
 		NeuronConstants m_constants;
@@ -28,10 +31,10 @@ namespace MNN {
 	public:
 		//Constructs static neuron(with inserted constant value).
 		AbstractNeuron(const float& value, NeuronConstants c = NeuronConstants(0.15f, 0.5f)) 
-			: m_isValuated(true), m_value(value), m_constants(c) {}
+			: m_isValuated(true), m_value(value), m_constants(c), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		//Constructs active neuron to be connected to others.
 		AbstractNeuron(NeuronConstants c = NeuronConstants(0.15f, 0.5f)) 
-			: m_isValuated(false), m_constants(c) {}
+			: m_isValuated(false), m_constants(c), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		//Adds one more input neuron reference.
 		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) abstract;
 

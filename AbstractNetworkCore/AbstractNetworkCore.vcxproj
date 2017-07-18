@@ -36,6 +36,7 @@
     <ClInclude Include="Sigmoids.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="ErrorSystem.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />

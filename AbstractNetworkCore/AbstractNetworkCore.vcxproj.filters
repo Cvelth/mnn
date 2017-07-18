@@ -81,5 +81,8 @@
     <ClCompile Include="ErrorSystem.cpp">
       <Filter>Math\Errors</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractNeuron.cpp">
+      <Filter>Neuron</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
