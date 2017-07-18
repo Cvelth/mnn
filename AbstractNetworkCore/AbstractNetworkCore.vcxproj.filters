@@ -44,6 +44,9 @@
     <ClInclude Include="ErrorSystem.h">
       <Filter>Math\Errors</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractDataContainerNeuron.hpp">
+      <Filter>Neuron</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -66,9 +69,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Neuron.cpp">
-      <Filter>Neuron</Filter>
-    </ClCompile>
     <ClCompile Include="LayerNetwork.cpp">
       <Filter>Network</Filter>
     </ClCompile>
@@ -82,6 +82,9 @@
       <Filter>Math\Errors</Filter>
     </ClCompile>
     <ClCompile Include="AbstractNeuron.cpp">
+      <Filter>Neuron</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractDataContainerNeuron.cpp">
       <Filter>Neuron</Filter>
     </ClCompile>
   </ItemGroup>

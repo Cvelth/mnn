@@ -1,4 +1,4 @@
-#include "Neuron.hpp"
+#include "AbstractDataContainerNeuron.hpp"
 #include "Sigmoids.hpp"
 #include "AbstractLayer.hpp"
 
