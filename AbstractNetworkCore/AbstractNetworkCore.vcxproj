@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractDataContainerLayer.hpp" />
     <ClInclude Include="AbstractDataContainerNeuron.hpp" />
     <ClInclude Include="ErrorSystem.h" />
     <ClInclude Include="AbstractLayer.hpp" />
@@ -40,7 +41,7 @@
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="ErrorSystem.cpp" />
-    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="AbstractDataContainerLayer.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="AbstractDataContainerNeuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />

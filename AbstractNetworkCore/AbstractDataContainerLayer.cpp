@@ -1,4 +1,4 @@
-#include "Layer.hpp"
+#include "AbstractDataContainerLayer.hpp"
 
 mnn::AbstractDataContainerLayer::~AbstractDataContainerLayer() {
 	for (auto neuron : m_neurons)

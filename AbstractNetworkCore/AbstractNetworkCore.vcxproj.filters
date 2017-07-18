@@ -47,6 +47,9 @@
     <ClInclude Include="AbstractDataContainerNeuron.hpp">
       <Filter>Neuron</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractDataContainerLayer.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -87,6 +90,8 @@
     <ClCompile Include="AbstractDataContainerNeuron.cpp">
       <Filter>Neuron</Filter>
     </ClCompile>
-    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="AbstractDataContainerLayer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
