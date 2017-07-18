@@ -9,7 +9,7 @@ namespace MNN {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
 }
-namespace MNNT {
+namespace mnnt {
 	class RealRandomEngine;
 }
 
@@ -31,7 +31,7 @@ private:
 	Ui::NetworkGenerationWindowClass ui;
 	bool areAdditionalFieldsShown;
 
-	static MNNT::RealRandomEngine* m_random_generator;
+	static mnnt::RealRandomEngine* m_random_generator;
 	static bool isGeneratorInitialized;
 
 protected slots:

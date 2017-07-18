@@ -1,7 +1,7 @@
 #pragma once
 #include "RandomEngine.hpp"
 
-namespace MNNT {
+namespace mnnt {
 
 	/*
 	 * Virtual Interface for all the Testing classes.

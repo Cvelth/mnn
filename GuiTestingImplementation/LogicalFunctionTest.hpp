@@ -6,7 +6,7 @@ namespace MNN {
 	class AbstractLayerNetwork;
 }
 
-namespace MNNT {
+namespace mnnt {
 
 	//Enum holding all the possible function values for the test.
 	enum class LogicalFunction {

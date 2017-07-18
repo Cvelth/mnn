@@ -1,7 +1,7 @@
 #include "NetworkGenerationWindow.h"
 
 bool NetworkGenerationWindow::isGeneratorInitialized = false;
-MNNT::RealRandomEngine* NetworkGenerationWindow::m_random_generator = nullptr;
+mnnt::RealRandomEngine* NetworkGenerationWindow::m_random_generator = nullptr;
 
 NetworkGenerationWindow::~NetworkGenerationWindow() {
 	if (isGeneratorInitialized) delete m_random_generator;
@@ -76,7 +76,7 @@ NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::functio
 #include "RandomEngine.hpp"
 std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
 	if (!isGeneratorInitialized) {
-		m_random_generator = new MNNT::RealRandomEngine();
+		m_random_generator = new mnnt::RealRandomEngine();
 		isGeneratorInitialized = true;
 	}
 	auto generatorPointer = m_random_generator;

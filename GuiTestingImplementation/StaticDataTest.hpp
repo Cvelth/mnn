@@ -6,7 +6,7 @@ namespace MNN {
 	class AbstractLayerNetwork;
 }
 
-namespace MNNT {
+namespace mnnt {
 	class AbstractStaticTest : public AbstractTest {
 	protected:
 		MNN::AbstractLayerNetwork* m_network;

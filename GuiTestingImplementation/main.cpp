@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-	MNNT::LogicalFunctionTest test(MNNT::LogicalFunction::ExOr);
+	mnnt::LogicalFunctionTest test(mnnt::LogicalFunction::ExOr);
 
 	test.generateNeuralNetwork();
 	test.calculate();

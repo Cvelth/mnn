@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 
-namespace MNNT {
+namespace mnnt {
 	template <class RandomEngine, class Distribution, typename ReturnType>
 	class AbstractRandomEngine {
 	private:
