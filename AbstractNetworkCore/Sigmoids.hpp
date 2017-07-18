@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MNN {
+namespace mnn {
 	float erf_sigmoid(const float& x);
 	float tanh_sigmoid(const float& x);
 	float root_sigmoid(const float& x);

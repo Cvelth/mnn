@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MNN Tester v0.1.dev.001</string>
+   <string>mnn Tester v0.1.dev.001</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,5">
    <item>

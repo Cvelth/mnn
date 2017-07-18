@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace MNN {
+namespace mnn {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
 

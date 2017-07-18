@@ -6,7 +6,7 @@ namespace mnnt {
 	/*
 	 * Virtual Interface for all the Testing classes.
 	 * Public methods are:
-	 * * generateNeuralNetwork - for generation of the Basic Network using the *MNN::generateTypicalLayerNeuralNetwork* function (see Automatization.hpp for more detailed documentation).
+	 * * generateNeuralNetwork - for generation of the Basic Network using the *mnn::generateTypicalLayerNeuralNetwork* function (see Automatization.hpp for more detailed documentation).
 	 * * calculate - to execute one calculation step on the network.
 	 * * learningProcess - to execute one learning step on the network.
 	 * * RepeatedLearning - to execute *learningProcess* *number_of_iteration* times.
@@ -17,7 +17,7 @@ namespace mnnt {
 	public:
 		AbstractTest() {}
 
-		//Generates new neural network using *MNN::generateTypicalLayerNeuralNetwork* (see Automatization.hpp).
+		//Generates new neural network using *mnn::generateTypicalLayerNeuralNetwork* (see Automatization.hpp).
 		virtual void generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) abstract;
 
 		//One iteration of network using the *static_input* data.

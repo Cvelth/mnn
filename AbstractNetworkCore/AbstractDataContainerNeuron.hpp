@@ -3,10 +3,10 @@
 #include "AbstractNeuron.hpp"
 #include "Link.hpp"
 
-namespace MNN {
+namespace mnn {
 	class AbstractLayer;
 }
-namespace MNN {
+namespace mnn {
 	class AbstractDataContainerNeuron : public AbstractNeuron {
 	protected:
 		NeuronDataContainer<Link> m_links;

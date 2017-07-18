@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MNN {
+namespace mnn {
 	namespace Exceptions {
 		//Given inputs number isn't equal to the expected amount.
 		class WrongInputsNumberException {};

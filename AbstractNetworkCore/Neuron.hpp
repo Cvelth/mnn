@@ -1,5 +1,5 @@
 #include "AbstractDataContainerNeuron.hpp" 
 
-namespace MNN {
+namespace mnn {
 	using Neuron = AbstractDataContainerNeuron;
 }

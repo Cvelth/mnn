@@ -1,3 +1,3 @@
 #include "AbstractNeuron.hpp"
 
-size_t MNN::AbstractNeuron::NUMBER_OF_NEURONS_CREATED = 0;
+size_t mnn::AbstractNeuron::NUMBER_OF_NEURONS_CREATED = 0;

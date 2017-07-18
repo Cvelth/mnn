@@ -2,14 +2,14 @@
 #include "AbstractTest.hpp"
 #include <vector>
 
-namespace MNN {
+namespace mnn {
 	class AbstractLayerNetwork;
 }
 
 namespace mnnt {
 	class AbstractStaticTest : public AbstractTest {
 	protected:
-		MNN::AbstractLayerNetwork* m_network;
+		mnn::AbstractLayerNetwork* m_network;
 	public:
 		AbstractStaticTest() : AbstractTest() {};
 		~AbstractStaticTest();

@@ -39,27 +39,27 @@ void NetworkGenerationWindow::toggleAdditionalFields() {
 
 #include "Automatization.hpp"
 void NetworkGenerationWindow::startGeneration() {
-	auto network = MNN::generateTypicalLayerNeuralNetwork(ui.inputs->value(), ui.outputs->value(), ui.hidden->value(), ui.per_hidden->value(),
+	auto network = mnn::generateTypicalLayerNeuralNetwork(ui.inputs->value(), ui.outputs->value(), ui.hidden->value(), ui.per_hidden->value(),
 														  chooseConnection(ui.connection->currentIndex()), chooseDefaultWeights(ui.default_weight->currentIndex()),
 														  ui.eta->value(), ui.alpha->value());
 	emit returnNetwork(network);
 	delete this;
 }
 
-MNN::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
+mnn::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
 	switch (index) {
 		default:
 		case 0:
-			return MNN::ConnectionPattern::EachFromPreviousLayerWithBias;
+			return mnn::ConnectionPattern::EachFromPreviousLayerWithBias;
 		case 1:
-			return MNN::ConnectionPattern::EachFromPreviousLayerWithoutBias;
+			return mnn::ConnectionPattern::EachFromPreviousLayerWithoutBias;
 		case 2:
-			return MNN::ConnectionPattern::NoDefaultConnection;
+			return mnn::ConnectionPattern::NoDefaultConnection;
 	}
 }
 
 #include <AbstractLayerNetwork.hpp>
-NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(MNN::AbstractLayerNetwork*)> slot, QWidget *parent)
+NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(mnn::AbstractLayerNetwork*)> slot, QWidget *parent)
 	: QWidget(parent) {
 	ui.setupUi(this);
 
@@ -74,7 +74,7 @@ NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::functio
 
 #include "AbstractNeuron.hpp"
 #include "RandomEngine.hpp"
-std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
+std::function<float(mnn::AbstractNeuron*, mnn::AbstractNeuron*)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
 	if (!isGeneratorInitialized) {
 		m_random_generator = new mnnt::RealRandomEngine();
 		isGeneratorInitialized = true;
@@ -85,41 +85,41 @@ std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)> NetworkGenerati
 		case 0: //Random (-1.f, 1.f)
 			if (!isGeneratorInitialized)
 				m_random_generator->changeDistribution(-1.f, +1.f);
-			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [generatorPointer](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return (*generatorPointer)();
 			};
 		case 1: //Random (-0.f, 1.f)
 			if (!isGeneratorInitialized)
 				m_random_generator->changeDistribution(-0.f, +1.f);
-			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [generatorPointer](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return (*generatorPointer)();
 			};
 		case 2: //Random (-1.f, 0.f)
 			if (!isGeneratorInitialized)
 				m_random_generator->changeDistribution(-1.f, +0.f);
-			return [generatorPointer](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [generatorPointer](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return (*generatorPointer)();
 			};
 		case 3: //Always +1.f
-			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return +1.f;
 			};
 		case 4: //Always +0.5f
-			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return +0.5f;
 			};
 		case 5: //Always +0.f
-			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return +0.f;
 			};
 		case 6: //Always -0.5f
-			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return -0.5f;
 			};
 		case 7: //Always -1.f
-			return [](MNN::AbstractNeuron* neuron, MNN::AbstractNeuron* input) -> float {
+			return [](mnn::AbstractNeuron* neuron, mnn::AbstractNeuron* input) -> float {
 				return -1.f;
 			};
 	}
-	return std::function<float(MNN::AbstractNeuron*, MNN::AbstractNeuron*)>();
+	return std::function<float(mnn::AbstractNeuron*, mnn::AbstractNeuron*)>();
 }

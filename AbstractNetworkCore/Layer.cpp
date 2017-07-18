@@ -1,6 +1,6 @@
 #include "Layer.hpp"
 
-MNN::AbstractDataContainerLayer::~AbstractDataContainerLayer() {
+mnn::AbstractDataContainerLayer::~AbstractDataContainerLayer() {
 	for (auto neuron : m_neurons)
 		delete neuron;
 }

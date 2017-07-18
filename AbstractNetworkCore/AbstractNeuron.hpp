@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace MNN {
+namespace mnn {
 	struct Link;
 	class AbstractLayer;
 
@@ -10,7 +10,7 @@ namespace MNN {
 		NeuronConstants(float e, float a) : eta(e), alpha(a) {}
 	};
 }
-namespace MNN {
+namespace mnn {
 	//Abstract class for storing typical neuron data to be inherited by other classes. 
 	//Handles inner calculation of the network parts for value generation and learning.
 	class AbstractNeuron {

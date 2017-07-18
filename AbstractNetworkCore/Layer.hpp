@@ -3,7 +3,7 @@
 #include "AbstractLayer.hpp"
 #include "AbstractDataContainerNeuron.hpp"
 
-namespace MNN {
+namespace mnn {
 	class AbstractDataContainerLayer : public AbstractLayer {
 	protected:
 		LayerDataContainer<AbstractNeuron*> m_neurons;

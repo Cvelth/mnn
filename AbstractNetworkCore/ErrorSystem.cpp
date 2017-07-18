@@ -3,16 +3,16 @@
 #include "AbstractLayerNetwork.hpp"
 #include "Exceptions.hpp"
 
-float MNN::ErrorSystems::AbstractErrorSystem::calculateNetworkError(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
+float mnn::ErrorSystems::AbstractErrorSystem::calculateNetworkError(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
 	if (outputs.size() != network->getOutputsNumber())
 		throw Exceptions::WrongOutputNumberException();
 	return calculate(network, outputs);
 }
 
-float MNN::ErrorSystems::MeanSquareError::calculate(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
+float mnn::ErrorSystems::MeanSquareError::calculate(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
 	float res = 0.f;
 	unsigned int i = 0;
-	network->for_each_output([&res, &outputs, &i](MNN::AbstractNeuron* n) {
+	network->for_each_output([&res, &outputs, &i](mnn::AbstractNeuron* n) {
 		auto temp = outputs[i] - n->value();
 		res += temp * temp;
 	});
@@ -20,10 +20,10 @@ float MNN::ErrorSystems::MeanSquareError::calculate(AbstractLayerNetwork * netwo
 }
 
 
-float MNN::ErrorSystems::RootMeanSquareError::calculate(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
+float mnn::ErrorSystems::RootMeanSquareError::calculate(AbstractLayerNetwork * network, const NetworkDataContainer<float>& outputs) {
 	float res = 0.f;
 	unsigned int i = 0;
-	network->for_each_output([&res, &outputs, &i](MNN::AbstractNeuron* n) {
+	network->for_each_output([&res, &outputs, &i](mnn::AbstractNeuron* n) {
 		auto temp = outputs[i] - n->value();
 		res += temp * temp;
 	});

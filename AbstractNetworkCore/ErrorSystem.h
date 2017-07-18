@@ -1,11 +1,11 @@
 #pragma once
 #include "NetworkContainer.hpp"
 
-namespace MNN {
+namespace mnn {
 	class AbstractLayerNetwork;
 }
 
-namespace MNN {
+namespace mnn {
 	namespace ErrorSystems {
 		class AbstractErrorSystem {
 		protected:

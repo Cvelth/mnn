@@ -3,13 +3,13 @@
 #include "AbstractLayerNetwork.hpp"
 #include "AbstractLayer.hpp"
 
-namespace MNN {
+namespace mnn {
 	namespace ErrorSystems {
 		class AbstractErrorSystem;
 	}
 }
 
-namespace MNN {
+namespace mnn {
 	class LayerNetwork : public AbstractLayerNetwork {
 	private:
 

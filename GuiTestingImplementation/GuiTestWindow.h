@@ -3,7 +3,7 @@
 #include <QtWidgets/QWidget>
 #include "ui_GuiTestWindow.h"
 
-namespace MNN {
+namespace mnn {
 	class AbstractLayerNetwork;
 }
 class MultiField;
@@ -17,7 +17,7 @@ public:
 
 private:
 	Ui::GuiTestWindowClass ui;
-	MNN::AbstractLayerNetwork* m_currentNetwork;
+	mnn::AbstractLayerNetwork* m_currentNetwork;
 
 	MultiField *m_inputs;
 	MultiField *m_outputs;
@@ -26,5 +26,5 @@ protected slots:
 	void generateNetworkButtonSlot();
 
 public slots:
-	void insertNetwork(MNN::AbstractLayerNetwork* network);
+	void insertNetwork(mnn::AbstractLayerNetwork* network);
 };

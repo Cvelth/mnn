@@ -2,7 +2,7 @@
 #include <functional>
 #include "AbstractNetwork.hpp"
 
-namespace MNN {
+namespace mnn {
 	class AbstractNeuron;
 	class AbstractLayer;
 

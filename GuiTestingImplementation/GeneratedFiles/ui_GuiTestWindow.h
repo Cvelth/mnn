@@ -85,7 +85,7 @@ public:
 
     void retranslateUi(QWidget *GuiTestWindowClass)
     {
-        GuiTestWindowClass->setWindowTitle(QApplication::translate("GuiTestWindowClass", "MNN Tester v0.1.dev.001", Q_NULLPTR));
+        GuiTestWindowClass->setWindowTitle(QApplication::translate("GuiTestWindowClass", "mnn Tester v0.1.dev.001", Q_NULLPTR));
         generateLayerNetworkButton->setText(QApplication::translate("GuiTestWindowClass", "Generate new BackPropaganion Layer-based Neural Network", Q_NULLPTR));
     } // retranslateUi
 

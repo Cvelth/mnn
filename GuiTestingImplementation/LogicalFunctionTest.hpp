@@ -2,7 +2,7 @@
 #include "AbstractTest.hpp"
 #include <random>
 
-namespace MNN {
+namespace mnn {
 	class AbstractLayerNetwork;
 }
 
@@ -23,7 +23,7 @@ namespace mnnt {
 	*/
 	class LogicalFunctionTest : public AbstractTest {
 	protected:
-		MNN::AbstractLayerNetwork* m_network;
+		mnn::AbstractLayerNetwork* m_network;
 		LogicalFunction m_function;
 
 		std::mt19937_64 *m_g;

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace MNN {
+namespace mnn {
 	class AbstractNeuron;
 
 	struct Link {

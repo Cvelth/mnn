@@ -11,8 +11,8 @@ mnnt::AbstractStaticTest::~AbstractStaticTest()
 }
 
 void mnnt::AbstractStaticTest::generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden) {
-	m_network = MNN::generateTypicalLayerNeuralNetwork(inputs, outputs, hidden, per_hidden, MNN::ConnectionPattern::EachFromPreviousLayerWithBias,
-		[&](MNN::AbstractNeuron* n, MNN::AbstractNeuron* in) -> float {
+	m_network = mnn::generateTypicalLayerNeuralNetwork(inputs, outputs, hidden, per_hidden, mnn::ConnectionPattern::EachFromPreviousLayerWithBias,
+		[&](mnn::AbstractNeuron* n, mnn::AbstractNeuron* in) -> float {
 			return m_random();
 	}, 0.15f, 0.5f);
 }
@@ -28,7 +28,7 @@ const float mnnt::AbstractStaticTest::getOutput(size_t index) const {
 	if (index < m_network->getOutputsNumber())
 		return m_network->getOutputs()[index];
 	else
-		throw MNN::Exceptions::NonExistingIndexException();
+		throw mnn::Exceptions::NonExistingIndexException();
 }
 
 void mnnt::StaticDataTest::generateNeuralNetwork() {

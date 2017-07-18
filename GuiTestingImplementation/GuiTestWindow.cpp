@@ -21,7 +21,7 @@ GuiTestWindow::~GuiTestWindow() {
 }
 
 #include "AbstractLayerNetwork.hpp"
-void GuiTestWindow::insertNetwork(MNN::AbstractLayerNetwork* network) {
+void GuiTestWindow::insertNetwork(mnn::AbstractLayerNetwork* network) {
 	if (m_currentNetwork) delete m_currentNetwork;
 	m_currentNetwork = network;
 	m_inputs->change(network->getInputsNumber());
