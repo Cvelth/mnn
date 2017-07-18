@@ -28,7 +28,9 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QPushButton *generateLayerNetworkButton;
-    QSpacerItem *verticalSpacer;
+    QHBoxLayout *dataLayout;
+    QHBoxLayout *inputsLayout;
+    QSpacerItem *horizontalSpacer;
 
     void setupUi(QWidget *GuiTestWindowClass)
     {
@@ -55,12 +57,26 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        verticalSpacer = new QSpacerItem(348, 501, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        dataLayout = new QHBoxLayout();
+        dataLayout->setSpacing(6);
+        dataLayout->setObjectName(QStringLiteral("dataLayout"));
+        inputsLayout = new QHBoxLayout();
+        inputsLayout->setSpacing(6);
+        inputsLayout->setObjectName(QStringLiteral("inputsLayout"));
 
-        verticalLayout->addItem(verticalSpacer);
+        dataLayout->addLayout(inputsLayout);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        dataLayout->addItem(horizontalSpacer);
+
+        dataLayout->setStretch(0, 1);
+        dataLayout->setStretch(1, 2);
+
+        verticalLayout->addLayout(dataLayout);
 
         verticalLayout->setStretch(0, 1);
-        verticalLayout->setStretch(1, 8);
+        verticalLayout->setStretch(1, 5);
 
         retranslateUi(GuiTestWindowClass);
 

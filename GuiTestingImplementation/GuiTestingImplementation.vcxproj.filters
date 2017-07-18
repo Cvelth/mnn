@@ -31,6 +31,9 @@
     <Filter Include="Additional">
       <UniqueIdentifier>{6b6cf14f-08eb-41dd-bb92-a37c0e3bbc62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI\GUI_elements">
+      <UniqueIdentifier>{101100e9-b9b2-4e6c-b4d1-67c04b28f50c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -57,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_NetworkGenerationWindow.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiField.cpp">
+      <Filter>GUI\GUI_elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +91,9 @@
   <ItemGroup>
     <ClInclude Include="RandomEngine.hpp">
       <Filter>Additional</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiField.hpp">
+      <Filter>GUI\GUI_elements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

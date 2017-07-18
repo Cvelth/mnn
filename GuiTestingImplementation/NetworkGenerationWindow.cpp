@@ -5,6 +5,7 @@ MNNT::RealRandomEngine* NetworkGenerationWindow::m_random_generator = nullptr;
 
 NetworkGenerationWindow::~NetworkGenerationWindow() {
 	if (isGeneratorInitialized) delete m_random_generator;
+	isGeneratorInitialized = false;
 }
 
 void NetworkGenerationWindow::hideAdditionalFields() {

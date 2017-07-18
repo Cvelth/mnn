@@ -84,6 +84,7 @@
     <ClCompile Include="GuiTestWindow.cpp" />
     <ClCompile Include="LogicalFunctionTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MultiField.cpp" />
     <ClCompile Include="NetworkGenerationWindow.cpp" />
     <ClCompile Include="StaticDataTest.cpp" />
   </ItemGroup>
@@ -191,6 +192,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MultiField.hpp" />
     <ClInclude Include="RandomEngine.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
