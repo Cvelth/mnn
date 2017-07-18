@@ -4,6 +4,14 @@
 #include <initializer_list>
 #include "ErrorSystem.h"
 
+MNN::LayerNetwork::~LayerNetwork() {
+	for (auto layer : m_layers)
+		delete layer;
+	if (m_inputs) delete m_inputs;
+	if (m_outputs) delete m_outputs;
+	if (m_errorSystem) delete m_errorSystem;
+}
+
 void MNN::LayerNetwork::newInputs(const std::initializer_list<float>& inputs, bool normalize) {
 	if (inputs.size() != m_inputs->size())
 		throw MNN::Exceptions::WrongInputsNumberException();

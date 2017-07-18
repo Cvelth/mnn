@@ -13,6 +13,8 @@ namespace MNN {
 	protected:
 
 	public:
+		virtual ~AbstractNetwork() {};
+
 		//Tells all the neurons to recalculate their values, if they were changed.
 		virtual void calculate() abstract;
 

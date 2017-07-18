@@ -16,6 +16,7 @@ namespace MNN {
 	public:
 		AbstractDataContainerNeuron(const float& value, NeuronConstants c = NeuronConstants(0.15f, 0.5f)) : AbstractNeuron(value, c) {}
 		AbstractDataContainerNeuron(NeuronConstants c = NeuronConstants(0.15f, 0.5f)) : AbstractNeuron(c) {}
+		virtual ~AbstractDataContainerNeuron();
 		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) override {
 			m_links.push_back(Link(i, weight));
 			this->changed();

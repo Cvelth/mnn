@@ -12,6 +12,10 @@ float MNN::AbstractDataContainerNeuron::normalize(const float & value) {
 	return MNN::tanh_sigmoid(value);
 }
 
+MNN::AbstractDataContainerNeuron::~AbstractDataContainerNeuron() {
+	
+}
+
 float MNN::AbstractDataContainerNeuron::getWeightTo(AbstractNeuron * neuron) {
 	for (auto l : m_links)
 		if (l.unit == neuron)

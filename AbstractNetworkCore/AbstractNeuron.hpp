@@ -35,6 +35,7 @@ namespace MNN {
 		//Constructs active neuron to be connected to others.
 		AbstractNeuron(NeuronConstants c = NeuronConstants(0.15f, 0.5f)) 
 			: m_isValuated(false), m_constants(c), m_id(NUMBER_OF_NEURONS_CREATED++) {}
+		virtual ~AbstractNeuron() {};
 		//Adds one more input neuron reference.
 		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) abstract;
 

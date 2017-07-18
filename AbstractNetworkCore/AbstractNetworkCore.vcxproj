@@ -40,6 +40,7 @@
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="ErrorSystem.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="AbstractDataContainerNeuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />

@@ -10,6 +10,7 @@ namespace MNN {
 	private:
 
 	public:
+		virtual ~AbstractLayerNetwork() {};
 		inline virtual void addLayer(AbstractLayer* l) abstract;
 		virtual void calculate() abstract;
 

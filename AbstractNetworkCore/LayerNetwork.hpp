@@ -20,6 +20,7 @@ namespace MNN {
 		ErrorSystems::AbstractErrorSystem* m_errorSystem;
 	public:
 		explicit LayerNetwork(AbstractLayer* inputs, AbstractLayer* outputs, ErrorSystems::AbstractErrorSystem* errorSystem) : m_inputs(inputs), m_outputs(outputs), m_errorSystem(errorSystem) {}
+		virtual ~LayerNetwork();
 		inline virtual void addLayer(AbstractLayer* l) override {
 			m_layers.push_back(l);
 		}

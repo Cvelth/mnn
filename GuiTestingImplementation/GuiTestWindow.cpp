@@ -2,7 +2,7 @@
 #include "MultiField.hpp"
 
 GuiTestWindow::GuiTestWindow(QWidget *parent)
-	: QWidget(parent) {
+	: QWidget(parent), m_currentNetwork(nullptr) {
 	ui.setupUi(this);
 
 	m_inputs = new MultiField();
@@ -17,10 +17,12 @@ GuiTestWindow::GuiTestWindow(QWidget *parent)
 GuiTestWindow::~GuiTestWindow() {
 	delete m_inputs;
 	delete m_outputs;
+	delete m_currentNetwork;
 }
 
 #include "AbstractLayerNetwork.hpp"
 void GuiTestWindow::insertNetwork(MNN::AbstractLayerNetwork* network) {
+	if (m_currentNetwork) delete m_currentNetwork;
 	m_currentNetwork = network;
 	m_inputs->change(network->getInputsNumber());
 	m_outputs->change(network->getOutputsNumber());

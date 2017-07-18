@@ -87,5 +87,6 @@
     <ClCompile Include="AbstractDataContainerNeuron.cpp">
       <Filter>Neuron</Filter>
     </ClCompile>
+    <ClCompile Include="Layer.cpp" />
   </ItemGroup>
 </Project>

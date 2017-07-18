@@ -1,6 +1,7 @@
 #pragma once
 #include "LayerContainer.hpp"
 #include "AbstractLayer.hpp"
+#include "AbstractDataContainerNeuron.hpp"
 
 namespace MNN {
 	class AbstractDataContainerLayer : public AbstractLayer {
@@ -8,6 +9,7 @@ namespace MNN {
 		LayerDataContainer<AbstractNeuron*> m_neurons;
 	public:
 		AbstractDataContainerLayer() : AbstractLayer() {}
+		virtual ~AbstractDataContainerLayer();
 		inline virtual void add(AbstractNeuron* i) override {
 			m_neurons.insert(i);
 		}
