@@ -1,5 +1,5 @@
 #pragma once
-#include "Constants.hpp"
+#include "Shared.hpp"
 namespace mnn {
 	class AbstractNetwork {
 	public:
@@ -17,7 +17,7 @@ namespace mnn {
 		virtual void calculateGradients(NeuronContainer<Type> const& outputs) abstract;
 		virtual void updateWeights() abstract;
 
-		virtual NetworkContainer<Type> const getInputs() const abstract;
-		virtual NetworkContainer<Type> const getOutputs() const abstract;
+		virtual NeuronContainer<Type> const getInputs() const abstract;
+		virtual NeuronContainer<Type> const getOutputs() const abstract;
 	};
 }
