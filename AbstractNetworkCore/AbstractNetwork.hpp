@@ -1,17 +1,9 @@
 #pragma once
-
-namespace std {
-	initializer_list<float>;
-}
-
+#include <initializer_list>
 namespace mnn {
 	//Abstract class for storing typical network data to be inherited by other classes. 
 	//Handles inner calculation of the network parts for value generation and learning, neuron storring.
 	class AbstractNetwork {
-	private:
-
-	protected:
-
 	public:
 		virtual ~AbstractNetwork() {};
 

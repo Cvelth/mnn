@@ -4,7 +4,6 @@
 namespace mnn {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
-
 	/*
 	The enum defining type of connection of the neurons in the network.
 	
@@ -16,6 +15,17 @@ namespace mnn {
 	enum class ConnectionPattern {
 		NoDefaultConnection, EachFromPreviousLayerWithBias, EachFromPreviousLayerWithoutBias,
 	};
+	
+	/*
+	Default weight function for the typical automatically created AbstractLayerNeuralNetwork.
+	As of version 0.1.40, it makes all the weights equal to +1.f;
+	*/
+	float default_weights(AbstractNeuron *neuron, AbstractNeuron *input);
+	/*
+	Analog for default weight function.
+	It makes all the weight equal to a random number between -1.f and +1.f;
+	*/
+	float random_weights(AbstractNeuron* neuron, AbstractNeuron* input);
 
 	/*
 	The function generates and returns a pointer to a NeuralNetwork with *input_number* inputs, *output_number* outputs, *hidden_layers_number* hidden layers with *neurons_per_hidden_layer* neurons in each,
@@ -35,8 +45,6 @@ namespace mnn {
 	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
 															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 															ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
-															std::function<float(AbstractNeuron*, AbstractNeuron*)> weightFunction = 
-																[](AbstractNeuron* neuron, AbstractNeuron* input) -> float {
-																	return 1.f;
-																}, float eta = 0.15f, float alpha = 0.5f);
+															std::function<float(AbstractNeuron*, AbstractNeuron*)> weightFunction = default_weights, 
+															float eta = 0.15f, float alpha = 0.5f);
 }

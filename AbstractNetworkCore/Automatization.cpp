@@ -4,7 +4,7 @@
 #include "LayerNetwork.hpp"
 #include "ErrorSystem.h"
 
-mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer, 
+mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 																  ConnectionPattern connection, std::function<float(mnn::AbstractNeuron*, mnn::AbstractNeuron*)> weightFunction, 
 																  float eta, float alpha) {
 	size_t i;
@@ -63,4 +63,14 @@ mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_
 			break;
 	}
 	return ret;
+}
+
+float mnn::default_weights(AbstractNeuron *neuron, AbstractNeuron *input) {
+	return 1.0f;
+}
+#include <random>
+std::mt19937_64 g((std::random_device())());
+std::uniform_real_distribution<float> d(-1.f, +1.f);
+float mnn::random_weights(AbstractNeuron *neuron, AbstractNeuron *input) {
+	return d(g);
 }
