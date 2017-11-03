@@ -11,12 +11,9 @@ namespace mnn {
 			calculate();
 		}
 		inline void learningProcess(NetworkContainer<Type> const& outputs) {
-			//float tempNetworkError = calculateNetworkError(outputs);
 			calculateGradients(outputs);
 			updateWeights();
 		}
-
-		//virtual Type calculateNetworkError(NetworkContainer<Type> const& outputs) abstract;
 		virtual void calculateGradients(NetworkContainer<Type> const& outputs) abstract;
 		virtual void updateWeights() abstract;
 
