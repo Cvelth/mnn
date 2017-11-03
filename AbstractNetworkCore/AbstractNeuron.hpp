@@ -19,12 +19,14 @@ namespace mnn {
 		virtual void calculate() abstract;
 		virtual Type normalize(Type const& value) abstract;
 	public:
-		AbstractNeuron(Type const& value, Type const& eta = 0.15f, Type const& alpha = 0.5f) : m_isValuated(true),
+		AbstractNeuron(Type const& value, Type const& eta, Type const& alpha) : m_isValuated(true),
 			m_value(value), m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
-		AbstractNeuron(Type const& eta = 0.15f, Type const& alpha = 0.5f) : m_isValuated(false),
+		AbstractNeuron(Type const& eta, Type const& alpha) : m_isValuated(false),
 			m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		virtual ~AbstractNeuron() {};
-		virtual void addInput(AbstractNeuron *i, Type const& weight = 1.f) abstract;
+		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) abstract;
+		virtual void link(Link const& l) abstract;
+		virtual void link(LinkContainer<Link> const& l) abstract;
 		inline const Type& value() {
 			if (!m_isValuated)
 				calculate();
@@ -45,9 +47,9 @@ namespace mnn {
 		virtual void calculateGradient(Type const& expectedValue) abstract;
 		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) abstract;
 		virtual void recalculateWeights() abstract;
-		virtual Type const getWeightTo(AbstractNeuron* neuron) abstract;
+		virtual Type const& getWeightTo(AbstractNeuron* neuron) abstract;
 
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) abstract;
-		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) const abstract;
+		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const abstract;
 	};
 }
