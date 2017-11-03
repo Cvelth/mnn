@@ -30,7 +30,7 @@
     <ClInclude Include="Exceptions.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetwork.hpp" />
-    <ClInclude Include="NetworkContainer.hpp" />
+    <ClInclude Include="Constants.hpp" />
     <ClInclude Include="NeuronContainer.hpp" />
     <ClInclude Include="LayerContainer.hpp" />
     <ClInclude Include="Link.hpp" />

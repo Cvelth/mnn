@@ -22,9 +22,6 @@
     <ClInclude Include="Layer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkContainer.hpp">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractNetwork.hpp">
       <Filter>Network</Filter>
     </ClInclude>
@@ -50,6 +47,7 @@
     <ClInclude Include="AbstractDataContainerLayer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Constants.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
