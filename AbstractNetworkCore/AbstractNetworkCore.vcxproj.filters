@@ -34,14 +34,13 @@
     <ClInclude Include="Sigmoids.hpp">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Exceptions.hpp" />
     <ClInclude Include="AbstractDataContainerNeuron.hpp">
       <Filter>Neuron</Filter>
     </ClInclude>
     <ClInclude Include="AbstractDataContainerLayer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Shared.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">

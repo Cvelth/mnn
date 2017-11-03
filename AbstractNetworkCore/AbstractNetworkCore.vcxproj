@@ -26,10 +26,9 @@
     <ClInclude Include="AbstractNetwork.hpp" />
     <ClInclude Include="AbstractNeuron.hpp" />
     <ClInclude Include="Automatization.hpp" />
-    <ClInclude Include="Exceptions.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetwork.hpp" />
-    <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Shared.hpp" />
     <ClInclude Include="LayerContainer.hpp" />
     <ClInclude Include="Link.hpp" />
     <ClInclude Include="Neuron.hpp" />
