@@ -19,25 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractDataContainerLayer.hpp" />
+    <ClInclude Include="Layer.hpp" />
     <ClInclude Include="Neuron.hpp" />
     <ClInclude Include="AbstractLayer.hpp" />
     <ClInclude Include="AbstractLayerNetwork.hpp" />
     <ClInclude Include="AbstractNetwork.hpp" />
     <ClInclude Include="AbstractNeuron.hpp" />
     <ClInclude Include="Automatization.hpp" />
-    <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetwork.hpp" />
     <ClInclude Include="Shared.hpp" />
-    <ClInclude Include="LayerContainer.hpp" />
     <ClInclude Include="Link.hpp" />
     <ClInclude Include="Sigmoids.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AbstractDataContainerLayer.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />

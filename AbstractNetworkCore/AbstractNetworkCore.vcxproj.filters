@@ -10,12 +10,6 @@
     <ClInclude Include="AbstractLayer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
-    <ClInclude Include="LayerContainer.hpp">
-      <Filter>Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.hpp">
-      <Filter>Layer</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractNetwork.hpp">
       <Filter>Network</Filter>
     </ClInclude>
@@ -31,12 +25,12 @@
     <ClInclude Include="Sigmoids.hpp">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractDataContainerLayer.hpp">
-      <Filter>Layer</Filter>
-    </ClInclude>
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="Neuron.hpp">
       <Filter>Neuron</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.hpp">
+      <Filter>Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +62,6 @@
     </ClCompile>
     <ClCompile Include="AbstractNeuron.cpp">
       <Filter>Neuron</Filter>
-    </ClCompile>
-    <ClCompile Include="AbstractDataContainerLayer.cpp">
-      <Filter>Layer</Filter>
     </ClCompile>
     <ClCompile Include="Neuron.cpp">
       <Filter>Neuron</Filter>
