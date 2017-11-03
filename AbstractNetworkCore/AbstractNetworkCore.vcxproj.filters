@@ -16,9 +16,6 @@
     <ClInclude Include="LayerContainer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
-    <ClInclude Include="NeuronContainer.hpp">
-      <Filter>Neuron</Filter>
-    </ClInclude>
     <ClInclude Include="Layer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
@@ -38,9 +35,6 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Exceptions.hpp" />
-    <ClInclude Include="ErrorSystem.h">
-      <Filter>Math\Errors</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractDataContainerNeuron.hpp">
       <Filter>Neuron</Filter>
     </ClInclude>
@@ -65,9 +59,6 @@
     <Filter Include="Math">
       <UniqueIdentifier>{a49c883e-9aee-423f-ba3f-a7a515a17272}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math\Errors">
-      <UniqueIdentifier>{941e508d-b4e0-438e-adc6-c5c0524e8d4a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LayerNetwork.cpp">
@@ -78,9 +69,6 @@
     </ClCompile>
     <ClCompile Include="Sigmoids.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="ErrorSystem.cpp">
-      <Filter>Math\Errors</Filter>
     </ClCompile>
     <ClCompile Include="AbstractNeuron.cpp">
       <Filter>Neuron</Filter>

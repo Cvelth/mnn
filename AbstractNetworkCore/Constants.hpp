@@ -2,4 +2,5 @@
 #define Type float
 
 #include <vector>
-#define NetworkContainer std::vector
+#define NeuronContainer std::vector
+#define WeightContainer std::vector
