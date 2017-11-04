@@ -77,5 +77,8 @@
     <ClInclude Include="MultiField.hpp">
       <Filter>GUI\GUI_elements</Filter>
     </ClInclude>
+    <ClInclude Include="LambdaTest.hpp">
+      <Filter>Tests</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

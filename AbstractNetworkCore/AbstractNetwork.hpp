@@ -23,5 +23,7 @@ namespace mnn {
 
 		virtual NeuronContainer<Type> getInputs() const =0;
 		virtual NeuronContainer<Type> getOutputs() const =0;
+		virtual size_t getInputsNumber() const =0;
+		virtual size_t getOutputsNumber() const =0;
 	};
 }

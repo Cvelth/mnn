@@ -158,6 +158,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LambdaTest.hpp" />
     <ClInclude Include="MultiField.hpp" />
     <ClInclude Include="RandomEngine.hpp" />
   </ItemGroup>

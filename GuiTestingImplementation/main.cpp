@@ -1,24 +1,26 @@
-#include "GuiTestWindow.h"
 #include <QtWidgets\QApplication>
 /*
+#include "GuiTestWindow.h"
 int main(int argc, char **argv) {
-	QApplication app(argc, argv);
-	GuiTestWindow w;
-	w.show();
-	return app.exec();
+QApplication app(argc, argv);
+GuiTestWindow w;
+w.show();
+return app.exec();
 }
-
 /*/
-#include <QtWidgets/QApplication>
 #include "qtextbrowser.h"
-#include "LogicalFunctionTest.hpp"
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
+#include "LambdaTest.hpp"
+#include "Automatization.hpp"
+int main(int argc, char *argv[]) {
+	QApplication a(argc, argv);
 
-	mnnt::LogicalFunctionTest test(mnnt::LogicalFunction::ExOr);
+	mnnt::LambdaTest<2, 1, bool> test([](auto inputs, auto outputs) {
+		outputs[0] = inputs[0] ^ inputs[1];
+	});
 
-	test.generateNeuralNetwork();
+	test.insertNeuralNetwork(mnn::generateTypicalLayerNeuralNetwork(2, 1, 1, 3,
+		mnn::ConnectionPattern::EachFromPreviousLayerWithBias,
+		mnn::random_weights, 0.15f, 0.5f));
 	test.calculate();
 
 	const size_t ITERATIONS = 8000;
@@ -42,6 +44,6 @@ int main(int argc, char *argv[])
 	QTextBrowser w;
 	w.setText(output);
 	w.show();
-    return a.exec();
+	return a.exec();
 }
 /**/
