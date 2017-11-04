@@ -7,7 +7,6 @@ namespace mnn {
 		AbstractLayer() {}
 		~AbstractLayer() {}
 		inline virtual void add(AbstractNeuron* i) abstract;
-		inline virtual void remove(AbstractNeuron* i) abstract;
 		inline virtual size_t size() const abstract;
 
 		inline virtual void calculate() abstract;
