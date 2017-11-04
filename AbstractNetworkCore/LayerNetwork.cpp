@@ -23,7 +23,13 @@ void mnn::LayerNetwork::calculateGradients(NeuronContainer<Type> const& outputs)
 	AbstractLayer* nextLayer = m_outputs;
 	for_each_hidden([&nextLayer](AbstractLayer& l) {
 		l.for_each([&nextLayer](AbstractNeuron& n) {
-			n.calculateGradient(nextLayer);
+			n.calculateGradient([&nextLayer] (std::function<Type(AbstractNeuron&)> calculate_unit) -> Type {
+				Type sum = Type(0.f);
+				nextLayer->for_each([&sum, &calculate_unit](AbstractNeuron& nn) {
+					sum += calculate_unit(nn);
+				});
+				return sum;
+			});
 		});
 		nextLayer = &l;
 	}, false);

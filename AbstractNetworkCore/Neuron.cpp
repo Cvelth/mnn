@@ -26,13 +26,8 @@ void mnn::Neuron::recalculateWeights() {
 void mnn::Neuron::calculateGradient(Type const& expectedValue) {
 	m_gradient = (expectedValue - value()) * mnn::tanh_sigmoid_derivative(value());
 }
-//[[deprecated]]
-#include "AbstractLayer.hpp"
-void mnn::Neuron::calculateGradient(AbstractLayer* nextLayer) {
-	float sum = 0;
-	nextLayer->for_each([&sum, this](AbstractNeuron& n) {
-		sum += n.getWeightTo(this) * n.gradient();
-	});
-
-	m_gradient = sum * mnn::tanh_sigmoid_derivative(value());
+void mnn::Neuron::calculateGradient(std::function<Type(std::function<Type(AbstractNeuron&)>)> gradient_sum) {
+	m_gradient = gradient_sum([this](AbstractNeuron &n) -> Type {
+		return n.getWeightTo(this) * n.gradient();
+	}) * mnn::tanh_sigmoid_derivative(value());
 }

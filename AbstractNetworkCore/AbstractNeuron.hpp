@@ -3,7 +3,6 @@
 #include "Shared.hpp"
 namespace mnn {
 	struct Link;
-	class AbstractLayer;
 	class AbstractNeuron {
 	private:
 		Type m_value;
@@ -45,7 +44,7 @@ namespace mnn {
 		inline bool isValuated() { return m_isValuated; }
 
 		virtual void calculateGradient(Type const& expectedValue) =0;
-		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) =0;
+		virtual void calculateGradient(std::function<Type(std::function<Type(AbstractNeuron&)>)> gradient_sum) =0;
 		virtual void recalculateWeights() =0;
 		virtual Type getWeightTo(AbstractNeuron* neuron) =0;
 

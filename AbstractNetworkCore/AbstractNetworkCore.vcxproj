@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <OmitDefaultLibName>false</OmitDefaultLibName>
       <WarningLevel>Level4</WarningLevel>
-      <DisableSpecificWarnings>4996;4100</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
