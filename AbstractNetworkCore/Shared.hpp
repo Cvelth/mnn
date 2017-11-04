@@ -2,9 +2,12 @@
 using Type = float;
 
 #include <vector>
-#define NeuronContainer std::vector
-#define LinkContainer std::vector
-#define LayerContainer std::vector
+template <typename InnerType>
+using NeuronContainer = std::vector<InnerType>;
+template <typename InnerType>
+using LinkContainer = std::vector<InnerType>;
+template <typename InnerType>
+using LayerContainer = std::vector<InnerType>;
 
 #include <exception>
 #define GenerateNewException(name) 		   \
