@@ -21,7 +21,7 @@ namespace mnn {
 			else
 				for (auto it = m_neurons.rbegin(); it != m_neurons.rend(); it++) lambda(**it);
 		}
-		inline virtual void for_each(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool const firstToLast = true) const override {
 			if (firstToLast)
 				for (auto it = m_neurons.begin(); it != m_neurons.end(); it++) lambda(**it);
 			else

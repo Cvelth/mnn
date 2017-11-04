@@ -31,7 +31,7 @@ namespace mnn {
 			if (firstToLast) for (auto it = m_hidden.begin(); it != m_hidden.end(); it++) lambda(**it);
 			else for (auto it = m_hidden.rbegin(); it != m_hidden.rend(); it++) lambda(**it);
 		}
-		inline virtual void for_each_hidden(std::function<void(AbstractLayer const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_hidden(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) const override {
 			if (firstToLast) for (auto it = m_hidden.begin(); it != m_hidden.end(); it++) lambda(**it);
 			else for (auto it = m_hidden.rbegin(); it != m_hidden.rend(); it++) lambda(**it);
 		}
@@ -47,7 +47,7 @@ namespace mnn {
 				lambda(*m_inputs);
 			}
 		}
-		inline virtual void for_each_layer(std::function<void(AbstractLayer const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_layer(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) const override {
 			if (firstToLast) {
 				lambda(*m_inputs);
 				for_each_hidden(lambda, firstToLast);
@@ -62,20 +62,20 @@ namespace mnn {
 		inline virtual void for_each_input(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) override {
 			m_inputs->for_each(lambda, firstToLast);
 		}
-		inline virtual void for_each_input(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_input(std::function<void(AbstractNeuron&)> lambda, bool const firstToLast = true) const override {
 			m_inputs->for_each(lambda, firstToLast);
 		}
 		inline virtual void for_each_output(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) override {
 			m_outputs->for_each(lambda, firstToLast);
 		}
-		inline virtual void for_each_output(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_output(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const override {
 			m_outputs->for_each(lambda, firstToLast);
 		}
 		inline virtual void for_each_hidden_neuron(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) override {
 			if (firstToLast) for (auto it = m_hidden.begin(); it != m_hidden.end(); it++) (*it)->for_each(lambda, firstToLast);
 			else for (auto it = m_hidden.rbegin(); it != m_hidden.rend(); it++) (*it)->for_each(lambda, firstToLast);
 		}
-		inline virtual void for_each_hidden_neuron(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_hidden_neuron(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const override {
 			if (firstToLast) for (auto it = m_hidden.begin(); it != m_hidden.end(); it++) (*it)->for_each(lambda, firstToLast);
 			else for (auto it = m_hidden.rbegin(); it != m_hidden.rend(); it++) (*it)->for_each(lambda, firstToLast);
 		}
@@ -91,7 +91,7 @@ namespace mnn {
 				m_inputs->for_each(lambda, firstToLast);
 			}
 		}
-		inline virtual void for_each_neuron(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const override {
+		inline virtual void for_each_neuron(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const override {
 			if (firstToLast) {
 				m_inputs->for_each(lambda, firstToLast);
 				for_each_hidden_neuron(lambda, firstToLast);

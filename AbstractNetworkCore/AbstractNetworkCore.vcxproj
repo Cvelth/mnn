@@ -111,6 +111,8 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <OmitDefaultLibName>false</OmitDefaultLibName>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4996 </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

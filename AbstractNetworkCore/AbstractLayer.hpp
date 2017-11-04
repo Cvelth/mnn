@@ -12,6 +12,6 @@ namespace mnn {
 		inline virtual void calculate() abstract;
 
 		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) abstract;
-		inline virtual void for_each(std::function<void(AbstractNeuron const&)> lambda, bool firstToLast = true) const abstract;
+		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const abstract;
 	};
 }
