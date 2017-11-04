@@ -20,11 +20,16 @@ public:
 	virtual void remove();
 	virtual void remove(size_t number);
 	virtual void change(size_t number);
+	virtual size_t size() const;
+	virtual Field* at(size_t index);
+	virtual Field const* at(size_t index) const;
+	inline Field* operator[](size_t index) { return at(index); }
+	inline Field const* operator[](size_t index) const { return at(index); }
 
 protected:
 	virtual void initialize();
 	virtual void destroy();
-	virtual void check();
+	virtual void check() const;
 	virtual Field* newField();
 	virtual void deleteField(Field* le);
 

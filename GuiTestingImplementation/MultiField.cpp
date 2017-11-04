@@ -35,7 +35,20 @@ void MultiField::change(size_t number) {
 	else
 		remove(-difference);
 }
-void MultiField::check() {
+size_t MultiField::size() const {
+	return m_number;
+}
+Field* MultiField::at(size_t index) {
+	if (index > m_number)
+		throw Exceptions::BrokenSizeException();
+	return m_fields[index];
+}
+Field const* MultiField::at(size_t index) const {
+	if (index > m_number)
+		throw Exceptions::BrokenSizeException();
+	return m_fields[index];
+}
+void MultiField::check() const {
 	if (m_number != m_fields.size())
 		throw Exceptions::BrokenSizeException();
 }
