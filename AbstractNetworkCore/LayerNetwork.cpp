@@ -1,104 +1,51 @@
 #include "LayerNetwork.hpp"
 #include "AbstractNeuron.hpp"
-#include "Exceptions.hpp"
-#include <initializer_list>
-#include "ErrorSystem.h"
-
 mnn::LayerNetwork::~LayerNetwork() {
-	for (auto layer : m_layers)
-		delete layer;
+	for (auto layer : m_hidden) delete layer;
 	if (m_inputs) delete m_inputs;
 	if (m_outputs) delete m_outputs;
-	if (m_errorSystem) delete m_errorSystem;
 }
-
-void mnn::LayerNetwork::newInputs(const std::initializer_list<float>& inputs, bool normalize) {
+void mnn::LayerNetwork::setInputs(NeuronContainer<Type> const& inputs, bool normalize) {
 	if (inputs.size() != m_inputs->size())
-		throw mnn::Exceptions::WrongInputsNumberException();
+		throw Exceptions::IncorrectDataAmountException();
 
-	auto counter = inputs.begin();
-	m_inputs->for_each([&counter, &inputs, normalize](mnn::AbstractNeuron* n) {
-		if (normalize)
-			n->setValue(*(counter++));
-		else
-			n->setValueUnnormalized(*(counter++));
-	});
+	auto it = inputs.begin();
+	if (normalize) m_inputs->for_each([&it](mnn::AbstractNeuron& n) { n.setValue(*(it++)); });
+	else m_inputs->for_each([&it](mnn::AbstractNeuron& n) { n.setValueUnnormalized(*(it++)); });
 }
+void mnn::LayerNetwork::calculateGradients(NeuronContainer<Type> const& outputs){
+	if (outputs.size() != m_outputs->size())
+		throw Exceptions::IncorrectDataAmountException();
 
-void mnn::LayerNetwork::newInputs(size_t number, float * inputs, bool normalize) {
-	if (number != m_inputs->size())
-		throw mnn::Exceptions::WrongInputsNumberException();
-
-	size_t counter = 0;
-	m_inputs->for_each([&counter, &inputs, normalize](mnn::AbstractNeuron* n) {
-		if (normalize)
-			n->setValue(inputs[counter++]);
-		else
-			n->setValueUnnormalized(inputs[counter++]);
-	});
-}
-
-void mnn::LayerNetwork::newInputs(const NetworkDataContainer<float>& inputs, bool normalize) {
-	if (inputs.size() != m_inputs->size())
-		throw mnn::Exceptions::WrongInputsNumberException();
-
-	size_t counter = 0;
-	m_inputs->for_each([&counter, &inputs, normalize](mnn::AbstractNeuron* n) {
-		if (normalize)
-			n->setValue(inputs[counter++]);
-		else
-			n->setValueUnnormalized(inputs[counter++]);
-	});
-}
-
-void mnn::LayerNetwork::calculateWithInputs(const NetworkDataContainer<float>& inputs, bool normalize) {
-	newInputs(inputs, normalize);
-	calculate();
-}
-
-void mnn::LayerNetwork::learningProcess(const NetworkDataContainer<float>& outputs) {
-	if (outputs.size() != getOutputsNumber())
-		throw Exceptions::WrongOutputNumberException();
-
-	float tempNetworkError = m_errorSystem->calculateNetworkError(this, outputs);
-	calculateGradients(outputs);
-	updateWeights();
-}
-
-void mnn::LayerNetwork::calculateGradients(const NetworkDataContainer<float>& outputs) {
-	int i = 0;
-	for_each_output([&outputs, &i](AbstractNeuron* n) {
-		n->calculateGradient(outputs[i++]);
-	});
+	auto it = outputs.begin();
+	for_each_output([&it](AbstractNeuron* n) { n->calculateGradient(*(it++)); });
 
 	AbstractLayer* nextLayer = m_outputs;
 	for_each_hidden([&nextLayer](AbstractLayer* l) {
-		l->for_each([&nextLayer](AbstractNeuron* n) {
-			n->calculateGradient(nextLayer);
+		l->for_each([&nextLayer](AbstractNeuron& n) {
+			n.calculateGradient(nextLayer);
 		});
 		nextLayer = l;
 	}, false);
 }
-
 void mnn::LayerNetwork::updateWeights() {
 	for_each_neuron([](AbstractNeuron* n) {
 		n->recalculateWeights();
 	}, false);
 }
-
 void mnn::LayerNetwork::calculateGradients(const std::initializer_list<float>& outputs) {
 	calculateGradients(NetworkDataContainer<float>(outputs));
 }
-
 float mnn::LayerNetwork::calculateNetworkError(const std::initializer_list<float>& outputs) {
 	return m_errorSystem->calculateNetworkError(this, outputs);
 }
-
-const float* mnn::LayerNetwork::getOutputs() const {
-	float *res = new float[m_outputs->size()];
-	size_t i = 0;
-	m_outputs->for_each([&res, &i](mnn::AbstractNeuron* n) {
-		res[i++] = n->value();
-	});
+NeuronContainer<Type> mnn::LayerNetwork::getInputs() const {
+	NeuronContainer<Type> res;
+	m_inputs->for_each([&res](mnn::AbstractNeuron* n) { res.push_back(n->value()); });
+	return res;
+}
+NeuronContainer<Type> mnn::LayerNetwork::getOutputs() const {
+	NeuronContainer<Type> res;
+	m_outputs->for_each([&res](mnn::AbstractNeuron* n) { res.push_back(n->value()); });
 	return res;
 }

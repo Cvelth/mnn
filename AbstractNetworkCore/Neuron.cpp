@@ -30,8 +30,8 @@ void mnn::Neuron::calculateGradient(Type const& expectedValue) {
 #include "AbstractLayer.hpp"
 void mnn::Neuron::calculateGradient(AbstractLayer* nextLayer) {
 	float sum = 0;
-	nextLayer->for_each([&sum, this](AbstractNeuron* n) {
-		sum += n->getWeightTo(this) * n->gradient();
+	nextLayer->for_each([&sum, this](AbstractNeuron& n) {
+		sum += n.getWeightTo(this) * n.gradient();
 	});
 
 	m_gradient = sum * mnn::tanh_sigmoid_derivative(value());
