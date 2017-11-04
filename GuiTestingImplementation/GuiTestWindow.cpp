@@ -1,6 +1,5 @@
-#include "GuiTestWindow.h"
+#include "GuiTestWindow.hpp"
 #include "MultiField.hpp"
-
 GuiTestWindow::GuiTestWindow(QWidget *parent)
 	: QWidget(parent), m_currentNetwork(nullptr) {
 	ui.setupUi(this);
@@ -13,13 +12,11 @@ GuiTestWindow::GuiTestWindow(QWidget *parent)
 
 	connect(ui.generateLayerNetworkButton, &QPushButton::clicked, this, &GuiTestWindow::generateNetworkButtonSlot);
 }
-
 GuiTestWindow::~GuiTestWindow() {
 	delete m_inputs;
 	delete m_outputs;
 	delete m_currentNetwork;
 }
-
 #include "AbstractLayerNetwork.hpp"
 void GuiTestWindow::insertNetwork(mnn::AbstractLayerNetwork* network) {
 	if (m_currentNetwork) delete m_currentNetwork;
@@ -27,7 +24,6 @@ void GuiTestWindow::insertNetwork(mnn::AbstractLayerNetwork* network) {
 	m_inputs->change(network->getInputsNumber());
 	m_outputs->change(network->getOutputsNumber());
 }
-
 #include "NetworkGenerationWindow.h"
 using namespace std::placeholders;
 void GuiTestWindow::generateNetworkButtonSlot() {

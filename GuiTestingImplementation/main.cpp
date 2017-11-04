@@ -1,6 +1,6 @@
 #include <QtWidgets\QApplication>
-/*
-#include "GuiTestWindow.h"
+//*
+#include "GuiTestWindow.hpp"
 int main(int argc, char **argv) {
 QApplication app(argc, argv);
 GuiTestWindow w;
