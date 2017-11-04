@@ -14,8 +14,8 @@ return app.exec();
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 
-	mnnt::LambdaTest<2, 1, bool> test([](auto inputs, auto outputs) {
-		outputs[0] = inputs[0] ^ inputs[1];
+	mnnt::LambdaTest test([](auto inputs, auto outputs) {
+		outputs[0] = bool(inputs[0]) ^ bool(inputs[1]);
 	});
 
 	test.insertNeuralNetwork(mnn::generateTypicalLayerNeuralNetwork(2, 1, 1, 3,
