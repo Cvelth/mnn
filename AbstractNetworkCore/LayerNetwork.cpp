@@ -18,34 +18,28 @@ void mnn::LayerNetwork::calculateGradients(NeuronContainer<Type> const& outputs)
 		throw Exceptions::IncorrectDataAmountException();
 
 	auto it = outputs.begin();
-	for_each_output([&it](AbstractNeuron* n) { n->calculateGradient(*(it++)); });
+	for_each_output([&it](AbstractNeuron& n) { n.calculateGradient(*(it++)); });
 
 	AbstractLayer* nextLayer = m_outputs;
-	for_each_hidden([&nextLayer](AbstractLayer* l) {
-		l->for_each([&nextLayer](AbstractNeuron& n) {
+	for_each_hidden([&nextLayer](AbstractLayer& l) {
+		l.for_each([&nextLayer](AbstractNeuron& n) {
 			n.calculateGradient(nextLayer);
 		});
-		nextLayer = l;
+		nextLayer = &l;
 	}, false);
 }
 void mnn::LayerNetwork::updateWeights() {
-	for_each_neuron([](AbstractNeuron* n) {
-		n->recalculateWeights();
+	for_each_neuron([](AbstractNeuron& n) {
+		n.recalculateWeights();
 	}, false);
-}
-void mnn::LayerNetwork::calculateGradients(const std::initializer_list<float>& outputs) {
-	calculateGradients(NetworkDataContainer<float>(outputs));
-}
-float mnn::LayerNetwork::calculateNetworkError(const std::initializer_list<float>& outputs) {
-	return m_errorSystem->calculateNetworkError(this, outputs);
 }
 NeuronContainer<Type> mnn::LayerNetwork::getInputs() const {
 	NeuronContainer<Type> res;
-	m_inputs->for_each([&res](mnn::AbstractNeuron* n) { res.push_back(n->value()); });
+	m_inputs->for_each([&res](mnn::AbstractNeuron& n) { res.push_back(n.value()); });
 	return res;
 }
 NeuronContainer<Type> mnn::LayerNetwork::getOutputs() const {
 	NeuronContainer<Type> res;
-	m_outputs->for_each([&res](mnn::AbstractNeuron* n) { res.push_back(n->value()); });
+	m_outputs->for_each([&res](mnn::AbstractNeuron& n) { res.push_back(n.value()); });
 	return res;
 }
