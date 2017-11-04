@@ -43,3 +43,15 @@ NeuronContainer<Type> mnn::LayerNetwork::getOutputs() const {
 	m_outputs->for_each([&res](mnn::AbstractNeuron& n) { res.push_back(n.value()); });
 	return res;
 }
+size_t mnn::LayerNetwork::getInputsNumber() const {
+	return getInputLayer()->size();
+}
+size_t mnn::LayerNetwork::getOutputsNumber() const {
+	return getOutputLayer()->size();
+}
+const float mnn::LayerNetwork::getInput(size_t index) const {
+	return getInputLayer()->at(index);
+}
+const float mnn::LayerNetwork::getOutput(size_t index) const {
+	return getOutputLayer()->at(index);
+}

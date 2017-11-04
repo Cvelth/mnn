@@ -20,8 +20,12 @@ namespace mnn {
 		void calculateGradients(const NeuronContainer<Type>& outputs);
 		virtual void updateWeights() override;
 
+		virtual size_t getInputsNumber() const override;
+		virtual size_t getOutputsNumber() const override;
 		virtual NeuronContainer<Type> getInputs() const override;
 		virtual NeuronContainer<Type> getOutputs() const override;
+		virtual const float getInput(size_t index) const override;
+		virtual const float getOutput(size_t index) const override;
 		inline virtual AbstractLayer const* getInputLayer() const override { return m_inputs; }
 		inline virtual AbstractLayer const* getOutputLayer() const override { return m_outputs; }
 		

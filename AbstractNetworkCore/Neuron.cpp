@@ -4,7 +4,7 @@ void mnn::Neuron::calculate() {
 	float value = 0.f;
 	for (Link t : m_links)
 		value += t.unit->value() * t.weight;
-	this->setValue(value);
+	setValue(value);
 }
 Type mnn::Neuron::normalize(Type const& value) {
 	return mnn::tanh_sigmoid(value);

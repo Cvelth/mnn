@@ -22,12 +22,6 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{c4bf0d7b-0f28-45c3-b7d2-292aaad5d2da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\Headers">
-      <UniqueIdentifier>{e88b5226-850e-4d06-990f-581dbd17098f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tests\Source">
-      <UniqueIdentifier>{72d3632b-ec4b-42f2-b9ef-879f087367ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Additional">
       <UniqueIdentifier>{6b6cf14f-08eb-41dd-bb92-a37c0e3bbc62}</UniqueIdentifier>
     </Filter>
@@ -37,12 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="LogicalFunctionTest.cpp">
-      <Filter>Tests\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticDataTest.cpp">
-      <Filter>Tests\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GuiTestWindow.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -72,20 +60,14 @@
     <CustomBuild Include="NetworkGenerationWindow.ui">
       <Filter>GUI</Filter>
     </CustomBuild>
-    <CustomBuild Include="AbstractTest.hpp">
-      <Filter>Tests\Headers</Filter>
-    </CustomBuild>
-    <CustomBuild Include="LogicalFunctionTest.hpp">
-      <Filter>Tests\Headers</Filter>
-    </CustomBuild>
-    <CustomBuild Include="StaticDataTest.hpp">
-      <Filter>Tests\Headers</Filter>
-    </CustomBuild>
     <CustomBuild Include="GuiTestWindow.h">
       <Filter>GUI</Filter>
     </CustomBuild>
     <CustomBuild Include="NetworkGenerationWindow.h">
       <Filter>GUI</Filter>
+    </CustomBuild>
+    <CustomBuild Include="AbstractTest.hpp">
+      <Filter>Tests</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="MultiField.hpp">
       <Filter>GUI\GUI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="LambdaTest.hpp">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
