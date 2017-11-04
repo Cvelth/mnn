@@ -1,5 +1,5 @@
 #pragma once
-#define Type float
+using Type = float;
 
 #include <vector>
 #define NeuronContainer std::vector
