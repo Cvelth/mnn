@@ -25,14 +25,14 @@ QString calculate_action(size_t size, bool all_outputs_included = false) {
 		outputs[0] = bool(inputs[0]) ^ bool(inputs[1]);
 	});
 
-	test.insertNeuralNetwork(mnn::generateTypicalLayerNeuralNetwork(2, 1, 2, 2,
+	test.insertNeuralNetwork(mnn::generateTypicalLayerNeuralNetwork(2, 1, 5, 6,
 		mnn::ConnectionPattern::EachFromPreviousLayerWithBias,
 		mnn::random_weights, 0.15f, 0.5f));
 	test.calculate();
 
 	QString output;
 	size_t last_error = 0;
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size && i - last_error < 5000; i++) {
 		test.learningProcess();
 		if (all_outputs_included) {
 			bool e, in[2];
@@ -49,13 +49,19 @@ QString calculate_action(size_t size, bool all_outputs_included = false) {
 	}
 	return (all_outputs_included ? output : "") + "Last error: " + QString::number(last_error);
 }
+QString calculate_multiple_actions(size_t size, size_t number) {
+	QString output;
+	for (int i = 0; i < number; i++)
+		output += calculate_action(size, false) + '\n';
+	return output;
+}
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	QWidget w;
 	QHBoxLayout *ul = new QHBoxLayout();
 	QSpinBox s;
 	s.setRange(1, std::numeric_limits<int>::max());
-	s.setValue(5000);
+	s.setValue(15000);
 	QFont font("Consolas", 15);
 	s.setFont(font);
 	ul->addWidget(&s);
@@ -67,7 +73,8 @@ int main(int argc, char *argv[]) {
 	t.setFont(font);
 	l->addWidget(&t);
 	auto action = [&t, &s]() { 
-		t.setText(calculate_action(s.value(), true));
+		//t.setText(calculate_action(s.value(), true));
+		t.setText(calculate_multiple_actions(s.value(), 40));
 		t.verticalScrollBar()->setValue(t.verticalScrollBar()->maximum());
 	};
 	QObject::connect(&b, &QPushButton::clicked, action);
