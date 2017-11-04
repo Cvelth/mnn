@@ -14,6 +14,7 @@ namespace mnn {
 		inline void addAll(const NeuronContainer<AbstractNeuron*>& c) { for (auto t : c) add(t); }
 		inline virtual void clear() { m_neurons.clear(); }
 		inline virtual size_t size() const override { return m_neurons.size(); }
+		inline virtual Type at(size_t index) const override { return m_neurons.at(index)->value(); }
 		inline virtual void calculate() override { for (auto t : m_neurons) t->value(); }
 		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) override {
 			if (firstToLast)

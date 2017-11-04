@@ -1,4 +1,5 @@
 #pragma once
+#include "Shared.hpp"
 #include <functional>
 namespace mnn {
 	class AbstractNeuron;
@@ -8,6 +9,8 @@ namespace mnn {
 		~AbstractLayer() {}
 		inline virtual void add(AbstractNeuron* i) =0;
 		inline virtual size_t size() const =0;
+		inline virtual Type at(size_t index) const =0;
+		inline Type operator[](size_t index) const { return at(index); }
 
 		inline virtual void calculate() =0;
 

@@ -25,5 +25,7 @@ namespace mnn {
 		virtual NeuronContainer<Type> getOutputs() const =0;
 		virtual size_t getInputsNumber() const =0;
 		virtual size_t getOutputsNumber() const =0;
+		virtual const float getInput(size_t index) const = 0;
+		virtual const float getOutput(size_t index) const = 0;
 	};
 }

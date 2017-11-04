@@ -33,12 +33,6 @@ void mnn::LayerNetwork::updateWeights() {
 		n.recalculateWeights();
 	}, false);
 }
-size_t mnn::LayerNetwork::getInputsNumber() const {
-	return getInputLayer()->size();
-}
-size_t mnn::LayerNetwork::getOutputsNumber() const {
-	return getOutputLayer()->size();
-}
 NeuronContainer<Type> mnn::LayerNetwork::getInputs() const {
 	NeuronContainer<Type> res;
 	m_inputs->for_each([&res](mnn::AbstractNeuron& n) { res.push_back(n.value()); });
@@ -48,4 +42,16 @@ NeuronContainer<Type> mnn::LayerNetwork::getOutputs() const {
 	NeuronContainer<Type> res;
 	m_outputs->for_each([&res](mnn::AbstractNeuron& n) { res.push_back(n.value()); });
 	return res;
+}
+size_t mnn::LayerNetwork::getInputsNumber() const {
+	return getInputLayer()->size();
+}
+size_t mnn::LayerNetwork::getOutputsNumber() const {
+	return getOutputLayer()->size();
+}
+const float mnn::LayerNetwork::getInput(size_t index) const {
+	return getInputLayer()->at(index);
+}
+const float mnn::LayerNetwork::getOutput(size_t index) const {
+	return getOutputLayer()->at(index);
 }
