@@ -6,12 +6,12 @@ namespace mnn {
 	public:
 		AbstractLayer() {}
 		~AbstractLayer() {}
-		inline virtual void add(AbstractNeuron* i) abstract;
-		inline virtual size_t size() const abstract;
+		inline virtual void add(AbstractNeuron* i) =0;
+		inline virtual size_t size() const =0;
 
-		inline virtual void calculate() abstract;
+		inline virtual void calculate() =0;
 
-		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) abstract;
-		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const abstract;
+		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) =0;
+		inline virtual void for_each(std::function<void(AbstractNeuron&)> lambda, bool firstToLast = true) const =0;
 	};
 }

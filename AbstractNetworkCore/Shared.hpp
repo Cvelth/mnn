@@ -7,9 +7,13 @@
 #define LayerContainer std::vector
 
 #include <exception>
+#define GenerateNewException(name) 		   \
+namespace Exceptions {					   \
+	class name : public std::exception {   \
+	public: using exception::exception;	   \
+	};									   \
+}
 namespace mnn {
-	namespace Exceptions {
-		class IncorrectDataAmountException : std::exception {};
-		class NonExistingIndexException : std::exception {};
-	}
+	GenerateNewException(IncorrectDataAmountException);
+	GenerateNewException(NonExistingIndexException);
 }

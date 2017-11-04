@@ -16,17 +16,17 @@ namespace mnn {
 		Type m_eta;
 		Type m_alpha;
 	protected:
-		virtual void calculate() abstract;
-		virtual Type normalize(Type const& value) abstract;
+		virtual void calculate() =0;
+		virtual Type normalize(Type const& value) =0;
 	public:
 		AbstractNeuron(Type const& value, Type const& eta, Type const& alpha) : m_isValuated(true),
 			m_value(value), m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		AbstractNeuron(Type const& eta, Type const& alpha) : m_isValuated(false),
 			m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		virtual ~AbstractNeuron() {};
-		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) abstract;
-		virtual void link(Link const& l) abstract;
-		virtual void link(LinkContainer<Link> const& l) abstract;
+		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) =0;
+		virtual void link(Link const& l) =0;
+		virtual void link(LinkContainer<Link> const& l) =0;
 		inline const Type& value() {
 			if (!m_isValuated)
 				calculate();
@@ -44,12 +44,12 @@ namespace mnn {
 		inline void changed() { m_isValuated = false; }
 		inline bool isValuated() { return m_isValuated; }
 
-		virtual void calculateGradient(Type const& expectedValue) abstract;
-		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) abstract;
-		virtual void recalculateWeights() abstract;
-		virtual Type const& getWeightTo(AbstractNeuron* neuron) abstract;
+		virtual void calculateGradient(Type const& expectedValue) =0;
+		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) =0;
+		virtual void recalculateWeights() =0;
+		virtual Type getWeightTo(AbstractNeuron* neuron) =0;
 
-		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) abstract;
-		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const abstract;
+		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) =0;
+		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const =0;
 	};
 }

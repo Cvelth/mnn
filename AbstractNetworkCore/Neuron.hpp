@@ -36,7 +36,7 @@ namespace mnn {
 
 		virtual void calculateGradient(Type const& expectedValue) override;
 		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) override;
-		virtual Type const& getWeightTo(AbstractNeuron* neuron) override;
+		virtual Type getWeightTo(AbstractNeuron* neuron) override;
 		virtual void recalculateWeights() override;
 
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) override {

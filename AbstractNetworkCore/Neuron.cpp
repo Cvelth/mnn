@@ -9,7 +9,7 @@ void mnn::Neuron::calculate() {
 Type mnn::Neuron::normalize(Type const& value) {
 	return mnn::tanh_sigmoid(value);
 }
-Type const& mnn::Neuron::getWeightTo(AbstractNeuron * neuron) {
+Type mnn::Neuron::getWeightTo(AbstractNeuron *neuron) {
 	for (auto l : m_links)
 		if (l.unit == neuron)
 			return l.weight;
