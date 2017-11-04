@@ -17,9 +17,6 @@ namespace mnnt {
 	public:
 		AbstractTest() {}
 
-		//Generates new neural network using *mnn::generateTypicalLayerNeuralNetwork* (see Automatization.hpp).
-		[[deprecated]] virtual void generateNeuralNetwork(size_t inputs, size_t outputs, size_t hidden, size_t per_hidden);
-
 		//Changes the neural network being used by the test.
 		//Pass *nullptr* to remove any network installed.
 		virtual void insertNeuralNetwork(mnn::AbstractLayerNetwork *network) abstract;

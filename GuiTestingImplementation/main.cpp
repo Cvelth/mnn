@@ -11,10 +11,15 @@ return app.exec();
 #include "qtextbrowser.h"
 #include "LambdaTest.hpp"
 #include "Automatization.hpp"
+bool b(float f) {
+	return fabs(f) > 0.5f ? 1.f : 0.f;
+}
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 
-	mnnt::LambdaTest test([](auto inputs, auto outputs) {
+	mnnt::LambdaTest test([](auto& inputs, auto& outputs) {
+		inputs[0] = b(inputs[0]);
+		inputs[1] = b(inputs[1]);
 		outputs[0] = bool(inputs[0]) ^ bool(inputs[1]);
 	});
 
@@ -23,22 +28,16 @@ int main(int argc, char *argv[]) {
 		mnn::random_weights, 0.15f, 0.5f));
 	test.calculate();
 
-	const size_t ITERATIONS = 8000;
-
 	QString output;
-
-	float i1[ITERATIONS], i2[ITERATIONS];
-	float o1[ITERATIONS], o2[ITERATIONS];
-	float sum1 = 0.f, sum2 = 0.f;
-	for (int i = 0; i < ITERATIONS; i++) {
-		i1[i] = test.getInput(0);
-		sum1 += i1[i];
-		i2[i] = test.getInput(1);
-		sum2 += i2[i];
-		o1[i] = test.getOutput(0);
-		o2[i] = float(bool(i1[i]) ^ bool(i2[i]));
+	float in[2], o;
+	for (int i = 0; i < 2000; i++) {
+		in[0] = test.getInput(0);
+		in[1] = test.getInput(1);
+		o = test.getOutput(0);
 		test.learningProcess();
-		output += QString::number(i1[i]) + "   " + QString::number(i2[i]) + '\t' + QString::number(o2[i]) + "   " + (fabs(o1[i]) > 0.5f ? '1' : '0') + "   " + QString::number(o1[i]) + '\n';
+		output += QString::number(b(in[0])) + "   " + QString::number(b(in[1])) + '\t'+ 
+			QString::number(float(b(in[0]) ^ b(in[1]))) + "   " + 
+			QString::number(b(o)) +  + "   " + QString::number(o) + '\n';
 	}
 
 	QTextBrowser w;
