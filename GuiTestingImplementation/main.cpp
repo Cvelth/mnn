@@ -1,11 +1,11 @@
 #include <QtWidgets\QApplication>
-/*
-#include "GuiTestWindow.h"
+//*
+#include "GuiTestWindow.hpp"
 int main(int argc, char **argv) {
-QApplication app(argc, argv);
-GuiTestWindow w;
-w.show();
-return app.exec();
+	QApplication app(argc, argv);
+	GuiTestWindow w;
+	w.show();
+	return app.exec();
 }
 /*/
 #include "qtextbrowser.h"
