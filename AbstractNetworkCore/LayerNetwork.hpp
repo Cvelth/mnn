@@ -14,7 +14,7 @@ namespace mnn {
 			: LayerNetwork(inputs, outputs) { addHiddenLayers(c); }
 		virtual ~LayerNetwork();
 		inline virtual void addHiddenLayer(AbstractLayer *l) override { m_hidden.push_back(l); }
-		inline virtual void addHiddenLayers(LayerContainer<AbstractLayer*> const& c) { for (auto t : c) addHiddenLayer(t); }
+		inline virtual void addHiddenLayers(LayerContainer<AbstractLayer*> const& c) override { for (auto t : c) addHiddenLayer(t); }
 
 		virtual void setInputs(NeuronContainer<Type> const& inputs, bool normalize = true) override;		
 		void calculateGradients(const NeuronContainer<Type>& outputs);

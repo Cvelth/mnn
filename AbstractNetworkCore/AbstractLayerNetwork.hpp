@@ -8,7 +8,7 @@ namespace mnn {
 	public:
 		virtual ~AbstractLayerNetwork() {};
 		virtual void addHiddenLayer(AbstractLayer* l) abstract;
-		virtual void addHiddenLayers(LayerContainer<AbstractLayer*> l) abstract;
+		virtual void addHiddenLayers(LayerContainer<AbstractLayer*> const& l) abstract;
 		virtual void calculate() abstract;
 
 		inline virtual void for_each_hidden(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) abstract;
