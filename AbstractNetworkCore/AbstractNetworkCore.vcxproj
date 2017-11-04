@@ -19,31 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractDataContainerLayer.hpp" />
-    <ClInclude Include="AbstractDataContainerNeuron.hpp" />
-    <ClInclude Include="ErrorSystem.h" />
+    <ClInclude Include="Layer.hpp" />
+    <ClInclude Include="Neuron.hpp" />
     <ClInclude Include="AbstractLayer.hpp" />
     <ClInclude Include="AbstractLayerNetwork.hpp" />
     <ClInclude Include="AbstractNetwork.hpp" />
     <ClInclude Include="AbstractNeuron.hpp" />
     <ClInclude Include="Automatization.hpp" />
-    <ClInclude Include="Exceptions.hpp" />
-    <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetwork.hpp" />
-    <ClInclude Include="NetworkContainer.hpp" />
-    <ClInclude Include="NeuronContainer.hpp" />
-    <ClInclude Include="LayerContainer.hpp" />
+    <ClInclude Include="Shared.hpp" />
     <ClInclude Include="Link.hpp" />
-    <ClInclude Include="Neuron.hpp" />
     <ClInclude Include="Sigmoids.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
-    <ClCompile Include="ErrorSystem.cpp" />
-    <ClCompile Include="AbstractDataContainerLayer.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
-    <ClCompile Include="AbstractDataContainerNeuron.cpp" />
+    <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -119,6 +111,8 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <OmitDefaultLibName>false</OmitDefaultLibName>
+      <WarningLevel>Level4</WarningLevel>
+      <DisableSpecificWarnings>4996;4100</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

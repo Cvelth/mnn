@@ -1,13 +1,13 @@
 #pragma once
-
+#include "Shared.hpp"
 namespace mnn {
-	float erf_sigmoid(const float& x);
-	float tanh_sigmoid(const float& x);
-	float root_sigmoid(const float& x);
-	float atan_sigmoid(const float& x);
-	float erf_sigmoid_derivative(const float& x);
-	float tanh_sigmoid_derivative(const float& x);
-	float tanh_sigmoid_derivative_approximated(const float& x);
-	float root_sigmoid_derivative(const float& x);
-	float atan_sigmoid_derivative(const float& x);
+	Type erf_sigmoid(Type x);
+	Type tanh_sigmoid(Type x);
+	Type root_sigmoid(Type x);
+	Type atan_sigmoid(Type x);
+	Type erf_sigmoid_derivative(Type x);
+	Type tanh_sigmoid_derivative(Type x);
+	Type tanh_sigmoid_derivative_approximated(Type x);
+	Type root_sigmoid_derivative(Type x);
+	Type atan_sigmoid_derivative(Type x);
 }

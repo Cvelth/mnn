@@ -1,6 +1,6 @@
 #include "GuiTestWindow.h"
 #include <QtWidgets\QApplication>
-
+/*
 int main(int argc, char **argv) {
 	QApplication app(argc, argv);
 	GuiTestWindow w;
@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 	return app.exec();
 }
 
-/*
+/*/
 #include <QtWidgets/QApplication>
 #include "qtextbrowser.h"
 #include "LogicalFunctionTest.hpp"
@@ -44,4 +44,4 @@ int main(int argc, char *argv[])
 	w.show();
     return a.exec();
 }
-*/
+/**/

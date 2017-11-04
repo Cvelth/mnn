@@ -1,6 +1,6 @@
 #pragma once
+#include "Shared.hpp"
 #include <functional>
-
 namespace mnn {
 	class AbstractNeuron;
 	class AbstractLayerNetwork;
@@ -20,12 +20,12 @@ namespace mnn {
 	Default weight function for the typical automatically created AbstractLayerNeuralNetwork.
 	As of version 0.1.40, it makes all the weights equal to +1.f;
 	*/
-	float default_weights(AbstractNeuron *neuron, AbstractNeuron *input);
+	float default_weights(AbstractNeuron const& neuron, AbstractNeuron const& input);
 	/*
 	Analog for default weight function.
 	It makes all the weight equal to a random number between -1.f and +1.f;
 	*/
-	float random_weights(AbstractNeuron* neuron, AbstractNeuron* input);
+	float random_weights(AbstractNeuron const& neuron, AbstractNeuron const& input);
 
 	/*
 	The function generates and returns a pointer to a NeuralNetwork with *input_number* inputs, *output_number* outputs, *hidden_layers_number* hidden layers with *neurons_per_hidden_layer* neurons in each,
@@ -45,6 +45,6 @@ namespace mnn {
 	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
 															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 															ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
-															std::function<float(AbstractNeuron*, AbstractNeuron*)> weightFunction = default_weights, 
-															float eta = 0.15f, float alpha = 0.5f);
+															std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights,
+															Type eta = 0.15f, Type alpha = 0.5f);
 }

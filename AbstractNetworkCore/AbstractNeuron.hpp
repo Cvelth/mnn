@@ -1,84 +1,55 @@
 #pragma once
 #include <functional>
-
+#include "Shared.hpp"
 namespace mnn {
 	struct Link;
 	class AbstractLayer;
-
-	struct NeuronConstants {
-		float eta, alpha;
-		NeuronConstants(float e, float a) : eta(e), alpha(a) {}
-	};
-}
-namespace mnn {
-	//Abstract class for storing typical neuron data to be inherited by other classes. 
-	//Handles inner calculation of the network parts for value generation and learning.
 	class AbstractNeuron {
 	private:
-		float m_value;
+		Type m_value;
 		bool m_isValuated;
 
 		size_t m_id;
 		static size_t NUMBER_OF_NEURONS_CREATED;
 	protected:
-		float m_gradient;
-		NeuronConstants m_constants;
+		Type m_gradient;
+		Type m_eta;
+		Type m_alpha;
 	protected:
-		//Run the calculation process with inserted inputs.
-		virtual void calculate() abstract;
-		//Returns normalized value of parameter *value*.
-		virtual float normalize(const float& value) abstract;
+		virtual void calculate() =0;
+		virtual Type normalize(Type const& value) =0;
 	public:
-		//Constructs static neuron(with inserted constant value).
-		AbstractNeuron(const float& value, NeuronConstants c = NeuronConstants(0.15f, 0.5f)) 
-			: m_isValuated(true), m_value(value), m_constants(c), m_id(NUMBER_OF_NEURONS_CREATED++) {}
-		//Constructs active neuron to be connected to others.
-		AbstractNeuron(NeuronConstants c = NeuronConstants(0.15f, 0.5f)) 
-			: m_isValuated(false), m_constants(c), m_id(NUMBER_OF_NEURONS_CREATED++) {}
+		AbstractNeuron(Type const& value, Type const& eta, Type const& alpha) : m_isValuated(true),
+			m_value(value), m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
+		AbstractNeuron(Type const& eta, Type const& alpha) : m_isValuated(false),
+			m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		virtual ~AbstractNeuron() {};
-		//Adds one more input neuron reference.
-		inline virtual void addInput(AbstractNeuron* i, float weight = 1.f) abstract;
-
-		//Returns value of the neuron. 
-		//If it isn't calculated, runs calculation process.
-		inline const float& value() {
+		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) =0;
+		virtual void link(Link const& l) =0;
+		virtual void link(LinkContainer<Link> const& l) =0;
+		inline const Type& value() {
 			if (!m_isValuated)
 				calculate();
 			return m_value;
 		}
-		//Returns the gradiens.
-		inline virtual float gradient() const {
-			return m_gradient;
-		}
-		//Set neuron's value to a constant without normalization.
-		inline void setValueUnnormalized(const float& value) {
+		inline virtual Type const& gradient() const { return m_gradient; }
+		inline void setValueUnnormalized(Type const& value) {
 			m_value = value;
 			m_isValuated = true;
 		}
-		//Set neuron's value to a constant with normalization of the value.
-		inline void setValue(const float& value) {
+		inline void setValue(Type const& value) {
 			m_value = normalize(value);
 			m_isValuated = true;
 		}
-		//Tells neuron to recalculate value on the next *value* function call.
-		inline void changed() {
-			m_isValuated = false;
-		}
-		//Checks whether Neuron will recalculate value on the next *value* function call.
-		inline bool isValuated() {
-			return m_isValuated;
-		}
+		inline void changed() { m_isValuated = false; }
+		inline bool isValuated() { return m_isValuated; }
 
-		//Calculates gradient accordingly to the expected value.
-		virtual void calculateGradient(const float expectedValue) abstract;
-		//Calculates gradient accordingly to the next layer.
-		virtual void calculateGradient(AbstractLayer* nextLayer) abstract;
-		//Recalculates all the weights of links.
-		virtual void recalculateWeights() abstract;
-		//Returns value of the weight between this neuron and the one passed by *neuron*.
-		virtual float getWeightTo(AbstractNeuron* neuron) abstract;
+		virtual void calculateGradient(Type const& expectedValue) =0;
+		[[deprecated]] virtual void calculateGradient(AbstractLayer* nextLayer) =0;
+		virtual void recalculateWeights() =0;
+		virtual Type getWeightTo(AbstractNeuron* neuron) =0;
 
-		//Executes *lambda* for every link.
-		inline virtual void for_each(std::function<void(Link&)> lambda, bool firstToLast = true) abstract;
+		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) =0;
+		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const =0;
 	};
 }

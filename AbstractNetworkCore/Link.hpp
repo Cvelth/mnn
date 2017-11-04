@@ -1,16 +1,12 @@
 #pragma once
-
+#include "Shared.hpp"
 namespace mnn {
 	class AbstractNeuron;
-
 	struct Link {
 		AbstractNeuron* unit;
-		float weight;
-		float delta;
-
-		Link(AbstractNeuron* unit, float weight) : unit(unit), weight(weight), delta(0.f) {}
-		inline void step() {
-			weight += delta;
-		}
+		Type weight;
+		Type delta;
+		Link(AbstractNeuron* unit, Type const& weight) : unit(unit), weight(weight), delta(0.f) {}
+		inline void step() { weight += delta; }
 	};
 }
