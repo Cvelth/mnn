@@ -11,6 +11,9 @@ namespace mnn {
 		virtual void addHiddenLayers(LayerContainer<AbstractLayer*> const& l) =0;
 		virtual void calculate() =0;
 
+		inline virtual AbstractLayer const* getInputLayer() const =0;
+		inline virtual AbstractLayer const* getOutputLayer() const =0;
+
 		inline virtual void for_each_hidden(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) =0;
 		inline virtual void for_each_hidden(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) const =0;
 		inline virtual void for_each_layer(std::function<void(AbstractLayer&)> lambda, bool firstToLast = true) =0;

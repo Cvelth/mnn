@@ -22,8 +22,8 @@ namespace mnn {
 
 		virtual NeuronContainer<Type> getInputs() const override;
 		virtual NeuronContainer<Type> getOutputs() const override;
-		inline AbstractLayer const* getInputLayer() const { return m_inputs; }
-		inline AbstractLayer const* getOutputLayer() const { return m_outputs; }
+		inline virtual AbstractLayer const* getInputLayer() const override { return m_inputs; }
+		inline virtual AbstractLayer const* getOutputLayer() const override { return m_outputs; }
 		
 		inline virtual void calculate() override { m_outputs->calculate(); }
 		
