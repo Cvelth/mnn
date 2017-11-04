@@ -29,7 +29,7 @@ void MultiField::remove(size_t number) {
 }
 void MultiField::change(size_t number) {
 	check();
-	signed int difference = signed int(number) - m_number;
+	signed int difference = (signed int)(number) - (signed int)(m_number);
 	if (difference >= 0)
 		add(difference);
 	else
@@ -41,12 +41,12 @@ size_t MultiField::size() const {
 Field* MultiField::at(size_t index) {
 	if (index > m_number)
 		throw Exceptions::BrokenSizeException();
-	return m_fields[index];
+	return m_fields[(int)index];
 }
 Field const* MultiField::at(size_t index) const {
 	if (index > m_number)
 		throw Exceptions::BrokenSizeException();
-	return m_fields[index];
+	return m_fields[(int)index];
 }
 void MultiField::check() const {
 	if (m_number != m_fields.size())

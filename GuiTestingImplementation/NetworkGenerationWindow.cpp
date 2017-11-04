@@ -1,10 +1,6 @@
 #include "NetworkGenerationWindow.hpp"
 bool NetworkGenerationWindow::isGeneratorInitialized = false;
 mnnt::RealRandomEngine* NetworkGenerationWindow::m_random_generator = nullptr;
-NetworkGenerationWindow::~NetworkGenerationWindow() {
-	if (isGeneratorInitialized) delete m_random_generator;
-	isGeneratorInitialized = false;
-}
 void NetworkGenerationWindow::hideAdditionalFields() {
 	ui.eta_label->hide();
 	ui.eta->hide();
@@ -42,8 +38,12 @@ NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::functio
 	connect(this, &NetworkGenerationWindow::returnNetwork, receiver, slot);
 	show();
 }
-#include "AbstractNeuron.hpp"
 #include "RandomEngine.hpp"
+NetworkGenerationWindow::~NetworkGenerationWindow() {
+	if (isGeneratorInitialized) delete m_random_generator;
+	isGeneratorInitialized = false;
+}
+#include "AbstractNeuron.hpp"
 std::function<float(mnn::AbstractNeuron const&, mnn::AbstractNeuron const&)> NetworkGenerationWindow::chooseDefaultWeights(size_t index) {
 	if (!isGeneratorInitialized) {
 		m_random_generator = new mnnt::RealRandomEngine();
@@ -91,7 +91,6 @@ std::function<float(mnn::AbstractNeuron const&, mnn::AbstractNeuron const&)> Net
 				return -1.f;
 			};
 	}
-	return std::function<float(mnn::AbstractNeuron const&, mnn::AbstractNeuron const&)>();
 }
 #include "Automatization.hpp"
 mnn::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
