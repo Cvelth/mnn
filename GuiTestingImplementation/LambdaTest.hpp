@@ -5,7 +5,7 @@
 #include "AbstractLayerNetwork.hpp"
 namespace mnnt {
 	GenerateNewException(NoNetworkInsertedException)
-	template<size_t Inputs, size_t Outputs, typename Test_Type = float>
+	template<size_t Inputs, size_t Outputs, typename Test_Type = Type>
 	class LambdaTest : public AbstractTest {
 		mnn::AbstractLayerNetwork* m_network;
 		std::array<Test_Type, Inputs> m_current_inputs;
@@ -30,32 +30,20 @@ namespace mnnt {
 
 		void calculate() {
 			newIteration();
-			if (m_network)
-				m_network->calculateWithInputs(m_current_inputs);
-			else
-				throw Exceptions::NoNetworkInsertedException();
+			if (m_network) m_network->calculateWithInputs(m_current_inputs);
+			else throw Exceptions::NoNetworkInsertedException();
 		}
 		void learningProcess() {
-			if (m_network)
-				m_network->learningProcess(m_current_outputs.begin(), m_current_outputs.end());
-			else
-				throw Exceptions::NoNetworkInsertedException();
+			if (m_network) m_network->learningProcess(m_current_outputs);
+			else throw Exceptions::NoNetworkInsertedException();
 			calculate();
 		}
 
-		virtual const size_t getOutputsNumber() const override { return m_network->getOutputsNumber(); }
-		virtual const float* getOutputs() const override { return m_network->getOutputs(); }
-		virtual const float getOutput(size_t index) const override {
-			if (index < m_network->getOutputsNumber())
-				return m_network->getOutputs()[index];
-			else
-				throw mnn::Exceptions::NonExistingIndexException();
-		}
-		virtual const float getInput(size_t index) const {
-			if (index < Inputs)
-				return m_current_inputs[index];
-			else
-				throw mnn::Exceptions::NonExistingIndexException();
-		}
+		virtual size_t getInputsNumber() const override { return m_network->getOutputsNumber(); }
+		virtual size_t getOutputsNumber() const override { return m_network->getOutputsNumber(); }
+		virtual NeuronContainer<Type> getInputs() const override { return m_network->getInputs(); }
+		virtual NeuronContainer<Type> getOutputs() const override { return m_network->getOutputs(); }
+		virtual const float getOutput(size_t index) const override { return m_network->getOutput(index); }
+		virtual const float getInput(size_t index) const override { return m_network->getInput(index); }
 	};
 }

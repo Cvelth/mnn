@@ -25,7 +25,7 @@ protected:
 	void showAdditionalFields();
 
 	static mnn::ConnectionPattern chooseConnection(size_t index);
-	static std::function<float(mnn::AbstractNeuron*, mnn::AbstractNeuron*)> chooseDefaultWeights(size_t index);
+	static std::function<float(mnn::AbstractNeuron const&, mnn::AbstractNeuron const&)> chooseDefaultWeights(size_t index);
 
 private:
 	Ui::NetworkGenerationWindowClass ui;
