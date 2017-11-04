@@ -30,6 +30,7 @@
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="Link.hpp" />
     <ClInclude Include="Sigmoids.hpp" />
+    <ClInclude Include="Storage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractNeuron.cpp" />
@@ -37,6 +38,7 @@
     <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />
+    <ClCompile Include="Storage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D5E03652-9B0D-4C7F-8565-24C0027058C7}</ProjectGuid>

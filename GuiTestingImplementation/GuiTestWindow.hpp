@@ -23,4 +23,8 @@ private:
 
 public slots:
 	void insertNetwork(mnn::AbstractNetwork* network);
+	void calculate();
+	void learn();
+	void save();
+	void load();
 };
