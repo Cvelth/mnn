@@ -7,7 +7,7 @@ namespace mnnt {
 		RandomEngine* m_engine;
 		Distribution* m_distribution;
 	public:
-		explicit AbstractRandomEngine() {
+		explicit AbstractRandomEngine() : m_distribution(nullptr) {
 			m_engine = new RandomEngine(std::random_device()());
 			changeDistribution(-1.f, +1.f);
 		}
