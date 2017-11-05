@@ -1,7 +1,7 @@
 #include "Storage.hpp"
-#define StorageSystemVersionCode "MNN_v0.2.53_storage_v1.0"
 #include <fstream>
 #include "AbstractNetwork.hpp"
+#include "TypeCodes.hpp"
 void mnn::save_to_file(std::string filename, AbstractNetwork *network) {
 	if (network == nullptr)
 		throw Exceptions::InvalidNetworkException();
@@ -31,7 +31,6 @@ mnn::AbstractNetwork* mnn::load_from_file(std::string filename, bool ignoreUnsup
 			it.second.first->setValueUnnormalized(1.f);
 	return res;
 }
-#include "TypeCodes.hpp"
 #include "LayerNetwork.hpp"
 std::istream& mnn::operator>>(std::istream &s, AbstractNetwork *&res) {
 	neuron_map.clear();

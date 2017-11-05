@@ -1,7 +1,10 @@
 #pragma once
+#define StorageSystemVersionCode "MNN_v0.2.64_storage_v1.0"
 #define LayerNetworkTypeCode "LN_01_v1.0"
 #define NeuronTypeCode "N"
+#define BackpropagationNeuronTypeCode "bN"
 #define LinkTypeCode "Lk"
+#define BackpropagationLinkTypeCode "bLk"
 #define LayerTypeCode "L"
 #define InputsTypeCode "I"
 #define OutputsTypeCode "O"
