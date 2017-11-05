@@ -6,7 +6,7 @@ namespace mnn {
 		virtual ~AbstractNetwork() {};
 		virtual void calculate() =0;
 		virtual void setInputs(NeuronContainer<Type> const& inputs, bool normalize = true) =0;
-		inline void calculateWithInputs(NeuronContainer<Type> const& inputs, bool normalize = true) {
+		inline void calculate(NeuronContainer<Type> const& inputs, bool normalize = true) {
 			if (inputs.size() != getInputs().size())
 				throw Exceptions::IncorrectDataAmountException();
 			setInputs(inputs, normalize);
