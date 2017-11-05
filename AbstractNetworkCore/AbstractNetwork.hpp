@@ -31,6 +31,6 @@ namespace mnn {
 		virtual std::string print() const = 0;
 
 		friend std::ostream& operator<<(std::ostream &s, AbstractNetwork const* n);
-		friend std::istream& operator>>(std::istream &s, AbstractNetwork *n);
+		friend std::istream& operator>>(std::istream &s, AbstractNetwork *&n);
 	};
 }
