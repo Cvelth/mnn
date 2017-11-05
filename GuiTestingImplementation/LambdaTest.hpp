@@ -5,7 +5,7 @@
 namespace mnnt {
 	GenerateNewException(NoNetworkInsertedException)
 	class LambdaTest : public AbstractTest {
-		mnn::AbstractLayerNetwork* m_network;
+		mnn::AbstractBackpropagationLayerNetwork* m_network;
 		NeuronContainer<Type> m_current_inputs;
 		NeuronContainer<Type> m_current_outputs;
 		using FunctionType = std::function<void(NeuronContainer<Type>&, NeuronContainer<Type>&)>;
@@ -23,7 +23,7 @@ namespace mnnt {
 			m_random.changeDistribution(min_value, max_value);
 		}
 		~LambdaTest() { if (m_network) delete m_network; }
-		virtual void insertNeuralNetwork(mnn::AbstractLayerNetwork *network) override {
+		virtual void insertNeuralNetwork(mnn::AbstractBackpropagationLayerNetwork *network) override {
 			m_network = network;
 			if (m_network) {
 				m_current_inputs.resize(getInputsNumber());
@@ -34,7 +34,7 @@ namespace mnnt {
 		void calculate() {
 			newIteration();
 			check_network();
-			m_network->calculateWithInputs(m_current_inputs);
+			m_network->calculate(m_current_inputs);
 		}
 		void learningProcess() {
 			check_network();
