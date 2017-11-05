@@ -28,7 +28,7 @@ void NetworkGenerationWindow::toggleAdditionalFields() {
 		showAdditionalFields();
 }
 #include <AbstractNetwork.hpp>
-NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(mnn::AbstractNetwork*)> slot, QWidget *parent)
+NetworkGenerationWindow::NetworkGenerationWindow(QObject* receiver, std::function<void(mnn::AbstractBackpropagationNetwork*)> slot, QWidget *parent)
 	: QWidget(parent) {
 	ui.setupUi(this);
 
@@ -106,7 +106,7 @@ mnn::ConnectionPattern NetworkGenerationWindow::chooseConnection(size_t index) {
 }
 #include "AbstractLayerNetwork.hpp"
 void NetworkGenerationWindow::startGeneration() {
-	mnn::AbstractNetwork *network = mnn::generateTypicalLayerNeuralNetwork(ui.inputs->value(), ui.outputs->value(), ui.hidden->value(), ui.per_hidden->value(),
+	mnn::AbstractBackpropagationNetwork *network = mnn::generateTypicalBackpropagationLayerNeuralNetwork(ui.inputs->value(), ui.outputs->value(), ui.hidden->value(), ui.per_hidden->value(),
 		chooseConnection(ui.connection->currentIndex()), chooseDefaultWeights(ui.default_weight->currentIndex()),
 		ui.eta->value(), ui.alpha->value());
 	emit returnNetwork(network);

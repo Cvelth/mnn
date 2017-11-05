@@ -8,16 +8,16 @@ namespace mnn {
 	public:
 		AbstractLayer() {}
 		~AbstractLayer() {}
-		inline virtual void add(NeuronType* i) =0;
-		inline virtual size_t size() const =0;
-		inline virtual Type at(size_t index) const =0;
+		inline virtual void add(NeuronType* i) = 0;
+		inline virtual size_t size() const = 0;
+		inline virtual Type at(size_t index) const = 0;
 		inline Type operator[](size_t index) const { return at(index); }
-		virtual std::string print() const =0;
+		virtual std::string print() const = 0;
 
-		inline virtual void calculate() =0;
+		inline virtual void calculate() = 0;
 
-		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) =0;
-		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) const =0;
+		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) = 0;
+		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) const = 0;
 
 		friend std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&n);
 	};
