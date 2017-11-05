@@ -113,13 +113,13 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNeuron *&res) {
 		for (size_t i = 0; i < links; i++) {
 			s >> temp;
 			if (temp == LinkTypeCode) {
-				size_t id;
+				size_t i_id;
 				Type weight;
-				s >> id >> weight;
+				s >> i_id >> weight;
 				mnn::AbstractNeuron *tn = nullptr;
-				auto it = neuron_map.find(id);
+				auto it = neuron_map.find(i_id);
 				if (it == neuron_map.end())
-					neuron_map.insert(std::make_pair(id, std::make_pair(tn = new mnn::Neuron(), false)));
+					neuron_map.insert(std::make_pair(i_id, std::make_pair(tn = new mnn::Neuron(), false)));
 				else
 					tn = it->second.first;
 				res->link(Link(tn, weight));
@@ -145,13 +145,13 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNeuron *&res) {
 		for (size_t i = 0; i < links; i++) {
 			s >> temp;
 			if (temp == BackpropagationLinkTypeCode) {
-				size_t id;
+				size_t i_id;
 				Type weight, delta;
-				s >> id >> weight >> delta;
+				s >> i_id >> weight >> delta;
 				mnn::AbstractBackpropagationNeuron *tn = nullptr;
-				auto it = neuron_map.find(id);
+				auto it = neuron_map.find(i_id);
 				if (it == neuron_map.end())
-					neuron_map.insert(std::make_pair(id, std::make_pair(tn = new mnn::BackpropagationNeuron(0.f, 0.f), false)));
+					neuron_map.insert(std::make_pair(i_id, std::make_pair(tn = new mnn::BackpropagationNeuron(0.f, 0.f), false)));
 				else
 					tn = dynamic_cast<AbstractBackpropagationNeuron*>(it->second.first);
 				res->link(BackpropagationLink(tn, weight, delta));
