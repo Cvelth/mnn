@@ -39,6 +39,8 @@ namespace mnn {
 		virtual Type getWeightTo(AbstractNeuron* neuron) override;
 		virtual void recalculateWeights() override;
 
+		virtual std::string print() const override;
+
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) override {
 			if (firstToLast)
 				for (auto it = m_links.begin(); it != m_links.end(); it++)

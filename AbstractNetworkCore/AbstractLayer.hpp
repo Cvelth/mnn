@@ -11,6 +11,7 @@ namespace mnn {
 		inline virtual size_t size() const =0;
 		inline virtual Type at(size_t index) const =0;
 		inline Type operator[](size_t index) const { return at(index); }
+		virtual std::string print() const =0;
 
 		inline virtual void calculate() =0;
 

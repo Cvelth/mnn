@@ -61,3 +61,16 @@ const float mnn::LayerNetwork::getInput(size_t index) const {
 const float mnn::LayerNetwork::getOutput(size_t index) const {
 	return getOutputLayer()->at(index);
 }
+#include "TypeCodes.hpp"
+#include <sstream>
+std::string mnn::LayerNetwork::print() const {
+	std::ostringstream res;
+	res << LayerNetworkTypeCode << '\n';
+	res << InputsTypeCode << " " << m_inputs->print();
+	res << OutputsTypeCode << " " << m_outputs->print();
+	res << HiddenTypeCode << " " << m_hidden.size() << '\n';
+	for (auto it : m_hidden)
+		res << it->print() << '\n';
+	res << LayerNetworkTypeCode;
+	return res.str();
+}
