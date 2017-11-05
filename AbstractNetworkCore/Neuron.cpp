@@ -35,7 +35,8 @@ void mnn::Neuron::calculateGradient(std::function<Type(std::function<Type(Abstra
 #include "TypeCodes.hpp"
 std::string mnn::Neuron::print() const {
 	std::ostringstream res;
-	res << "\t\t" << NeuronTypeCode << ' ' << id() << ' ' << m_links.size() << '\n';
+	res << "\t\t" << NeuronTypeCode << ' ' << id() << ' ' 
+		<< m_eta << ' ' << m_alpha << ' ' << m_links.size() << '\n';
 	for (auto it : m_links)
 		res << "\t\t\t" << LinkTypeCode << ' ' << it.unit->id() 
 			<< ' ' << it.weight << ' ' << it.delta << '\n';
