@@ -72,7 +72,6 @@ void GuiTestWindow::save() {
 		              m_currentNetwork);
 }
 void GuiTestWindow::load() {
-	mnn::load_from_file(QFileDialog::getOpenFileName(this, tr("Open Neural Network"), "",
-													 tr("MyNeuralNetwork file (*.mnn)")).toStdString(),
-						m_currentNetwork);
+	insertNetwork(mnn::load_from_file(QFileDialog::getOpenFileName(this, tr("Open Neural Network"), "",
+													 tr("MyNeuralNetwork file (*.mnn)")).toStdString()));
 }
