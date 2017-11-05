@@ -38,6 +38,9 @@
     <ClInclude Include="TypeCodes.hpp">
       <Filter>Storage</Filter>
     </ClInclude>
+    <ClInclude Include="LayerNetworkStorage.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -77,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Storage</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>Layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,7 +3,6 @@
 #include "AbstractNeuron.hpp"
 #include "Link.hpp"
 namespace mnn {
-	class AbstractLayer;
 	class Neuron : public AbstractNeuron {
 	protected:
 		LinkStorage<Link> m_links;

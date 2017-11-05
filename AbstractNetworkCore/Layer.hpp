@@ -3,7 +3,8 @@
 #include "AbstractNeuron.hpp"
 #include "AbstractLayer.hpp"
 namespace mnn {
-	class Layer : public AbstractLayer {
+	template <typename NeuronType>
+	class Layer : public AbstractLayer<NeuronType> {
 	protected:
 		NeuronContainer<AbstractNeuron*> m_neurons;
 	public:
@@ -30,4 +31,13 @@ namespace mnn {
 				for (auto it = m_neurons.rbegin(); it != m_neurons.rend(); it++) lambda(**it);
 		}
 	};
+}
+#include <sstream>
+template <typename NeuronType>
+std::string mnn::Layer<NeuronType>::print() const {
+	std::ostringstream res;
+	res << "\t" << LayerTypeCode << " " << m_neurons.size() << '\n';
+	for (auto it : m_neurons)
+		res << it->print();
+	return res.str();
 }

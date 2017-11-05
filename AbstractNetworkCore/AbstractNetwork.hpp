@@ -12,14 +12,6 @@ namespace mnn {
 			setInputs(inputs, normalize);
 			calculate();
 		}
-		inline void learningProcess(NeuronContainer<Type> const& outputs) {
-			if (outputs.size() != getOutputs().size())
-				throw Exceptions::IncorrectDataAmountException();
-			calculateGradients(outputs);
-			updateWeights();
-		}
-		virtual void calculateGradients(NeuronContainer<Type> const& outputs) =0;
-		virtual void updateWeights() =0;
 
 		virtual NeuronContainer<Type> getInputs() const =0;
 		virtual NeuronContainer<Type> getOutputs() const =0;
@@ -29,8 +21,18 @@ namespace mnn {
 		virtual const float getOutput(size_t index) const =0;
 
 		virtual std::string print() const = 0;
-
 		friend std::ostream& operator<<(std::ostream &s, AbstractNetwork const* n);
 		friend std::istream& operator>>(std::istream &s, AbstractNetwork *&n);
+	};
+	class AbstractBackpropagationNetwork : public AbstractNetwork {
+	public:
+		inline void learningProcess(NeuronContainer<Type> const& outputs) {
+			if (outputs.size() != getOutputs().size())
+				throw Exceptions::IncorrectDataAmountException();
+			calculateGradients(outputs);
+			updateWeights();
+		}
+		virtual void calculateGradients(NeuronContainer<Type> const& outputs) = 0;
+		virtual void updateWeights() = 0;
 	};
 }
