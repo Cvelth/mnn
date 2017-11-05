@@ -35,6 +35,7 @@
     <ClInclude Include="Storage.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractLayer.cpp" />
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />

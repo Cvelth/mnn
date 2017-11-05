@@ -81,5 +81,8 @@
     <ClCompile Include="Storage.cpp">
       <Filter>Storage</Filter>
     </ClCompile>
+    <ClCompile Include="AbstractLayer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

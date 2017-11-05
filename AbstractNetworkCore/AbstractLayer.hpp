@@ -1,8 +1,11 @@
 #pragma once
 #include "Shared.hpp"
+#include "TypeCodes.hpp"
+#include <sstream>
 #include <functional>
 namespace mnn {
 	class AbstractNeuron;
+	class AbstractBackpropagationNeuron;
 	template <typename NeuronType>
 	class AbstractLayer {
 	public:
@@ -19,8 +22,9 @@ namespace mnn {
 		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) = 0;
 		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) const = 0;
 
-		friend std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&n);
+		template <typename NeuronType>
+		friend std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&res);
 	};
 	template <typename NeuronType>
-	std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&n);
+	std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&res);
 }
