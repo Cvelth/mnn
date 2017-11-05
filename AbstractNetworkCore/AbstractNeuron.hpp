@@ -24,7 +24,7 @@ namespace mnn {
 		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) =0;
 		virtual void link(Link const& l) =0;
 		virtual void link(LinkContainer<Link> const& l) =0;
-		virtual LinkContainer<Link> const& links() const = 0;
+		virtual LinkContainer<Link> links() const = 0;
 		inline virtual void clear_links() =0;
 		inline virtual void update_links(LinkContainer<Link> const& c) =0;
 		inline const Type& value() {

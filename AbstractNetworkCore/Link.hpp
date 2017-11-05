@@ -1,7 +1,6 @@
 #pragma once
 #include "Shared.hpp"
 #include <functional>
-#include <algorithm>
 namespace mnn {
 	class AbstractNeuron;
 	struct Link {
@@ -46,7 +45,8 @@ namespace mnn {
 		template <typename ConvertableLinkType>
 		operator LinkContainer<ConvertableLinkType>() const {
 			LinkContainer<ConvertableLinkType> res;
-			std::copy(m_links.begin(), m_links.end(), res.begin());
+			for (auto it : m_links)
+				res.push_back(it);
 			return res;
 		}
 	};

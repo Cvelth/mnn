@@ -23,7 +23,7 @@ namespace mnn {
 		virtual void link(LinkContainer<Link> const& l) override {
 			for (auto it : l) link(it);
 		}
-		inline virtual LinkContainer<Link> const& links() const override { return *m_links; }
+		inline virtual LinkContainer<Link> links() const override { return *m_links; }
 		inline virtual void clear_links() override { m_links->clear(); }
 		inline virtual void update_links(LinkContainer<Link> const& c) override {
 			clear_links();
@@ -67,7 +67,7 @@ namespace mnn {
 		virtual void link(LinkContainer<Link> const& l) override {
 			for (auto it : l) link(it);
 		}
-		inline virtual LinkContainer<Link> const& links() const override { return m_links; }
+		inline virtual LinkContainer<Link> links() const override { return m_links; }
 		inline virtual void clear_links() override { m_links->clear(); }
 		inline virtual void update_links(LinkContainer<Link> const& c) override {
 			clear_links();

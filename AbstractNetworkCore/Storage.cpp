@@ -92,7 +92,7 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNetwork *&res) {
 		}
 
 		s >> temp;
-		if (temp != LayerNetworkTypeCode)
+		if (temp != BackpropagationLayerNetworkTypeCode)
 			throw Exceptions::BrokenMNNFile();
 
 		res = new BackpropagationLayerNetwork(inputs, outputs, hidden);
@@ -168,7 +168,8 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNeuron *&res) {
 			auto temp_map = dynamic_cast<AbstractBackpropagationNeuron*>(it->second.first);
 			temp_map->m_alpha = temp_res->m_alpha;
 			temp_map->m_eta = temp_res->m_eta;
-			temp_map->update_links(temp_res->links());
+			auto l = res->links();
+			temp_map->update_links(l);
 			res = temp_map;
 		}
 	} else
