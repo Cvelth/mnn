@@ -41,3 +41,23 @@ std::string mnn::Layer<NeuronType>::print() const {
 		res << it->print();
 	return res.str();
 }
+#include "TypeCodes.hpp"
+template<typename NeuronType>
+std::istream& mnn::operator>>(std::istream &s, AbstractLayer<NeuronType> *&res) {
+	std::string temp;
+	s >> temp;
+	if (temp == LayerTypeCode) {
+		if (res) delete res;
+		res = new Layer<NeuronType>();
+
+		size_t neurons;
+		s >> neurons;
+		for (size_t i = 0; i < neurons; i++) {
+			NeuronType *n = nullptr;
+			s >> n;
+			res->add(n);
+		}
+	} else
+		throw Exceptions::BrokenMNNFile();
+	return s;
+}

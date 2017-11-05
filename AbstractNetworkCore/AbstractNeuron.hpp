@@ -69,5 +69,7 @@ namespace mnn {
 
 		inline virtual void for_each_link(std::function<void(BackpropagationLink&)> lambda, bool firstToLast = true) = 0;
 		inline virtual void for_each_link(std::function<void(BackpropagationLink const&)> lambda, bool firstToLast = true) const = 0;
+
+		friend std::istream& operator>>(std::istream &s, AbstractNeuron *&n);
 	};
 }

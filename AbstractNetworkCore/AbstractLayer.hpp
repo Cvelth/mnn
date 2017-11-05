@@ -19,6 +19,8 @@ namespace mnn {
 		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) =0;
 		inline virtual void for_each(std::function<void(NeuronType&)> lambda, bool firstToLast = true) const =0;
 
-		friend std::istream& operator>>(std::istream &s, AbstractLayer *&n);
+		friend std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&n);
 	};
+	template <typename NeuronType>
+	std::istream& operator>>(std::istream &s, AbstractLayer<NeuronType> *&n);
 }
