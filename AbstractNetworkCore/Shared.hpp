@@ -19,4 +19,5 @@ namespace Exceptions {					   \
 namespace mnn {
 	GenerateNewException(IncorrectDataAmountException);
 	GenerateNewException(NonExistingIndexException);
+	GenerateNewException(NonExistingNetworkUsed);
 }

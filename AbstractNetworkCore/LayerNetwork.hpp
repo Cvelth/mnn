@@ -28,6 +28,8 @@ namespace mnn {
 		virtual const float getOutput(size_t index) const override;
 		inline virtual AbstractLayer const* getInputLayer() const override { return m_inputs; }
 		inline virtual AbstractLayer const* getOutputLayer() const override { return m_outputs; }
+
+		virtual std::string print() const override;
 		
 		inline virtual void calculate() override { m_outputs->calculate(); }
 		

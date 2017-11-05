@@ -23,9 +23,14 @@ namespace mnn {
 		AbstractNeuron(Type const& eta, Type const& alpha) : m_isValuated(false),
 			m_eta(eta), m_alpha(alpha), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		virtual ~AbstractNeuron() {};
+		inline size_t id() const { return m_id; }
+		static size_t next_id() { return NUMBER_OF_NEURONS_CREATED; }
 		virtual void link(AbstractNeuron *i, Type const& weight = 1.f) =0;
 		virtual void link(Link const& l) =0;
 		virtual void link(LinkContainer<Link> const& l) =0;
+		virtual LinkContainer<Link> const& links() const = 0;
+		inline virtual void clear_links() =0;
+		inline virtual void update_links(LinkContainer<Link> const& c) =0;
 		inline const Type& value() {
 			if (!m_isValuated)
 				calculate();
@@ -48,7 +53,11 @@ namespace mnn {
 		virtual void recalculateWeights() =0;
 		virtual Type getWeightTo(AbstractNeuron* neuron) =0;
 
+		virtual std::string print() const =0;
+
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) =0;
 		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const =0;
+
+		friend std::istream& operator>>(std::istream &s, AbstractNeuron *&n);
 	};
 }

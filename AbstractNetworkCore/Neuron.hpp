@@ -27,17 +27,19 @@ namespace mnn {
 		virtual void link(LinkContainer<Link> const& l) override {
 			for (auto it : l) link(it);
 		}
-		inline void clear_links() { m_links.clear(); }
-		inline void update_links(LinkContainer<Link> const& c) {
+		inline virtual LinkContainer<Link> const& links() const override { return m_links; }
+		inline virtual void clear_links() override { m_links.clear(); }
+		inline virtual void update_links(LinkContainer<Link> const& c) override {
 			clear_links();
 			m_links.reserve(c.size());
 			link(c);
 		}
-
 		virtual void calculateGradient(Type const& expectedValue) override;
 		virtual void calculateGradient(std::function<Type(std::function<Type(AbstractNeuron&)>)> gradient_sum) override;
 		virtual Type getWeightTo(AbstractNeuron* neuron) override;
 		virtual void recalculateWeights() override;
+
+		virtual std::string print() const override;
 
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) override {
 			if (firstToLast)

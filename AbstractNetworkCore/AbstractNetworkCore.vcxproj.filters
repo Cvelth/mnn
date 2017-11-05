@@ -32,6 +32,12 @@
     <ClInclude Include="Layer.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
+    <ClInclude Include="Storage.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeCodes.hpp">
+      <Filter>Storage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -49,6 +55,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{a49c883e-9aee-423f-ba3f-a7a515a17272}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Storage">
+      <UniqueIdentifier>{b001491c-eea8-459d-84a9-a45c9a39130e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LayerNetwork.cpp">
@@ -65,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="Neuron.cpp">
       <Filter>Neuron</Filter>
+    </ClCompile>
+    <ClCompile Include="Storage.cpp">
+      <Filter>Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
