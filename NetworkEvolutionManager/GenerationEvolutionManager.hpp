@@ -7,12 +7,9 @@ namespace mnn {
 		NetworkContainer<AbstractNetwork*> m_networks;
 	public:
 		explicit GenerationEvolutionManager(size_t units)
-			: AbstractGenerationEvolutionManager(units) {}
+			: AbstractGenerationEvolutionManager(units), m_networks(0) {}
 		explicit GenerationEvolutionManager(size_t units, EvaluationFunction f)
-			: AbstractGenerationEvolutionManager(units, f) {}
-		explicit GenerationEvolutionManager(NetworkContainer<AbstractNetwork*> const& m_networks)
-			: AbstractGenerationEvolutionManager(m_networks.size()), m_networks(m_networks) {}
-		explicit GenerationEvolutionManager(NetworkContainer<AbstractNetwork*> const& m_networks, EvaluationFunction f)
-			: AbstractGenerationEvolutionManager(m_networks.size(), f), m_networks(m_networks) {}
+			: AbstractGenerationEvolutionManager(units, f), m_networks(0) {}
+		virtual void nextGeneration() override;
 	};
 }

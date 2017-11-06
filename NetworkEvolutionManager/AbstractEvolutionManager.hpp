@@ -10,6 +10,7 @@ namespace mnn {
 		explicit AbstractEvolutionManager() {}
 		explicit AbstractEvolutionManager(EvaluationFunction f) : m_evaluate(f) {}
 		void changeEvaluationFunction(EvaluationFunction f) { m_evaluate = f; }
+		virtual void nextGeneration() =0;
 	};
 	class AbstractGenerationEvolutionManager : public AbstractEvolutionManager {
 	private:
