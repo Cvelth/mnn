@@ -34,7 +34,7 @@ GuiTestWindow::~GuiTestWindow() {
 	delete m_outputs_field;
 	delete m_learn;
 }
-void GuiTestWindow::insertNetwork(mnn::AbstractNetwork* network) {
+void GuiTestWindow::insertNetwork(mnn::AbstractBackpropagationNetwork* network) {
 	if (m_currentNetwork) delete m_currentNetwork;
 	m_currentNetwork = network;
 	if (m_currentNetwork) {
@@ -72,6 +72,7 @@ void GuiTestWindow::save() {
 		              m_currentNetwork);
 }
 void GuiTestWindow::load() {
-	insertNetwork(mnn::load_from_file(QFileDialog::getOpenFileName(this, tr("Open Neural Network"), "",
-													 tr("MyNeuralNetwork file (*.mnn)")).toStdString()));
+	insertNetwork(dynamic_cast<mnn::AbstractBackpropagationNetwork*>(mnn::load_from_file(
+		QFileDialog::getOpenFileName(this, tr("Open Neural Network"), "",
+									 tr("MyNeuralNetwork file (*.mnn)")).toStdString())));
 }

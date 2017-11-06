@@ -2,33 +2,32 @@
 #include "Neuron.hpp"
 #include "Layer.hpp"
 #include "LayerNetwork.hpp"
-
-mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer,
-																  ConnectionPattern connection, std::function<Type(mnn::AbstractNeuron const&, mnn::AbstractNeuron const&)> weightFunction,
-																  Type eta, Type alpha) {
+mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number,
+																  size_t neurons_per_hidden_layer, ConnectionPattern connection,
+																  std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction) {
 	size_t i;
-	mnn::AbstractLayer* in = new mnn::Layer();
+	mnn::AbstractLayer<AbstractNeuron>* in = new mnn::Layer<AbstractNeuron>();
 	for (i = 0; i < inputs_number; i++)
-		in->add(new mnn::Neuron(false, eta, alpha));
-	mnn::AbstractLayer* out = new mnn::Layer();
+		in->add(new mnn::Neuron());
+	mnn::AbstractLayer<AbstractNeuron>* out = new mnn::Layer<AbstractNeuron>();
 	for (i = 0; i < outputs_number; i++)
-		out->add(new mnn::Neuron(false, eta, alpha));
+		out->add(new mnn::Neuron());
 
 	mnn::AbstractLayerNetwork* ret = new mnn::LayerNetwork(in, out);
-		
+
 	for (i = 0; i < hidden_layers_number; i++) {
-		mnn::AbstractLayer* hd = new mnn::Layer();
+		mnn::AbstractLayer<AbstractNeuron>* hd = new mnn::Layer<AbstractNeuron>();
 		for (size_t j = 0; j < neurons_per_hidden_layer; j++)
-			hd->add(new mnn::Neuron(false, eta, alpha));
+			hd->add(new mnn::Neuron());
 		ret->addHiddenLayer(hd);
 	}
 
-	mnn::AbstractLayer *tempLayer = in;
+	mnn::AbstractLayer<AbstractNeuron> *tempLayer = in;
 	switch (connection) {
 		case mnn::ConnectionPattern::NoDefaultConnection:
 			break;
 		case mnn::ConnectionPattern::EachFromPreviousLayerWithoutBias:
-			ret->for_each_hidden([&tempLayer, &weightFunction](mnn::AbstractLayer& l) {
+			ret->for_each_hidden([&tempLayer, &weightFunction](mnn::AbstractLayer<AbstractNeuron>& l) {
 				l.for_each([&tempLayer, &weightFunction](mnn::AbstractNeuron& n) {
 					tempLayer->for_each([&n, &weightFunction](mnn::AbstractNeuron& in) {
 						n.link(&in, weightFunction(n, in));
@@ -43,8 +42,8 @@ mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_
 			});
 			break;
 		case mnn::ConnectionPattern::EachFromPreviousLayerWithBias:
-			mnn::AbstractNeuron *bias = new mnn::Neuron(1.f, eta, alpha);
-			ret->for_each_hidden([&tempLayer, &weightFunction, &bias](mnn::AbstractLayer& layer) {
+			mnn::AbstractNeuron *bias = new mnn::Neuron(1.f);
+			ret->for_each_hidden([&tempLayer, &weightFunction, &bias](mnn::AbstractLayer<AbstractNeuron>& layer) {
 				layer.for_each([&tempLayer, &weightFunction, &bias](mnn::AbstractNeuron& neuron) {
 					tempLayer->for_each([&neuron, &weightFunction](mnn::AbstractNeuron& input) {
 						neuron.link(&input, weightFunction(neuron, input));
@@ -64,6 +63,67 @@ mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_
 	return ret;
 }
 
+mnn::AbstractBackpropagationLayerNetwork* mnn::generateTypicalBackpropagationLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number,
+																								size_t neurons_per_hidden_layer, ConnectionPattern connection,
+																								std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction,
+																								Type eta, Type alpha) {
+	size_t i;
+	mnn::AbstractLayer<AbstractBackpropagationNeuron>* in = new mnn::Layer<AbstractBackpropagationNeuron>();
+	for (i = 0; i < inputs_number; i++)
+		in->add(new mnn::BackpropagationNeuron(eta, alpha));
+	mnn::AbstractLayer<AbstractBackpropagationNeuron>* out = new mnn::Layer<AbstractBackpropagationNeuron>();
+	for (i = 0; i < outputs_number; i++)
+		out->add(new mnn::BackpropagationNeuron(eta, alpha));
+
+	mnn::AbstractBackpropagationLayerNetwork* ret = new mnn::BackpropagationLayerNetwork(in, out);
+
+	for (i = 0; i < hidden_layers_number; i++) {
+		mnn::AbstractLayer<AbstractBackpropagationNeuron>* hd = new mnn::Layer<AbstractBackpropagationNeuron>();
+		for (size_t j = 0; j < neurons_per_hidden_layer; j++)
+			hd->add(new mnn::BackpropagationNeuron(eta, alpha));
+		ret->addHiddenLayer(hd);
+	}
+
+	mnn::AbstractLayer<AbstractBackpropagationNeuron> *tempLayer = in;
+	switch (connection) {
+		case mnn::ConnectionPattern::NoDefaultConnection:
+			break;
+		case mnn::ConnectionPattern::EachFromPreviousLayerWithoutBias:
+			ret->for_each_hidden([&tempLayer, &weightFunction](mnn::AbstractLayer<AbstractBackpropagationNeuron>& l) {
+				l.for_each([&tempLayer, &weightFunction](mnn::AbstractBackpropagationNeuron& n) {
+					tempLayer->for_each([&n, &weightFunction](mnn::AbstractBackpropagationNeuron& in) {
+						n.link(&in, weightFunction(n, in));
+					});
+				});
+				tempLayer = &l;
+			});
+			ret->for_each_output([&tempLayer, &weightFunction](mnn::AbstractBackpropagationNeuron& n) {
+				tempLayer->for_each([&n, &weightFunction](mnn::AbstractBackpropagationNeuron& in) {
+					n.link(&in, weightFunction(n, in));
+				});
+			});
+			break;
+		case mnn::ConnectionPattern::EachFromPreviousLayerWithBias:
+			mnn::AbstractBackpropagationNeuron *bias = new mnn::BackpropagationNeuron(1.f, eta, alpha);
+			ret->for_each_hidden([&tempLayer, &weightFunction, &bias](mnn::AbstractLayer<AbstractBackpropagationNeuron>& layer) {
+				layer.for_each([&tempLayer, &weightFunction, &bias](mnn::AbstractBackpropagationNeuron& neuron) {
+					tempLayer->for_each([&neuron, &weightFunction](mnn::AbstractBackpropagationNeuron& input) {
+						neuron.link(&input, weightFunction(neuron, input));
+					});
+					neuron.link(bias, weightFunction(neuron, *bias));
+				});
+				tempLayer = &layer;
+			});
+			ret->for_each_output([&tempLayer, &weightFunction, &bias](mnn::AbstractBackpropagationNeuron& neuron) {
+				tempLayer->for_each([&neuron, &weightFunction](mnn::AbstractBackpropagationNeuron& input) {
+					neuron.link(&input, weightFunction(neuron, input));
+				});
+				neuron.link(bias, weightFunction(neuron, *bias));
+			});
+			break;
+	}
+	return ret;
+}
 float mnn::default_weights(AbstractNeuron const& neuron, AbstractNeuron const& input) {
 	return 1.0f;
 }

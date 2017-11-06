@@ -1,7 +1,7 @@
 #pragma once
 #include "Shared.hpp"
 #include "RandomEngine.hpp"
-namespace mnn { class AbstractLayerNetwork; }
+namespace mnn { class AbstractBackpropagationLayerNetwork; }
 namespace mnnt {
 	/*
 	* Virtual Interface for all the Testing classes.
@@ -19,7 +19,7 @@ namespace mnnt {
 
 		//Changes the neural network being used by the test.
 		//Pass *nullptr* to remove any network installed.
-		virtual void insertNeuralNetwork(mnn::AbstractLayerNetwork *network) abstract;
+		virtual void insertNeuralNetwork(mnn::AbstractBackpropagationLayerNetwork *network) abstract;
 
 		//One iteration of network using the *static_input* data.
 		virtual void calculate() abstract;

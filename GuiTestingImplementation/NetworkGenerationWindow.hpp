@@ -5,13 +5,14 @@
 namespace mnn {
 	enum class ConnectionPattern;
 	class AbstractNeuron;
-	class AbstractNetwork;
+	class AbstractBackpropagationNeuron;
+	class AbstractBackpropagationNetwork;
 }
 namespace mnnt { class RealRandomEngine; }
 class NetworkGenerationWindow : public QWidget {
 	Q_OBJECT
 public:
-	NetworkGenerationWindow(QObject* receiver, std::function<void(mnn::AbstractNetwork*)> slot, QWidget *parent = Q_NULLPTR);
+	NetworkGenerationWindow(QObject* receiver, std::function<void(mnn::AbstractBackpropagationNetwork*)> slot, QWidget *parent = Q_NULLPTR);
 	~NetworkGenerationWindow();
 protected:
 	void hideAdditionalFields();
@@ -27,5 +28,5 @@ protected slots:
 	void toggleAdditionalFields();
 	void startGeneration();
 signals:
-	void returnNetwork(mnn::AbstractNetwork*);
+	void returnNetwork(mnn::AbstractBackpropagationNetwork*);
 };

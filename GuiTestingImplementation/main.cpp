@@ -25,7 +25,7 @@ QString calculate_action(size_t size, bool all_outputs_included = false) {
 		outputs[0] = bool(inputs[0]) ^ bool(inputs[1]);
 	});
 
-	test.insertNeuralNetwork(mnn::generateTypicalLayerNeuralNetwork(2, 1, 5, 6,
+	test.insertNeuralNetwork(mnn::generateTypicalBackpropagationLayerNeuralNetwork(2, 1, 5, 6,
 		mnn::ConnectionPattern::EachFromPreviousLayerWithBias,
 		mnn::random_weights, 0.15f, 0.5f));
 	test.calculate();

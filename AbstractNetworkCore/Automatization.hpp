@@ -3,7 +3,9 @@
 #include <functional>
 namespace mnn {
 	class AbstractNeuron;
+	class AbstractBackpropagationNeuron;
 	class AbstractLayerNetwork;
+	class AbstractBackpropagationLayerNetwork;
 	/*
 	The enum defining type of connection of the neurons in the network.
 	
@@ -29,7 +31,7 @@ namespace mnn {
 
 	/*
 	The function generates and returns a pointer to a NeuralNetwork with *input_number* inputs, *output_number* outputs, *hidden_layers_number* hidden layers with *neurons_per_hidden_layer* neurons in each,
-	The connection type is determined by *connection*. Default vriant connects a neuron to all the neurons from previous layer and to a bias neuron.
+	The connection type is determined by *connection*. Default variant connects a neuron to all the neurons from previous layer and to a bias neuron.
 	For more specific details see ConnectionPattern enum.
 	
 	WeightFunction is an lambda-function-argument which takes the arguments:
@@ -38,13 +40,32 @@ namespace mnn {
 	It returns a float -> weight of the Link.
 	
 	By default, the weights of all Links are equal to 1.0
-	
-	*eta* - coefficient determining overall net learning rate. Default value - 0.15
-	*alpha* - coefficient determining overall net momentum. Default value - 0.5
 	*/
 	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
 															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 															ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
-															std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights,
-															Type eta = 0.15f, Type alpha = 0.5f);
+															std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights);
+
+	/*
+	The function generates and returns a pointer to a NeuralNetwork with *input_number* inputs, *output_number* outputs, *hidden_layers_number* hidden layers with *neurons_per_hidden_layer* neurons in each,
+	The connection type is determined by *connection*. Default variant connects a neuron to all the neurons from previous layer and to a bias neuron.
+	For more specific details see ConnectionPattern enum.
+
+	Neurons are prepared for learningProcess(backpropagation) call in order to learn.
+
+	WeightFunction is an lambda-function-argument which takes the arguments:
+	* The neuron is being linked to
+	* The neuron is being linked
+	It returns a float -> weight of the Link.
+
+	By default, the weights of all Links are equal to 1.0
+
+	*eta* - coefficient determining overall net learning rate. Default value - 0.15
+	*alpha* - coefficient determining overall net momentum. Default value - 0.5
+	*/
+	AbstractBackpropagationLayerNetwork* generateTypicalBackpropagationLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
+																		   size_t hidden_layers_number, size_t neurons_per_hidden_layer,
+																		   ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
+																		   std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights,
+																		   Type eta = 0.15f, Type alpha = 0.5f);
 }

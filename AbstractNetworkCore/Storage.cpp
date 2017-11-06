@@ -1,7 +1,7 @@
 #include "Storage.hpp"
-#define StorageSystemVersionCode "MNN_v0.2.53_storage_v1.0"
 #include <fstream>
 #include "AbstractNetwork.hpp"
+#include "TypeCodes.hpp"
 void mnn::save_to_file(std::string filename, AbstractNetwork *network) {
 	if (network == nullptr)
 		throw Exceptions::InvalidNetworkException();
@@ -31,7 +31,6 @@ mnn::AbstractNetwork* mnn::load_from_file(std::string filename, bool ignoreUnsup
 			it.second.first->setValueUnnormalized(1.f);
 	return res;
 }
-#include "TypeCodes.hpp"
 #include "LayerNetwork.hpp"
 std::istream& mnn::operator>>(std::istream &s, AbstractNetwork *&res) {
 	neuron_map.clear();
@@ -41,23 +40,23 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNetwork *&res) {
 		s >> temp;
 		if (temp != InputsTypeCode)
 			throw Exceptions::BrokenMNNFile();
-		AbstractLayer *inputs = nullptr;
+		AbstractLayer<AbstractNeuron> *inputs = nullptr;
 		s >> inputs;
 
 		s >> temp;
 		if (temp != OutputsTypeCode)
 			throw Exceptions::BrokenMNNFile();
-		AbstractLayer *outputs = nullptr;
+		AbstractLayer<AbstractNeuron> *outputs = nullptr;
 		s >> outputs;
 
 		s >> temp;
 		if (temp != HiddenTypeCode)
 			throw Exceptions::BrokenMNNFile();
-		LayerContainer<AbstractLayer*> hidden;
+		LayerContainer<AbstractLayer<AbstractNeuron>*> hidden;
 		size_t hidden_number;
 		s >> hidden_number;
 		for (size_t i = 0; i < hidden_number; i++) {
-			AbstractLayer *hidden_temp = nullptr;
+			AbstractLayer<AbstractNeuron> *hidden_temp = nullptr;
 			s >> hidden_temp;
 			hidden.push_back(hidden_temp);
 		}
@@ -67,6 +66,36 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNetwork *&res) {
 			throw Exceptions::BrokenMNNFile();
 
 		res = new LayerNetwork(inputs, outputs, hidden);
+	} else if (temp == BackpropagationLayerNetworkTypeCode) {
+		s >> temp;
+		if (temp != InputsTypeCode)
+			throw Exceptions::BrokenMNNFile();
+		AbstractLayer<AbstractBackpropagationNeuron> *inputs = nullptr;
+		s >> inputs;
+
+		s >> temp;
+		if (temp != OutputsTypeCode)
+			throw Exceptions::BrokenMNNFile();
+		AbstractLayer<AbstractBackpropagationNeuron> *outputs = nullptr;
+		s >> outputs;
+
+		s >> temp;
+		if (temp != HiddenTypeCode)
+			throw Exceptions::BrokenMNNFile();
+		LayerContainer<AbstractLayer<AbstractBackpropagationNeuron>*> hidden;
+		size_t hidden_number;
+		s >> hidden_number;
+		for (size_t i = 0; i < hidden_number; i++) {
+			AbstractLayer<AbstractBackpropagationNeuron> *hidden_temp = nullptr;
+			s >> hidden_temp;
+			hidden.push_back(hidden_temp);
+		}
+
+		s >> temp;
+		if (temp != BackpropagationLayerNetworkTypeCode)
+			throw Exceptions::BrokenMNNFile();
+
+		res = new BackpropagationLayerNetwork(inputs, outputs, hidden);
 	} else
 		throw Exceptions::BrokenMNNFile();
 	return s;
@@ -77,27 +106,24 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNeuron *&res) {
 	s >> temp;
 	if (temp == NeuronTypeCode) {
 		size_t id, links;
-		Type eta, alpha;
-		s >> id >> eta >> alpha;
+		s >> id;
 		if (res) delete res;
-		res = new Neuron(eta, alpha);
+		res = new Neuron();
 		s >> links;
-		for (auto i = 0; i < links; i++) {
+		for (size_t i = 0; i < links; i++) {
 			s >> temp;
 			if (temp == LinkTypeCode) {
-				size_t id;
-				Type weight, delta;
-				s >> id >> weight >> delta;
+				size_t i_id;
+				Type weight;
+				s >> i_id >> weight;
 				mnn::AbstractNeuron *tn = nullptr;
-				auto it = neuron_map.find(id);
+				auto it = neuron_map.find(i_id);
 				if (it == neuron_map.end())
-					neuron_map.insert(std::make_pair(id, std::make_pair(tn = new mnn::Neuron(0.f, 0.f), false)));
+					neuron_map.insert(std::make_pair(i_id, std::make_pair(tn = new mnn::Neuron(), false)));
 				else
 					tn = it->second.first;
-				Link l(tn, weight);
-				l.delta = delta;
-				res->link(l);
-			} else
+				res->link(Link(tn, weight));
+			} else 
 				throw Exceptions::BrokenMNNFile();
 		}
 		
@@ -106,30 +132,45 @@ std::istream& mnn::operator>>(std::istream &s, AbstractNeuron *&res) {
 			neuron_map.insert(std::make_pair(id, std::make_pair(res, true)));
 		else {
 			it->second.second = true;
-			it->second.first->m_alpha = res->m_alpha;
-			it->second.first->m_eta = res->m_eta;
 			it->second.first->update_links(res->links());
 			res = it->second.first;
 		}
-	} else
-		throw Exceptions::BrokenMNNFile();
-	return s;
-}
-#include "AbstractLayer.hpp"
-#include "Layer.hpp"
-std::istream& mnn::operator>>(std::istream &s, AbstractLayer *&res) {
-	std::string temp;
-	s >> temp;
-	if (temp == LayerTypeCode) {
+	} else if (temp == BackpropagationNeuronTypeCode) {
+		size_t id, links;
+		Type eta, alpha;
+		s >> id >> eta >> alpha;
 		if (res) delete res;
-		res = new Layer();
+		res = new BackpropagationNeuron(eta, alpha);
+		s >> links;
+		for (size_t i = 0; i < links; i++) {
+			s >> temp;
+			if (temp == BackpropagationLinkTypeCode) {
+				size_t i_id;
+				Type weight, delta;
+				s >> i_id >> weight >> delta;
+				mnn::AbstractBackpropagationNeuron *tn = nullptr;
+				auto it = neuron_map.find(i_id);
+				if (it == neuron_map.end())
+					neuron_map.insert(std::make_pair(i_id, std::make_pair(tn = new mnn::BackpropagationNeuron(0.f, 0.f), false)));
+				else
+					tn = dynamic_cast<AbstractBackpropagationNeuron*>(it->second.first);
+				res->link(BackpropagationLink(tn, weight, delta));
+			} else
+				throw Exceptions::BrokenMNNFile();
+		}
 
-		size_t neurons;
-		s >> neurons;
-		for (size_t i = 0; i < neurons; i++) {
-			AbstractNeuron *n = nullptr;
-			s >> n;
-			res->add(n);
+		auto it = neuron_map.find(id);
+		if (it == neuron_map.end())
+			neuron_map.insert(std::make_pair(id, std::make_pair(res, true)));
+		else {
+			it->second.second = true; 
+			auto temp_res = dynamic_cast<AbstractBackpropagationNeuron*>(res);
+			auto temp_map = dynamic_cast<AbstractBackpropagationNeuron*>(it->second.first);
+			temp_map->m_alpha = temp_res->m_alpha;
+			temp_map->m_eta = temp_res->m_eta;
+			auto l = res->links();
+			temp_map->update_links(l);
+			res = temp_map;
 		}
 	} else
 		throw Exceptions::BrokenMNNFile();

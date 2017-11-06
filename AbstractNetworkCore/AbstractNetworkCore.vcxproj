@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer.hpp" />
+    <ClInclude Include="LayerNetworkStorage.hpp" />
     <ClInclude Include="TypeCodes.hpp" />
     <ClInclude Include="Neuron.hpp" />
     <ClInclude Include="AbstractLayer.hpp" />
@@ -34,9 +35,9 @@
     <ClInclude Include="Storage.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractLayer.cpp" />
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
-    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />

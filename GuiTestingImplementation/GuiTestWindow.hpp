@@ -4,7 +4,7 @@
 #include "Shared.hpp"
 GenerateNewException(NoNeuralNetworkInserted);
 GenerateNewException(NeuralNetworkSupportError);
-namespace mnn { class AbstractNetwork; }
+namespace mnn { class AbstractBackpropagationNetwork; }
 class MultiField;
 class GuiTestWindow : public QWidget {
 	Q_OBJECT
@@ -13,7 +13,7 @@ public:
 	~GuiTestWindow();
 private:
 	Ui::GuiTestWindowClass ui;
-	mnn::AbstractNetwork *m_currentNetwork;
+	mnn::AbstractBackpropagationNetwork *m_currentNetwork;
 	QVBoxLayout *m_inputs_layout;
 	MultiField *m_inputs_field;
 	QPushButton *m_calculate;
@@ -22,7 +22,7 @@ private:
 	QPushButton *m_learn;
 
 public slots:
-	void insertNetwork(mnn::AbstractNetwork* network);
+	void insertNetwork(mnn::AbstractBackpropagationNetwork* network);
 	void calculate();
 	void learn();
 	void save();
