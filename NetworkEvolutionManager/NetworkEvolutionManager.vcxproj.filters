@@ -7,15 +7,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shared.hpp" />
-    <ClInclude Include="GenerationEvolutionManager.hpp">
+    <ClInclude Include="AbstractEvolutionManager.hpp">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractEvolutionManager.hpp">
+    <ClInclude Include="NetworkGenerationEvolutionManager.hpp">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GenerationEvolutionManager.cpp">
+    <ClCompile Include="NetworkGenerationEvolutionManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
