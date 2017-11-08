@@ -37,7 +37,7 @@ namespace mnn {
 		virtual void newPopulation() =0;
 		virtual void testPopulation() =0;
 		virtual void selectionStep() =0;
-		virtual void recreatePopulation() =0;
+		virtual void recreatePopulation(bool baseOnSurvivors = true) =0;
 	};
 	class AbstractGenerationEvolutionManager : public AbstractEvolutionManager {
 	protected:

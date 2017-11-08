@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
 }
 /*/
 #include "NetworkGenerationEvolutionManager.hpp"
+#include "Automatization.hpp"
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 
@@ -16,12 +17,16 @@ int main(int argc, char *argv[]) {
 		if (calculate({0,0})[0] > 0.f)
 			return 1.f;
 		else
-			return -1.f;
+			return 0.f;
 	}, 2, 1);
-
-	em->changeSelectionParameters(0.2, mnn::SelectionType::Value);
-	em->nextGeneration();
-	em->testPopulation();
+	
+	em->changeSelectionParameters(0.8);
+	em->newPopulation();
+	for (size_t i = 0; i < 5; i++) {
+		em->testPopulation();
+		em->selectionStep();
+		em->recreatePopulation();
+	}
 
 	return a.exec();
 }

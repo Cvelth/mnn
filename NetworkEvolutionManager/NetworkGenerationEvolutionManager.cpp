@@ -11,13 +11,8 @@ void mnn::NetworkGenerationEvolutionManager::newPopulation() {
 			delete m_networks.back().second;
 			m_networks.pop_back();
 	}
-	m_networks.reserve(m_units);
-	for (size_t i = 0; i < m_units; i++)
-		m_networks.push_back(std::make_pair(0, generateTypicalLayerNeuralNetwork(m_input_neurons, m_output_neurons,
-																				 m_layer_divisor, m_hidden_neurons / m_layer_divisor,
-																				 ConnectionPattern::EachFromPreviousLayerWithBias, random_weights)));
+	recreatePopulation(false);
 }
-#include <algorithm>
 void mnn::NetworkGenerationEvolutionManager::testPopulation() {
 	for (auto &it : m_networks) {
 		it.first = m_evaluate([&it](NeuronContainer<Type> inputs) -> NeuronContainer<Type> {
@@ -26,6 +21,26 @@ void mnn::NetworkGenerationEvolutionManager::testPopulation() {
 		});
 	}
 }
+#include <random>
+void mnn::NetworkGenerationEvolutionManager::recreatePopulation(bool baseOnSurvivors) {
+	m_networks.reserve(m_units);
+	if (baseOnSurvivors) {
+		size_t survivors = m_networks.size();
+		if (survivors < 3) throw Exceptions::UnofficientAmountOfSurvivors();
+		std::mt19937_64 g;
+		std::uniform_int_distribution<size_t> d(0, survivors - 1);
+		while (m_networks.size() < m_units) {
+			m_networks.push_back(std::make_pair(0.f, generateTypicalLayerNeuralNetwork(dynamic_cast<mnn::AbstractLayerNetwork*>(m_networks[d(g)].second), 
+																					   dynamic_cast<mnn::AbstractLayerNetwork*>(m_networks[d(g)].second))));
+		}
+	} else {
+		for (size_t i = m_networks.size(); i < m_units; i++)
+			m_networks.push_back(std::make_pair(0.f, generateTypicalLayerNeuralNetwork(m_input_neurons, m_output_neurons,
+																					   m_layer_divisor, m_hidden_neurons / m_layer_divisor,
+																					   ConnectionPattern::EachFromPreviousLayerWithBias, random_weights)));
+	}
+}
+#include <algorithm>
 void mnn::NetworkGenerationEvolutionManager::selectionStep() {
 	std::sort(m_networks.begin(), m_networks.end(), [](auto l, auto r) { return l.first > r.first; });
 	switch (m_selection_type) {
@@ -47,7 +62,4 @@ void mnn::NetworkGenerationEvolutionManager::selectionStep() {
 			}
 			break;
 	}
-}
-void mnn::NetworkGenerationEvolutionManager::recreatePopulation() {
-	//To be implemented.
 }
