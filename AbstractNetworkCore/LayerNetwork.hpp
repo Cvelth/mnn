@@ -22,6 +22,7 @@ namespace mnn {
 		virtual const float getOutput(size_t index) const override;
 		inline virtual AbstractLayer<AbstractNeuron> const* getInputLayer() const override { return m_layers.inputs(); }
 		inline virtual AbstractLayer<AbstractNeuron> const* getOutputLayer() const override { return m_layers.outputs(); }
+		virtual bool check_compatibility(AbstractNetwork const* other) const override;
 
 		inline virtual void calculate() override { m_layers.outputs()->calculate(); }
 		
@@ -87,6 +88,7 @@ namespace mnn {
 		virtual const float getOutput(size_t index) const override;
 		inline virtual AbstractLayer<AbstractBackpropagationNeuron> const* getInputLayer() const override { return m_layers.inputs(); }
 		inline virtual AbstractLayer<AbstractBackpropagationNeuron> const* getOutputLayer() const override { return m_layers.outputs(); }
+		virtual bool check_compatibility(AbstractNetwork const* other) const override;
 
 		inline virtual void calculate() override { m_layers.outputs()->calculate(); }
 

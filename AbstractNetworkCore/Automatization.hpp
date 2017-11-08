@@ -68,4 +68,13 @@ namespace mnn {
 																		   ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
 																		   std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights,
 																		   Type eta = 0.15f, Type alpha = 0.5f);
+	
+	/*
+	The function generates and returns a pointer to a NeuralNetwork created using fusion of two other analogical neural networks.
+	*input_number*, *output_number*, *hidden_layers_number*, *neurons_per_hidden_layer* and *connection* must be the same for both parents.
+
+	Each weight has 50% chance to be inherited from one of the parents.
+	*/
+	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(AbstractLayerNetwork *parent1, AbstractLayerNetwork *parent2);
+	GenerateNewException(UnsupportedParameters)
 }

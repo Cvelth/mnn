@@ -23,6 +23,8 @@ namespace mnn {
 		virtual std::string print() const = 0;
 		friend std::ostream& operator<<(std::ostream &s, AbstractNetwork const* n);
 		friend std::istream& operator>>(std::istream &s, AbstractNetwork *&n);
+
+		virtual bool check_compatibility(AbstractNetwork const* other) const =0;
 	};
 	class AbstractBackpropagationNetwork : public AbstractNetwork {
 	public:
