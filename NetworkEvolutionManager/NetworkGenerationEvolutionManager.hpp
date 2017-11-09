@@ -1,4 +1,5 @@
 #pragma once
+#include <functional> 
 #include "Shared.hpp"
 #include "AbstractEvolutionManager.hpp"
 namespace mnn {
@@ -19,5 +20,8 @@ namespace mnn {
 		virtual void recreatePopulation(bool baseOnSurvivors = true) override;
 		virtual void mutatePopulation(float unit_mutation_chance,
 									  float weight_mutation_chance) override;
+
+		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true);
+		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true) const;
 	};
 }
