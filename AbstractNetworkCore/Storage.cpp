@@ -5,8 +5,8 @@
 void mnn::save_to_file(std::string filename, AbstractNetwork *network) {
 	if (network == nullptr)
 		throw Exceptions::InvalidNetworkException();
-	std::ofstream f;
-	f.open(filename, std::ofstream::out);
+	std::ofstream f(filename, std::ofstream::out);
+	if (!f) throw Exceptions::CannotAccessFile();
 	f << StorageSystemVersionCode << '\n';
 	f << network;
 }
@@ -18,8 +18,8 @@ std::ostream& mnn::operator<<(std::ostream &s, AbstractNetwork const* n) {
 #include <map>
 std::map<size_t, std::pair<mnn::AbstractNeuron*, bool>> neuron_map;
 mnn::AbstractNetwork* mnn::load_from_file(std::string filename, bool ignoreUnsupportedMessage) {
-	std::ifstream f;
-	f.open(filename, std::ifstream::in);
+	std::ifstream f(filename, std::ifstream::in);
+	if (!f) throw Exceptions::CannotAccessFile();
 	std::string version;
 	f >> version;
 	if (!ignoreUnsupportedMessage && version != StorageSystemVersionCode)

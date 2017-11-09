@@ -76,7 +76,7 @@ void mnn::NetworkGenerationEvolutionManager::recreatePopulation(bool baseOnSurvi
 void mnn::NetworkGenerationEvolutionManager::mutatePopulation(float unit_mutation_chance, float weight_mutation_chance) {
 	std::mt19937_64 g((std::random_device())());
 	std::uniform_real_distribution<float> d(0.f, 1.f);
-	if (unit_mutation_chance > 1.f || unit_mutation_chance < 0.f || weight_mutation_chance > 1.f || weight_mutation_chance < 1.f)
+	if (unit_mutation_chance > 1.f || unit_mutation_chance < 0.f || weight_mutation_chance > 1.f || weight_mutation_chance < 0.f)
 		throw Exceptions::UnlogicalParameterWasPassed();
 	for (auto& it : m_networks)
 		if (d(g) < unit_mutation_chance)
