@@ -35,9 +35,11 @@ namespace mnn {
 			changeSelectionParameters(selection_persent, selection_type);
 		}
 		virtual void newPopulation() =0;
-		virtual void testPopulation() =0;
-		virtual void selectionStep() =0;
+		virtual void testPopulation(bool sort = true) =0;
+		virtual void sortPopulation() =0;
+		virtual void populationSelection() =0;
 		virtual void recreatePopulation(bool baseOnSurvivors = true) =0;
+		virtual void mutatePopulation(float unit_mutation_chance, float weight_mutation_chance) =0;
 	};
 	class AbstractGenerationEvolutionManager : public AbstractEvolutionManager {
 	protected:

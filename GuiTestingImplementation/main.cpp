@@ -9,7 +9,6 @@ int main(int argc, char **argv) {
 }
 /*/
 #include "NetworkGenerationEvolutionManager.hpp"
-#include "Automatization.hpp"
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 
@@ -23,11 +22,12 @@ int main(int argc, char *argv[]) {
 	em->changeSelectionParameters(0.8);
 	em->newPopulation();
 	for (size_t i = 0; i < 5; i++) {
-		em->testPopulation();
-		em->selectionStep();
+		em->testPopulation(true);
+		em->populationSelection();
 		em->recreatePopulation();
+		em->mutatePopulation(1.f, 1.f);
 	}
 
-	return a.exec();
+	return 0;// a.exec();
 }
 /**/
