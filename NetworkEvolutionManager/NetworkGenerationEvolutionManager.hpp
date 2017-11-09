@@ -21,7 +21,9 @@ namespace mnn {
 		virtual void mutatePopulation(float unit_mutation_chance,
 									  float weight_mutation_chance) override;
 
-		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true);
-		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true) const;
+		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>)> lambda, bool firstToLast = true);
+		virtual void for_each(std::function<void(std::pair<Type, AbstractNetwork*>)> lambda, bool firstToLast = true) const;
+		NetworkContainer<std::pair<Type, AbstractNetwork*>> const& operator*() const;
+		NetworkContainer<std::pair<Type, AbstractNetwork*>>& operator*();
 	};
 }

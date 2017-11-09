@@ -22,7 +22,7 @@ void mnn::NetworkGenerationEvolutionManager::testPopulation(bool sort) {
 	}
 	if (sort) sortPopulation();
 }
-virtual void mnn::NetworkGenerationEvolutionManager::for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true) {
+void mnn::NetworkGenerationEvolutionManager::for_each(std::function<void(std::pair<Type, AbstractNetwork*>)> lambda, bool firstToLast = true) {
 	if (firstToLast)
 		for (auto it = m_networks.begin(); it != m_networks.end(); it++)
 			lambda(*it);
@@ -30,13 +30,19 @@ virtual void mnn::NetworkGenerationEvolutionManager::for_each(std::function<void
 		for (auto it = m_networks.rbegin(); it != m_networks.rend(); it++)
 			lambda(*it);
 }
-virtual void mnn::NetworkGenerationEvolutionManager::for_each(std::function<void(std::pair<Type, AbstractNetwork*>&)> lambda, bool firstToLast = true) const {
+void mnn::NetworkGenerationEvolutionManager::for_each(std::function<void(std::pair<Type, AbstractNetwork*>)> lambda, bool firstToLast = true) const {
 	if (firstToLast)
 		for (auto it = m_networks.begin(); it != m_networks.end(); it++)
 			lambda(*it);
 	else
 		for (auto it = m_networks.rbegin(); it != m_networks.rend(); it++)
 			lambda(*it);
+}
+NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>> const& mnn::NetworkGenerationEvolutionManager::operator*() const {
+	return m_networks;
+}
+NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>>& mnn::NetworkGenerationEvolutionManager::operator*() {
+	return m_networks;
 }
 #include <algorithm>
 void mnn::NetworkGenerationEvolutionManager::sortPopulation() {
