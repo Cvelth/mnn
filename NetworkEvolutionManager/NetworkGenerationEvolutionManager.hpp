@@ -24,5 +24,7 @@ namespace mnn {
 
 		NetworkContainer<std::pair<Type, AbstractNetwork*>> const& operator*() const;
 		NetworkContainer<std::pair<Type, AbstractNetwork*>>& operator*();
+		NetworkContainer<std::pair<Type, AbstractNetwork*>> const* operator->() const;
+		NetworkContainer<std::pair<Type, AbstractNetwork*>>* operator->();
 	};
 }
