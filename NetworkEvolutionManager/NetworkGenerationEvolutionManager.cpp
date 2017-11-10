@@ -29,10 +29,10 @@ NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>>& mnn::NetworkGeneration
 	return m_networks;
 }
 NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>> const* mnn::NetworkGenerationEvolutionManager::operator->() const {
-	return m_networks;
+	return &m_networks;
 }
 NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>>* mnn::NetworkGenerationEvolutionManager::operator->() {
-	return m_networks;
+	return &m_networks;
 }
 #include <algorithm>
 void mnn::NetworkGenerationEvolutionManager::sortPopulation() {
