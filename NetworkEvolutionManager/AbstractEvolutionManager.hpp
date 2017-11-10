@@ -35,7 +35,7 @@ namespace mnn {
 			changeSelectionParameters(selection_persent, selection_type);
 		}
 		virtual void newPopulation() =0;
-		virtual void testPopulation(bool sort = true) =0;
+		virtual Type testPopulation(bool sort = true) =0;
 		virtual void sortPopulation() =0;
 		virtual void populationSelection() =0;
 		virtual void recreatePopulation(bool baseOnSurvivors = true) =0;

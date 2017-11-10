@@ -15,7 +15,7 @@ namespace mnn {
 		using AbstractNetworkGenerationEvolutionManager::AbstractNetworkGenerationEvolutionManager;
 		~NetworkGenerationEvolutionManager();
 		virtual void newPopulation() override;
-		virtual void testPopulation(bool sort = true) override;
+		virtual Type testPopulation(bool sort = true) override;
 		virtual void sortPopulation() override;
 		virtual void populationSelection() override;
 		virtual void recreatePopulation(bool baseOnSurvivors = true) override;
