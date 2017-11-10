@@ -13,20 +13,28 @@ void mnn::NetworkGenerationEvolutionManager::newPopulation() {
 	}
 	recreatePopulation(false);
 }
-void mnn::NetworkGenerationEvolutionManager::testPopulation(bool sort) {
+Type mnn::NetworkGenerationEvolutionManager::testPopulation(bool sort) {
+	Type sum = 0.f;
 	for (auto &it : m_networks) {
-		it.first = m_evaluate([&it](NeuronContainer<Type> inputs) -> NeuronContainer<Type> {
+		sum += it.first = m_evaluate([&it](NeuronContainer<Type> inputs) -> NeuronContainer<Type> {
 			it.second->calculate(inputs);
 			return it.second->getOutputs();
 		});
 	}
 	if (sort) sortPopulation();
+	return sum / m_networks.size();
 }
 NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>> const& mnn::NetworkGenerationEvolutionManager::operator*() const {
 	return m_networks;
 }
 NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>>& mnn::NetworkGenerationEvolutionManager::operator*() {
 	return m_networks;
+}
+NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>> const* mnn::NetworkGenerationEvolutionManager::operator->() const {
+	return &m_networks;
+}
+NetworkContainer<std::pair<Type, mnn::AbstractNetwork*>>* mnn::NetworkGenerationEvolutionManager::operator->() {
+	return &m_networks;
 }
 #include <algorithm>
 void mnn::NetworkGenerationEvolutionManager::sortPopulation() {
