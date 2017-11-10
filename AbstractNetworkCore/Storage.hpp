@@ -3,6 +3,7 @@
 #include <string>
 namespace mnn {
 	GenerateNewException(InvalidNetworkException);
+	GenerateNewException(CannotAccessFile);
 	GenerateNewException(UnsupportedMNNFile);
 	GenerateNewException(BrokenMNNFile);
 	class AbstractNetwork;

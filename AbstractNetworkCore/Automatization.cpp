@@ -130,6 +130,69 @@ float mnn::default_weights(AbstractNeuron const& neuron, AbstractNeuron const& i
 #include <random>
 std::mt19937_64 g((std::random_device())());
 std::uniform_real_distribution<float> d(-1.f, +1.f);
+std::bernoulli_distribution chance(0.5);
 float mnn::random_weights(AbstractNeuron const& neuron, AbstractNeuron const& input) {
 	return d(g);
+}
+#include "Shared.hpp"
+mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(AbstractLayerNetwork *parent1, AbstractLayerNetwork *parent2) {
+	if (!parent1 || !parent2)
+		throw Exceptions::UnsupportedParameters();
+	if (!parent1->check_compatibility(parent2))
+		throw Exceptions::UnsupportedParameters();
+
+	size_t i;
+	mnn::AbstractLayer<AbstractNeuron>* in = new mnn::Layer<AbstractNeuron>();
+	for (i = 0; i < parent1->getInputsNumber(); i++)
+		in->add(new mnn::Neuron());
+	mnn::AbstractLayer<AbstractNeuron>* out = new mnn::Layer<AbstractNeuron>();
+	for (i = 0; i < parent1->getOutputsNumber(); i++)
+		out->add(new mnn::Neuron());
+
+	mnn::AbstractLayerNetwork* ret = new mnn::LayerNetwork(in, out);
+
+	parent1->for_each_hidden([ret](mnn::AbstractLayer<AbstractNeuron> const& l) {
+		mnn::AbstractLayer<AbstractNeuron>* hd = new mnn::Layer<AbstractNeuron>();
+		l.for_each([hd](AbstractNeuron const& n) {
+			hd->add(new mnn::Neuron());
+		});
+		ret->addHiddenLayer(hd);
+	});
+
+	mnn::AbstractLayer<AbstractNeuron> *tempLayer = in;
+	//Supports only mnn::ConnectionPattern::EachFromPreviousLayerWithoutBias.
+	//Other are to be added in future updates.
+	NeuronContainer<Type> c;
+	parent1->for_each_neuron([&c](mnn::AbstractNeuron const& n) {
+		n.for_each_link([&c](mnn::Link const& l) {
+			c.push_back(l.weight);
+		});
+	});
+	i = 0u;
+	parent2->for_each_neuron([&c, &i](mnn::AbstractNeuron const& n) {
+		n.for_each_link([&c, &i](mnn::Link const& l) {
+			if (chance(g))
+				c[i] = l.weight;
+			i++;
+		});
+	});
+
+	i = 0u;
+	mnn::AbstractNeuron *bias = new mnn::Neuron(1.f);
+	ret->for_each_hidden([&tempLayer, &c, &i, &bias](mnn::AbstractLayer<AbstractNeuron>& layer) {
+		layer.for_each([&tempLayer, &c, &i, &bias](mnn::AbstractNeuron& neuron) {
+			tempLayer->for_each([&neuron, &c, &i](mnn::AbstractNeuron& input) {
+				neuron.link(&input, c[i++]);
+			});
+			neuron.link(bias, c[i++]);
+		});
+		tempLayer = &layer;
+	});
+	ret->for_each_output([&tempLayer, &c, &i, &bias](mnn::AbstractNeuron& neuron) {
+		tempLayer->for_each([&neuron, &c, &i](mnn::AbstractNeuron& input) {
+			neuron.link(&input, c[i++]);
+		});
+		neuron.link(bias, c[i++]);
+	});
+	return ret;
 }

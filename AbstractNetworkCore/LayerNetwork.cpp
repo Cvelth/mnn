@@ -31,6 +31,17 @@ const float mnn::LayerNetwork::getOutput(size_t index) const {
 	return getOutputLayer()->at(index);
 }
 
+bool mnn::LayerNetwork::check_compatibility(AbstractNetwork const* other) const {
+	auto o = dynamic_cast<LayerNetwork const*>(other);
+	if (getInputsNumber() != o->getInputsNumber())
+		return false;
+	if (getOutputsNumber() != o->getOutputsNumber())
+		return false;
+	if (m_layers->size() != o->m_layers->size())
+		return false;
+	return true;
+}
+
 void mnn::BackpropagationLayerNetwork::setInputs(NeuronContainer<Type> const& inputs, bool normalize) {
 	if (inputs.size() != m_layers.inputs()->size())
 		throw Exceptions::IncorrectDataAmountException();
@@ -86,6 +97,16 @@ const float mnn::BackpropagationLayerNetwork::getInput(size_t index) const {
 }
 const float mnn::BackpropagationLayerNetwork::getOutput(size_t index) const {
 	return getOutputLayer()->at(index);
+}
+bool mnn::BackpropagationLayerNetwork::check_compatibility(AbstractNetwork const* other) const {
+	auto o = dynamic_cast<BackpropagationLayerNetwork const*>(other);
+	if (getInputsNumber() != o->getInputsNumber())
+		return false;
+	if (getOutputsNumber() != o->getOutputsNumber())
+		return false;
+	if (m_layers->size() != o->m_layers->size())
+		return false;
+	return true;
 }
 #include "TypeCodes.hpp"
 #include <sstream>
