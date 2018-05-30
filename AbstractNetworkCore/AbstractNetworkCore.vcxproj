@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractInputOutputStorage.hpp" />
     <ClInclude Include="AbstractMatrixNetwork.hpp" />
     <ClInclude Include="AbstractNetworkControlFunctions.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetworkStorage.hpp" />
+    <ClInclude Include="Matrix.hpp" />
+    <ClInclude Include="MatrixNetwork.hpp" />
+    <ClInclude Include="MatrixNetworkStorage.hpp" />
     <ClInclude Include="TypeCodes.hpp" />
     <ClInclude Include="Neuron.hpp" />
     <ClInclude Include="AbstractLayer.hpp" />
@@ -41,6 +45,7 @@
     <ClCompile Include="AbstractNeuron.cpp" />
     <ClCompile Include="Automatization.cpp" />
     <ClCompile Include="LayerNetwork.cpp" />
+    <ClCompile Include="MatrixNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="Sigmoids.cpp" />
     <ClCompile Include="Storage.cpp" />

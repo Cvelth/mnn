@@ -47,6 +47,18 @@
     <ClInclude Include="AbstractNetworkControlFunctions.hpp">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="MatrixNetwork.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractInputOutputStorage.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixNetworkStorage.hpp">
+      <Filter>Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
@@ -89,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="AbstractLayer.cpp">
       <Filter>Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixNetwork.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
