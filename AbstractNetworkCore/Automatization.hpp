@@ -6,6 +6,8 @@ namespace mnn {
 	class AbstractBackpropagationNeuron;
 	class AbstractLayerNetwork;
 	class AbstractBackpropagationLayerNetwork;
+	class AbstractMatrixNetwork;
+	class AbstractBackpropagationMatrixNetwork;
 	/*
 	The enum defining type of connection of the neurons in the network.
 	
@@ -44,6 +46,20 @@ namespace mnn {
 	AbstractLayerNetwork* generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number,
 															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 															ConnectionPattern connection = ConnectionPattern::EachFromPreviousLayerWithBias,
+															std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights);
+
+	/*
+	The function generates and returns a pointer to a NeuralNetwork with *input_number* inputs, *output_number* outputs, *hidden_layers_number* hidden layers with *neurons_per_hidden_layer* neurons in each,
+	
+	WeightFunction is an lambda-function-argument which takes the arguments:
+	* The neuron at the beginning of the Link.
+	* The neuron at the end on the Link.
+	It returns a float -> weight of the Link.
+
+	By default, the weights of all Links are equal to 1.0
+	*/
+	AbstractLayerNetwork* generateTypicalMatrixNeuralNetwork(size_t inputs_number, size_t outputs_number,
+															size_t hidden_layers_number, size_t neurons_per_hidden_layer,
 															std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction = default_weights);
 
 	/*

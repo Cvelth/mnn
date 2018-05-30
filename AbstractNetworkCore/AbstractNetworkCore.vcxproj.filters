@@ -38,9 +38,6 @@
     <ClInclude Include="TypeCodes.hpp">
       <Filter>Storage</Filter>
     </ClInclude>
-    <ClInclude Include="LayerNetworkStorage.hpp">
-      <Filter>Layer</Filter>
-    </ClInclude>
     <ClInclude Include="AbstractMatrixNetwork.hpp">
       <Filter>Network</Filter>
     </ClInclude>
@@ -53,10 +50,10 @@
     <ClInclude Include="Matrix.hpp">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="AbstractInputOutputStorage.hpp">
-      <Filter>Layer</Filter>
+    <ClInclude Include="SharedNetworkFunctionality.hpp">
+      <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixNetworkStorage.hpp">
+    <ClInclude Include="AbstractNetworkStorage.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -81,9 +78,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LayerNetwork.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
     <ClCompile Include="Automatization.cpp">
       <Filter>Automatization</Filter>
     </ClCompile>
@@ -103,6 +97,9 @@
       <Filter>Layer</Filter>
     </ClCompile>
     <ClCompile Include="MatrixNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkPrint.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>

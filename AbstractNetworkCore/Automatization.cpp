@@ -2,6 +2,7 @@
 #include "Neuron.hpp"
 #include "Layer.hpp"
 #include "LayerNetwork.hpp"
+#include "MatrixNetwork.hpp"
 mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number,
 																  size_t neurons_per_hidden_layer, ConnectionPattern connection,
 																  std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction) {
@@ -61,6 +62,23 @@ mnn::AbstractLayerNetwork* mnn::generateTypicalLayerNeuralNetwork(size_t inputs_
 			break;
 	}
 	return ret;
+}
+
+mnn::AbstractLayerNetwork* mnn::generateTypicalMatrixNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number, size_t neurons_per_hidden_layer, 
+																   std::function<Type(AbstractNeuron const&, AbstractNeuron const&)> weightFunction) {
+	
+	size_t i;
+	mnn::AbstractLayer<AbstractNeuron>* in = new mnn::Layer<AbstractNeuron>();
+	for (i = 0; i < inputs_number; i++)
+		in->add(new mnn::Neuron());
+	mnn::AbstractLayer<AbstractNeuron>* out = new mnn::Layer<AbstractNeuron>();
+	for (i = 0; i < outputs_number; i++)
+		out->add(new mnn::Neuron());
+
+	//mnn::AbstractLayerNetwork* ret = new mnn::MatrixNetwork(in, out);
+	//
+	//ret->createHiddenMatrix(hidden_layers_number, neurons_per_hidden_layer, weightFunction);
+	return nullptr;// ret;
 }
 
 mnn::AbstractBackpropagationLayerNetwork* mnn::generateTypicalBackpropagationLayerNeuralNetwork(size_t inputs_number, size_t outputs_number, size_t hidden_layers_number,

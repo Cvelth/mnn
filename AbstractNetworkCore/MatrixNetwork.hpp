@@ -1,11 +1,22 @@
 #pragma once
 #include "AbstractMatrixNetwork.hpp"
-#include "Matrix.hpp"
-namespace mnn {
-	class MatrixNetwork : public AbstractMatrixNetwork {
-	protected:
-		Matrix<AbstractNeuron> m_matrix;
+#include "SharedNetworkFunctionality.hpp"
+namespace mnn {	
+	class MatrixNetwork : public virtual AbstractMatrixNetwork, public virtual SharedMatrixNetworkFunctionality<AbstractNeuron> {
 	public:
-		//explicit 
+		using SharedMatrixNetworkFunctionality::SharedMatrixNetworkFunctionality;
+		virtual std::string print() const override;
+	};
+	class BackpropagationMatrixNetwork : public virtual AbstractBackpropagationMatrixNetwork, public virtual SharedMatrixNetworkFunctionality<AbstractBackpropagationNeuron> {
+	public:
+		using SharedMatrixNetworkFunctionality::SharedMatrixNetworkFunctionality;
+		virtual std::string print() const override;
+
+		void calculateGradients(const NeuronContainer<Type>& outputs) override {
+			//To be implemented.
+		}
+		virtual void updateWeights() override {
+			//To be implemented.
+		}
 	};
 }
