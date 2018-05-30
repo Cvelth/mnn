@@ -26,7 +26,7 @@ namespace mnn {
 
 		virtual bool check_compatibility(AbstractNetwork const* other) const =0;
 	};
-	class AbstractBackpropagationNetwork : public AbstractNetwork {
+	class AbstractBackpropagationNetwork : public virtual AbstractNetwork {
 	public:
 		inline void learningProcess(NeuronContainer<Type> const& outputs) {
 			if (outputs.size() != getOutputs().size())
