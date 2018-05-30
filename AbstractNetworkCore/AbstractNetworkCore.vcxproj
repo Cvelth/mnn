@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractMatrixNetwork.hpp" />
+    <ClInclude Include="AbstractNetworkControlFunctions.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="LayerNetworkStorage.hpp" />
     <ClInclude Include="TypeCodes.hpp" />

@@ -41,6 +41,12 @@
     <ClInclude Include="LayerNetworkStorage.hpp">
       <Filter>Layer</Filter>
     </ClInclude>
+    <ClInclude Include="AbstractMatrixNetwork.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractNetworkControlFunctions.hpp">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Neuron">
