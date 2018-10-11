@@ -13,6 +13,7 @@ namespace mnn {
 	protected:
 		virtual void calculate() = 0;
 		virtual Value normalize(Value const& value);
+		virtual Value normalization_derivative(Value const& value);
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
@@ -61,6 +62,11 @@ namespace mnn {
 			: NeuronInterface(value), m_eta(eta), m_alpha(alpha) {}
 		BackpropagationNeuronInterface(Value const& eta, Value const& alpha)
 			: NeuronInterface(), m_eta(eta), m_alpha(alpha) {}
+
+		Value const& eta() const { return m_eta; }
+		Value const& alpha() const { return m_alpha; }
+		void eta(Value const& value) { m_eta = value; }
+		void alpha(Value const& value) { m_alpha = value; }
 
 		inline virtual Value const& gradient() const { return m_gradient; }
 
