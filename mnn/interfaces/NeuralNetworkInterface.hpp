@@ -1,11 +1,8 @@
 #pragma once
-#include <vector>
+#include "mnn/interfaces/Types.hpp"
 namespace mnn {
 	class NeuralNetworkInterface {
 	public:
-		using Value = double;
-		template <typename Type> using NeuronContainer = std::vector<Type>;
-
 		virtual ~NeuralNetworkInterface() {}
 
 		virtual NeuronContainer<Value>& inputs() = 0;
