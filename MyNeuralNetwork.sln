@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mnn", "mnn\mnn.vcxproj", "{EEBF161D-45F8-4D00-9B45-FE7AE325F5DF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Interfaces", "Interfaces\Interfaces.vcxproj", "{F8778213-0E7B-4777-9E08-5A50EAF6300D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Interfaces", "mnn\interfaces\Interfaces.vcxproj", "{F8778213-0E7B-4777-9E08-5A50EAF6300D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
