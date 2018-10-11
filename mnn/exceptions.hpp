@@ -5,4 +5,4 @@ namespace mnn::Exceptions {
 	public: using std::exception::exception;
 	};
 }
-#define DefineNewMNNException(name) namespace mnn::Exceptions {class name : public mgl::Exceptions::MNNException {public: using MNNException::MNNException;};}
+#define DefineNewMNNException(name) namespace mnn::Exceptions {class name : public mnn::Exceptions::MNNException {public: using MNNException::MNNException;};}
