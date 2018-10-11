@@ -12,7 +12,7 @@ namespace mnn {
 		static size_t NUMBER_OF_NEURONS_CREATED;
 	protected:
 		virtual void calculate() = 0;
-		virtual Value normalize(Value const& value) = 0;
+		virtual Value normalize(Value const& value);
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
