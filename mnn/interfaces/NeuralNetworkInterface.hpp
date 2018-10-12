@@ -50,7 +50,7 @@ namespace mnn {
 	class BackpropagationNeuralNetworkInterface : public NeuralNetworkInterface {
 	public:
 		virtual void calculateGradients(NeuronContainer<Value> const& _outputs) = 0;
-		virtual void calculateGradients(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _inputs) = 0;
+		virtual void calculateGradients(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _outputs) = 0;
 		virtual void updateWeights() = 0;
 		inline void backpropagate(NeuronContainer<Value> const& _outputs) {
 			calculateGradients(_outputs);
