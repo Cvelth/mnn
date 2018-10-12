@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <memory>
 #include "mnn/interfaces/Types.hpp"
 namespace mnn {
 	struct ExplicitLink;
@@ -11,26 +12,35 @@ namespace mnn {
 		size_t m_id;
 		static size_t NUMBER_OF_NEURONS_CREATED;
 	protected:
-		virtual void calculate() = 0;
-		virtual Value normalize(Value const& value);
-		virtual Value normalization_derivative(Value const& value);
+		virtual void calculate(bool full = false) = 0;
+		virtual bool is_dependent() const = 0;
+		static Value normalize(Value const& value);
+		static Value normalization_derivative(Value const& value);
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
 			m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		virtual ~NeuronInterface() {};
 
+		NeuronInterface& operator=(Value const& value) {
+			m_isEvaluated = true; m_value = value;
+		}
+		bool operator==(NeuronInterface const& other) const { return m_id == other.m_id; }
+
 		inline size_t const& id() const { return m_id; }
 		static size_t const& next_id() { return NUMBER_OF_NEURONS_CREATED; }
 
-		virtual void link(NeuronInterface *i, Value const& weight = 1.f) = 0;
+		virtual void link(std::shared_ptr<NeuronInterface> i, Value const& weight = 1.f) = 0;
 		inline virtual void clear_links() = 0;
 
-		inline const Value& value() {
-			if (!m_isEvaluated)
-				calculate();
+		inline Value const& value(bool full_recalculation = false) {
+			if ((full_recalculation && is_dependent()) || !m_isEvaluated)
+				calculate(full_recalculation);
 			return m_value;
 		}
+		inline Value const& operator*() { return value(); }
+		inline Value const& operator()() { return value(); }
+		inline operator Value() { return value(); }
 		inline void value(Value const& value, bool to_normalize = true) {
 			m_value = to_normalize ? normalize(value) : value;
 			m_isEvaluated = true;
@@ -73,7 +83,7 @@ namespace mnn {
 		virtual void calculateGradient(Value const& expectedValue) = 0;
 		virtual void calculateGradient(std::function<Value(std::function<Value(BackpropagationNeuronInterface&)>)> gradient_sum) = 0;
 		virtual void recalculateWeights() = 0;
-		virtual Value getWeightTo(BackpropagationNeuronInterface* neuron) = 0;
+		virtual Value getWeightTo(BackpropagationNeuronInterface *neuron) = 0;
 
 		/* Unimplemented from v1.0
 		inline virtual void for_each_link(std::function<void(BackpropagationLink&)> lambda, bool firstToLast = true) = 0;

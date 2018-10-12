@@ -3,13 +3,13 @@
 namespace mnn {
 	class NeuronInterface;
 	struct ExplicitLink {
-		NeuronInterface *unit;
+		std::shared_ptr<NeuronInterface> unit;
 		Value weight;
-		ExplicitLink(NeuronInterface *unit, Value const& weight) : unit(unit), weight(weight) {}
+		ExplicitLink(std::shared_ptr<NeuronInterface> unit, Value const& weight) : unit(unit), weight(weight) {}
 	};
 	struct ExplicitBackpropagationLink : public ExplicitLink {
 		Value delta;
-		ExplicitBackpropagationLink(NeuronInterface* unit, Value const& weight, Value const& delta = 0.f)
+		ExplicitBackpropagationLink(std::shared_ptr<NeuronInterface> unit, Value const& weight, Value const& delta = 0.f)
 			: ExplicitLink(unit, weight), delta(delta) {}
 		ExplicitBackpropagationLink(ExplicitLink const& other, Value const& delta = 0.f)
 			: ExplicitLink(other.unit, other.weight), delta(delta) {}
