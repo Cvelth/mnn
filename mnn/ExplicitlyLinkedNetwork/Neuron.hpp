@@ -22,6 +22,7 @@ namespace mnn {
 	protected:
 		LinkContainer<ExplicitBackpropagationLink> m_links;
 		virtual void calculate(bool full = false) override;
+		virtual bool is_dependent() const override { return !m_links.empty(); }
 	public:
 		BackpropagationNeuron() : BackpropagationNeuronInterface(0.15, 0.5) {}
 		BackpropagationNeuron(Value const& value)
