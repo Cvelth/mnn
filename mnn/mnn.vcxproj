@@ -149,6 +149,9 @@
     <ProjectReference Include="interfaces\Interfaces.vcxproj">
       <Project>{f8778213-0e7b-4777-9e08-5a50eaf6300d}</Project>
     </ProjectReference>
+    <ProjectReference Include="MatrixLayeredNeuralNetwork\MatrixLayeredNeuralNetwork.vcxproj">
+      <Project>{da507170-61a0-4976-99de-cd12eaac447a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
