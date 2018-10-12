@@ -14,8 +14,6 @@ namespace mnn {
 	protected:
 		virtual void calculate(bool full = false) = 0;
 		virtual bool is_dependent() const = 0;
-		static Value normalize(Value const& value);
-		static Value normalization_derivative(Value const& value);
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
