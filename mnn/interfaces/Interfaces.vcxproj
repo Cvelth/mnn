@@ -124,8 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ExplicitLink.hpp" />
-    <ClInclude Include="ExplicitlyLinkedNeuronInterface.hpp" />
     <ClInclude Include="NeuralNetworkInterface.hpp" />
+    <ClInclude Include="NeuronInterface.hpp" />
     <ClInclude Include="Types.hpp" />
   </ItemGroup>
   <ItemGroup>

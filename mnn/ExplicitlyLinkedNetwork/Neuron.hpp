@@ -1,5 +1,5 @@
 #pragma once
-#include "mnn/interfaces/ExplicitlyLinkedNeuronInterface.hpp"
+#include "mnn/interfaces/NeuronInterface.hpp"
 #include "mnn/interfaces/ExplicitLink.hpp"
 namespace mnn {
 	class Neuron : public NeuronInterface {
