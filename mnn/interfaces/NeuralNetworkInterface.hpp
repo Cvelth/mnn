@@ -1,42 +1,33 @@
 #pragma once
 #include "mnn/interfaces/Types.hpp"
-#include "mnn/interfaces/NeuronInterface.hpp"
 namespace mnn {
 	class NeuralNetworkInterface {
 	protected:
-		NeuronContainer<std::shared_ptr<NeuronInterface>> m_inputs;
-		NeuronContainer<std::shared_ptr<NeuronInterface>> m_outputs;
+		NeuronContainer<Value> m_inputs;
+		NeuronContainer<Value> m_outputs;
 	public:
+		NeuralNetworkInterface(size_t input_number, size_t output_number) {
+			m_inputs.resize(input_number);
+			m_outputs.resize(output_number);
+		}
 		virtual ~NeuralNetworkInterface() {}
 
-		inline NeuronContainer<std::shared_ptr<NeuronInterface>> inputs() { return m_inputs; }
-		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& inputs() const { return m_inputs; }
-		inline NeuronContainer<std::shared_ptr<NeuronInterface>> outputs() { return m_outputs; }
-		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& outputs() const { return m_outputs; }
+		inline NeuronContainer<Value> inputs() { return m_inputs; }
+		inline NeuronContainer<Value> const& inputs() const { return m_inputs; }
+		inline NeuronContainer<Value> outputs() { return m_outputs; }
+		inline NeuronContainer<Value> const& outputs() const { return m_outputs; }
 
-		inline void inputs(NeuronContainer<Value> const& _inputs, bool normalize = true) {
+		inline void inputs(NeuronContainer<Value> const& _inputs, bool _normalize = true) {
 			auto it1 = m_inputs.begin();
 			auto it2 = _inputs.cbegin();
 			while (it1 != m_inputs.end() || it2 != _inputs.cend()) {
-				(*it1)->value(*it2, normalize);
-				it1++; it2++;
-			}
-		}
-		inline void inputs(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _inputs, bool normalize = true) {
-			auto it1 = m_inputs.begin();
-			auto it2 = _inputs.cbegin();
-			while (it1 != m_inputs.end() || it2 != _inputs.cend()) {
-				(*it1)->value(**it2, normalize);
+				*it1 = _normalize ? normalize(*it2) : *it2;
 				it1++; it2++;
 			}
 		}
 
 		virtual void process() = 0;
 		inline void process(NeuronContainer<Value> const& _inputs, bool normalize = true) {
-			inputs(_inputs, normalize);
-			process();
-		}
-		inline void process(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _inputs, bool normalize = true) {
 			inputs(_inputs, normalize);
 			process();
 		}
@@ -50,13 +41,8 @@ namespace mnn {
 	class BackpropagationNeuralNetworkInterface : public NeuralNetworkInterface {
 	public:
 		virtual void calculateGradients(NeuronContainer<Value> const& _outputs) = 0;
-		virtual void calculateGradients(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _outputs) = 0;
 		virtual void updateWeights() = 0;
 		inline void backpropagate(NeuronContainer<Value> const& _outputs) {
-			calculateGradients(_outputs);
-			updateWeights();
-		}
-		inline void backpropagate(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _outputs) {
 			calculateGradients(_outputs);
 			updateWeights();
 		}
