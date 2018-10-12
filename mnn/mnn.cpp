@@ -1,4 +1,7 @@
 #include "mnn.hpp"
+#include "mnn/version.hpp"
+#include "mnn/exceptions.hpp"
+#include "mnn/interfaces/Types.hpp"
 
 #include <string>
 #include <sstream>
