@@ -14,6 +14,6 @@ namespace mnn {
 }
 
 namespace mnn {
-	static Value normalize(Value const& value);
-	static Value normalization_derivative(Value const& value);
+	Value normalize(Value const& value);
+	Value normalization_derivative(Value const& value);
 }
