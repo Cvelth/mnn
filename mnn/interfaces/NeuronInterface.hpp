@@ -22,6 +22,7 @@ namespace mnn {
 
 		NeuronInterface& operator=(Value const& value) {
 			m_isEvaluated = true; m_value = value;
+			return *this;
 		}
 		bool operator==(NeuronInterface const& other) const { return m_id == other.m_id; }
 
@@ -70,6 +71,9 @@ namespace mnn {
 			: NeuronInterface(value), m_eta(eta), m_alpha(alpha) {}
 		BackpropagationNeuronInterface(Value const& eta, Value const& alpha)
 			: NeuronInterface(), m_eta(eta), m_alpha(alpha) {}
+
+		using NeuronInterface::operator=;
+		using NeuronInterface::operator==;
 
 		Value const& eta() const { return m_eta; }
 		Value const& alpha() const { return m_alpha; }
