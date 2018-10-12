@@ -1,22 +1,22 @@
 #include "Neuron.hpp"
-void mnn::Neuron::calculate() {
+void mnn::Neuron::calculate(bool full) {
 	Value temp = 0;
 	for (auto &t : m_links)
-		temp += t.unit->value() * t.weight;
+		temp += t.unit->value(full) * t.weight;
 	value(temp);
 }
 
-void mnn::BackpropagationNeuron::calculate() {
+void mnn::BackpropagationNeuron::calculate(bool full) {
 	Value temp = 0;
 	for (auto &t : m_links)
-		temp += t.unit->value() * t.weight;
+		temp += t.unit->value(full) * t.weight;
 	value(temp);
 }
 
 #include <algorithm>
 mnn::Value mnn::BackpropagationNeuron::getWeightTo(BackpropagationNeuronInterface *neuron) {
 	if (auto it = std::find_if(m_links.cbegin(), m_links.cend(), [neuron](auto const& l) {
-		return l.unit == neuron;
+		return *l.unit == *neuron;
 	}); it != m_links.cend())
 		return it->weight;
 	else
