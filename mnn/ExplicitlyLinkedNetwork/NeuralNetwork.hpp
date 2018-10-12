@@ -1,48 +1,53 @@
 #pragma once
 #include <memory>
 #include "mnn/interfaces/NeuralNetworkInterface.hpp"
+#include "mnn/exceptions.hpp"
+DefineNewMNNException(IndexIsTooLargeError);
 namespace mnn {
 	class NeuronInterface;
 
 	class ExplicitlyLinkedNeuralNetwork : public NeuralNetworkInterface {
 	protected:
-		NeuronContainer<std::shared_ptr<NeuronInterface>> m_hidden;
+		NeuronContainer<std::shared_ptr<NeuronInterface>> m_input_neurons;
+		NeuronContainer<std::shared_ptr<NeuronInterface>> m_output_neurons;
+		NeuronContainer<std::shared_ptr<NeuronInterface>> m_hidden_neurons;
 	public:
+		ExplicitlyLinkedNeuralNetwork(size_t input_number, size_t output_number);
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 
-		inline void add_input(std::shared_ptr<NeuronInterface> neuron) {
-			m_inputs.push_back(neuron);
-		}
-		inline void add_output(std::shared_ptr<NeuronInterface> neuron) {
-			m_outputs.push_back(neuron);
-		}
-		inline void add_hidden(std::shared_ptr<NeuronInterface> neuron) {
-			m_hidden.push_back(neuron);
-		}
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>>& hidden_neurons() { return m_hidden_neurons; }
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& hidden_neurons() const { return m_hidden_neurons; }
+		
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>>& input_neurons() { return m_input_neurons; }
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& input_neurons() const { return m_input_neurons; }
+		
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>>& output_neurons() { return m_output_neurons; }
+		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& output_neurons() const { return m_output_neurons; }
 	};
 
 	class BackpropagationNeuronInterface;
 
 	class ExplicitlyLinkedBackpropagationNeuralNetwork : public BackpropagationNeuralNetworkInterface {
 	protected:
-		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_hidden;
+		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_input_neurons;
+		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_output_neurons;
+		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_hidden_neurons;
 	public:
+		ExplicitlyLinkedBackpropagationNeuralNetwork(size_t input_number, size_t output_number);
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 
 		virtual void calculateGradients(NeuronContainer<Value> const& _outputs) override;
-		virtual void calculateGradients(NeuronContainer<std::shared_ptr<NeuronInterface>> const& _outputs) override;
 		virtual void updateWeights() override;
 
-		inline void add_input(std::shared_ptr<BackpropagationNeuronInterface> neuron) {
-			m_inputs.push_back(neuron);
-		}
-		inline void add_output(std::shared_ptr<BackpropagationNeuronInterface> neuron) {
-			m_outputs.push_back(neuron);
-		}
-		inline void add_hidden(std::shared_ptr<BackpropagationNeuronInterface> neuron) {
-			m_hidden.push_back(neuron);
-		}
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>>& hidden_neurons() { return m_hidden_neurons; }
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> const& hidden_neurons() const { return m_hidden_neurons; }
+
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>>& input_neurons() { return m_input_neurons; }
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> const& input_neurons() const { return m_input_neurons; }
+
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>>& output_neurons() { return m_output_neurons; }
+		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> const& output_neurons() const { return m_output_neurons; }
 	};
 }

@@ -130,6 +130,11 @@
     <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Neuron.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\interfaces\Interfaces.vcxproj">
+      <Project>{f8778213-0e7b-4777-9e08-5a50eaf6300d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
