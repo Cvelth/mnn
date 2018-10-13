@@ -38,8 +38,7 @@ namespace mnn {
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 
-		virtual void calculateGradients(NeuronContainer<Value> const& _outputs) override;
-		virtual void updateWeights() override;
+		virtual void backpropagate(NeuronContainer<Value> const& _outputs) override;
 
 		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>>& hidden_neurons() { return m_hidden_neurons; }
 		inline NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> const& hidden_neurons() const { return m_hidden_neurons; }

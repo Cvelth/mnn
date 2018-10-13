@@ -49,13 +49,6 @@ void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::process() {
 	}
 }
 
-void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::calculateGradients(NeuronContainer<Value> const& _outputs) {
-	//TO DO
-	throw Exceptions::UnimplementedFeature();
-}
-void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::updateWeights() {
-	for (auto &n : m_hidden_neurons)
-		n->recalculateWeights();
-	for (auto &n : m_output_neurons)
-		n->recalculateWeights();
+void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::backpropagate(NeuronContainer<Value> const & _outputs) {
+	//TO DO.
 }
