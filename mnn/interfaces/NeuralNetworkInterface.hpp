@@ -41,11 +41,6 @@ namespace mnn {
 	class BackpropagationNeuralNetworkInterface : public NeuralNetworkInterface {
 	public:
 		using NeuralNetworkInterface::NeuralNetworkInterface;
-		virtual void calculateGradients(NeuronContainer<Value> const& _outputs) = 0;
-		virtual void updateWeights() = 0;
-		inline void backpropagate(NeuronContainer<Value> const& _outputs) {
-			calculateGradients(_outputs);
-			updateWeights();
-		}
+		virtual void backpropagate(NeuronContainer<Value> const& _outputs) = 0;
 	};
 }
