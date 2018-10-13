@@ -49,36 +49,23 @@ void mnn::MatrixLayeredBackpropagationNeuralNetwork::backpropagate(NeuronContain
 		return;
 
 	mnn::NeuronContainer<mnn::Value> current_gradient(m_outputs.size());
-	for (size_t i = 0; i < m_outputs.size(); i++)
-		current_gradient.at(i) = (_outputs.at(i) - m_outputs.at(i)) * normalization_derivative(m_outputs.at(i));
 	
-	auto layer = m_layers.rbegin();	
-	for (size_t i = 0; i < (*layer)->m_deltas.size(); i++)
-		for (size_t j = 0; j < (*layer)->m_deltas.front().size(); j++) {
-			if (layer == --m_layers.rend())
-				(*layer)->m_deltas.at(i).at(j) = m_eta * current_gradient.at(j)
-					* (i < (*layer)->m_deltas.size() - 1 ? m_inputs.at(i) : 1.0)
-					+ m_alpha * (*layer)->m_deltas.at(i).at(j);
-			else {
-				auto next = layer;
-				(*layer)->m_deltas.at(i).at(j) = m_eta * current_gradient.at(j)
-					* (i < (*layer)->m_deltas.size() - 1 ? (*++next)->m_value.at(i) : 1.0)
-					+ m_alpha * (*layer)->m_deltas.at(i).at(j);
-			}
-
-			(*layer)->m_weights.at(i).at(j) += (*layer)->m_deltas.at(i).at(j);
-		}
-
-	auto next = layer++;
+	auto layer = m_layers.rbegin();
+	auto next = layer;
 	while (layer != m_layers.rend()) {
-		mnn::NeuronContainer<mnn::Value> next_gradient((*layer)->m_weights.front().size());
+		if (layer == m_layers.rbegin())
+			for (size_t i = 0; i < m_outputs.size(); i++)
+				current_gradient.at(i) = (_outputs.at(i) - m_outputs.at(i)) * normalization_derivative(m_outputs.at(i));
+		else {
+			mnn::NeuronContainer<mnn::Value> next_gradient((*layer)->m_weights.front().size());
 
-		for (size_t i = 0; i < (*layer)->m_weights.front().size(); i++) {
-			for (size_t j = 0; j < current_gradient.size(); j++)
-				next_gradient.at(i) += current_gradient.at(j) * (*next)->m_weights.at(i).at(j);
-			next_gradient.at(i) *= normalization_derivative((*layer)->m_value.at(i));
+			for (size_t i = 0; i < (*layer)->m_weights.front().size(); i++) {
+				for (size_t j = 0; j < current_gradient.size(); j++)
+					next_gradient.at(i) += current_gradient.at(j) * (*next)->m_weights.at(i).at(j);
+				next_gradient.at(i) *= normalization_derivative((*layer)->m_value.at(i));
+			}
+			current_gradient = next_gradient;
 		}
-		current_gradient = next_gradient;
 
 		for (size_t i = 0; i < (*layer)->m_deltas.size(); i++)
 			for (size_t j = 0; j < (*layer)->m_deltas.front().size(); j++) {
