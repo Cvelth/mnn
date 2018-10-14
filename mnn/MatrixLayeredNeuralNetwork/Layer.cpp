@@ -6,13 +6,18 @@ mnn::Layer::Layer(size_t const& size, size_t const& input_number, bool bias, Val
 
 	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
 		m_weights.push_back(NeuronContainer<Value>{});
-		m_deltas.push_back(NeuronContainer<Value>{});
-		for (size_t j = 0; j < size; j++) {
+		for (size_t j = 0; j < size; j++)
 			m_weights.back().push_back(d(g));
-			m_deltas.back().push_back(0.0);
-		}
 	}
 	m_value.resize(size);
+}
+mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const& input_number, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) 
+			: Layer(size, input_number, bias, minimum_weight_value, maximum_weight_value) {
+	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
+		m_deltas.push_back(NeuronContainer<Value>{});
+		for (size_t j = 0; j < size; j++)
+			m_deltas.back().push_back(Value(0.0));
+	}
 }
 
 mnn::NeuronContainer<mnn::Value> mnn::Layer::process(NeuronContainer<Value> const& inputs) {
