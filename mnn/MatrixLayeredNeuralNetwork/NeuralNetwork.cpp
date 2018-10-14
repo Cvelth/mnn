@@ -39,7 +39,7 @@ void mnn::MatrixLayeredBackpropagationNeuralNetwork::process() {
 	}
 }
 void mnn::MatrixLayeredBackpropagationNeuralNetwork::add_layer(size_t const& size, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) {
-	m_layers.push_back(std::make_shared<Layer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, minimum_weight_value, maximum_weight_value));
+	m_layers.push_back(std::make_shared<BackpropagationLayer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, minimum_weight_value, maximum_weight_value));
 }
 
 void mnn::MatrixLayeredBackpropagationNeuralNetwork::backpropagate(NeuronContainer<Value> const& _outputs) {
