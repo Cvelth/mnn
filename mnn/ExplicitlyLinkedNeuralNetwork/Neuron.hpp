@@ -9,7 +9,6 @@ namespace mnn {
 		virtual bool is_dependent() const override { return !m_links.empty(); }
 
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
 	public:
 		Neuron() : NeuronInterface() {}
 		Neuron(Value const& value) : NeuronInterface(value) {}
@@ -28,7 +27,6 @@ namespace mnn {
 		virtual bool is_dependent() const override { return !m_links.empty(); }
 
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
 	public:
 		BackpropagationNeuron() : BackpropagationNeuronInterface(0.15, 0.5) {}
 		BackpropagationNeuron(Value const& value)

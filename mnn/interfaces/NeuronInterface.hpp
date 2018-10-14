@@ -16,7 +16,6 @@ namespace mnn {
 		virtual bool is_dependent() const = 0;
 
 		virtual std::ostream& to_stream(std::ostream &output) const abstract;
-		virtual std::istream& from_stream(std::istream &input) abstract;
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
@@ -53,9 +52,6 @@ namespace mnn {
 
 		friend std::ostream& operator<<(std::ostream &s, NeuronInterface const& n) {
 			return n.to_stream(s);
-		}
-		friend std::istream& operator>>(std::istream &s, NeuronInterface &n) {
-			return n.from_stream(s);
 		}
 
 		/* Unimplemented from v1.0
