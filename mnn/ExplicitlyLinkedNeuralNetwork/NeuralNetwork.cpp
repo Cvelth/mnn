@@ -52,3 +52,31 @@ void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::process() {
 void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::backpropagate(NeuronContainer<Value> const & _outputs) {
 	//TO DO.
 }
+
+#include "mnn/storage/Storage.hpp"
+std::ostream& mnn::ExplicitlyLinkedNeuralNetwork::to_stream(std::ostream &output) const {
+	output << short(typecodes::explicitly_linked_network) << ' ' 
+		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
+	for (auto &it : m_input_neurons)
+		output << *it;
+	output << short(typecodes::separator) << '\n';
+	for (auto &it : m_hidden_neurons)
+		output << *it;
+	output << short(typecodes::separator) << '\n';
+	for (auto &it : m_output_neurons)
+		output << *it;
+	return output;
+}
+std::ostream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::to_stream(std::ostream &output) const {
+	output << short(typecodes::explicitly_linked_network) << ' '
+		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
+	for (auto &it : m_input_neurons)
+		output << *it;
+	output << short(typecodes::separator) << '\n';
+	for (auto &it : m_output_neurons)
+		output << *it;
+	output << short(typecodes::separator) << '\n';
+	for (auto &it : m_hidden_neurons)
+		output << *it;
+	return output;
+}
