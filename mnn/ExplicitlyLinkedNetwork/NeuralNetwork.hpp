@@ -11,8 +11,12 @@ namespace mnn {
 		NeuronContainer<std::shared_ptr<NeuronInterface>> m_input_neurons;
 		NeuronContainer<std::shared_ptr<NeuronInterface>> m_output_neurons;
 		NeuronContainer<std::shared_ptr<NeuronInterface>> m_hidden_neurons;
+	protected:
+		virtual std::ostream& to_stream(std::ostream &output) const override { return output; }
+		virtual std::istream& from_stream(std::istream &input) override { return input; }
 	public:
 		ExplicitlyLinkedNeuralNetwork(size_t input_number, size_t output_number);
+		ExplicitlyLinkedNeuralNetwork(std::istream &input) : NeuralNetworkInterface(input) {}
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 
@@ -33,8 +37,13 @@ namespace mnn {
 		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_input_neurons;
 		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_output_neurons;
 		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_hidden_neurons;
+	protected:
+		virtual std::ostream& to_stream(std::ostream &output) const override { return output; }
+		virtual std::istream& from_stream(std::istream &input) override { return input; }
 	public:
 		ExplicitlyLinkedBackpropagationNeuralNetwork(size_t input_number, size_t output_number);
+		ExplicitlyLinkedBackpropagationNeuralNetwork(std::istream &input) 
+			: BackpropagationNeuralNetworkInterface(input) {}
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 

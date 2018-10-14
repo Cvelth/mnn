@@ -1,15 +1,20 @@
 #pragma once
 #include "mnn/interfaces/Types.hpp"
+#include <string>
 namespace mnn {
 	class NeuralNetworkInterface {
 	protected:
 		NeuronContainer<Value> m_inputs;
 		NeuronContainer<Value> m_outputs;
+	protected:
+		virtual std::ostream& to_stream(std::ostream &output) const abstract;
+		virtual std::istream& from_stream(std::istream &input) abstract;
 	public:
 		NeuralNetworkInterface(size_t input_number, size_t output_number) {
 			m_inputs.resize(input_number);
 			m_outputs.resize(output_number);
 		}
+		NeuralNetworkInterface(std::istream &input) { from_stream(input); }
 		virtual ~NeuralNetworkInterface() {}
 
 		inline NeuronContainer<Value> inputs() { return m_inputs; }
@@ -32,10 +37,12 @@ namespace mnn {
 			process();
 		}
 
-		/* TO DO
-		friend std::ostream& operator<<(std::ostream &s, NetworkInterface const* n);
-		friend std::istream& operator>>(std::istream &s, NetworkInterface *&n);
-		*/
+		friend std::ostream& operator<<(std::ostream &s, NeuralNetworkInterface const& n) {
+			return n.to_stream(s);
+		}
+		friend std::istream& operator>>(std::istream &s, NeuralNetworkInterface &n) {
+			return n.from_stream(s);
+		}
 	};
 
 	class BackpropagationNeuralNetworkInterface : public NeuralNetworkInterface {
