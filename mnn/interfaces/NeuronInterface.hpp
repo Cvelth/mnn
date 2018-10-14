@@ -14,6 +14,9 @@ namespace mnn {
 	protected:
 		virtual void calculate(bool full = false) = 0;
 		virtual bool is_dependent() const = 0;
+
+		virtual std::ostream& to_stream(std::ostream &output) const abstract;
+		virtual std::istream& from_stream(std::istream &input) abstract;
 	public:
 		NeuronInterface() : m_isEvaluated(false), m_id(NUMBER_OF_NEURONS_CREATED++) {}
 		NeuronInterface(Value const& value) : m_isEvaluated(true), m_value(value),
@@ -48,16 +51,19 @@ namespace mnn {
 		inline void changed() { m_isEvaluated = false; }
 		inline bool isValuated() { return m_isEvaluated; }
 
+		friend std::ostream& operator<<(std::ostream &s, NeuronInterface const& n) {
+			return n.to_stream(s);
+		}
+		friend std::istream& operator>>(std::istream &s, NeuronInterface &n) {
+			return n.from_stream(s);
+		}
+
 		/* Unimplemented from v1.0
 		virtual LinkContainer<ExplicitLink> links() const = 0;
 		inline virtual void update_links(LinkContainer<Link> const& c) = 0;
-		
-		virtual std::string print() const = 0;
 
 		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) = 0;
 		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const = 0;
-
-		friend std::istream& operator>>(std::istream &s, AbstractNeuron *&n);
 		*/
 	};
 
@@ -90,8 +96,6 @@ namespace mnn {
 		/* Unimplemented from v1.0
 		inline virtual void for_each_link(std::function<void(BackpropagationLink&)> lambda, bool firstToLast = true) = 0;
 		inline virtual void for_each_link(std::function<void(BackpropagationLink const&)> lambda, bool firstToLast = true) const = 0;
-
-		friend std::istream& operator>>(std::istream &s, AbstractNeuron *&n);
 		*/
 	};
 }
