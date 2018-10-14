@@ -11,21 +11,28 @@ namespace mnn {
 
 namespace mnn {
 	enum class typecodes {
+
+		//Management codes.
 		error = 0x00,
+		separator = 0x01,
 
 		//NeuralNetwork codes.
-		explicitly_linked_network = 0x02,
-		explicitly_linked_network_backpropagation = 0x03,
+		explicitly_linked_network = 0x10,
+		explicitly_linked_network_backpropagation = 0x11,
 
-		matrix_layered_network = 0x04,
-		matrix_layered_network_backpropagation = 0x05,
+		matrix_layered_network = 0x12,
+		matrix_layered_network_backpropagation = 0x13,
 
 		//Neuron codes.
-		neuron = 0x12,
-		neuron_backpropagation = 0x13,
+		neuron = 0x20,
+		neuron_backpropagation = 0x21,
 
 		//Layer codes.
-		layer = 0x22,
-		layer_backpropagation = 0x23,
+		layer = 0x30,
+		layer_backpropagation = 0x31,
+
+		//Link codes.
+		link = 0x40,
+		link_backpropagation = 0x41,
 	};
 }
