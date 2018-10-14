@@ -14,7 +14,6 @@ namespace mnn {
 			m_inputs.resize(input_number);
 			m_outputs.resize(output_number);
 		}
-		NeuralNetworkInterface(std::istream &input) { from_stream(input); }
 		virtual ~NeuralNetworkInterface() {}
 
 		inline NeuronContainer<Value> inputs() { return m_inputs; }

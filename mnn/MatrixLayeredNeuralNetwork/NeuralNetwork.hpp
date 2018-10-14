@@ -32,8 +32,6 @@ namespace mnn {
 		virtual std::istream& from_stream(std::istream &input) override { return input; }
 	public:
 		MatrixLayeredBackpropagationNeuralNetwork(size_t const& input_number, size_t const& output_number, Value const& eta = 0.15, Value const& alpha = 0.5);
-		MatrixLayeredBackpropagationNeuralNetwork(std::istream &input)
-			: BackpropagationNeuralNetworkInterface(input) {}
 		virtual void process() override;
 		using BackpropagationNeuralNetworkInterface::process;
 
