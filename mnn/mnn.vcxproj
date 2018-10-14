@@ -143,11 +143,17 @@
     <ClCompile Include="mnn.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ExplicitlyLinkedNeuralNetwork\ExplicitlyLinkedNeuralNetwork.vcxproj">
+      <Project>{c825afb3-4b2c-44d4-b1fb-cd37fc357ec2}</Project>
+    </ProjectReference>
     <ProjectReference Include="interfaces\Interfaces.vcxproj">
       <Project>{f8778213-0e7b-4777-9e08-5a50eaf6300d}</Project>
     </ProjectReference>
     <ProjectReference Include="MatrixLayeredNeuralNetwork\MatrixLayeredNeuralNetwork.vcxproj">
       <Project>{da507170-61a0-4976-99de-cd12eaac447a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="storage\Storage.vcxproj">
+      <Project>{4d6650a3-dcf0-44a7-8342-9027ae337774}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

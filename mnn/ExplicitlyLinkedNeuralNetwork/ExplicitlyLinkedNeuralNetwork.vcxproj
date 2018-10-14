@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C825AFB3-4B2C-44D4-B1FB-CD37FC357EC2}</ProjectGuid>
-    <RootNamespace>ExplicitlyLinkedNetwork</RootNamespace>
+    <RootNamespace>ExplicitlyLinkedNeuralNetwork</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
