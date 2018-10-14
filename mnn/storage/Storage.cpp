@@ -8,7 +8,7 @@ void mnn::save_to_file(std::string filename, NeuralNetworkInterface const& netwo
 	f << "MNN " << get_version() << '\n';
 	f << network;
 }
-#include "mnn/ExplicitlyLinkedNetwork/NeuralNetwork.hpp"
+#include "mnn/ExplicitlyLinkedNeuralNetwork/NeuralNetwork.hpp"
 #include "mnn/MatrixLayeredNeuralNetwork/NeuralNetwork.hpp" 
 std::unique_ptr<mnn::NeuralNetworkInterface> mnn::load_from_file(std::string filename) {
 	std::ifstream f(filename, std::ifstream::in);
@@ -20,16 +20,29 @@ std::unique_ptr<mnn::NeuralNetworkInterface> mnn::load_from_file(std::string fil
 	}
 
 	short type;
-	f >> type;
+	size_t inputs, outputs;
+	f >> type >> inputs >> outputs;
 	switch (typecodes(type)) {
-		case typecodes::explicitly_linked_network:
-			 return std::make_unique<ExplicitlyLinkedNeuralNetwork>(f);
-		case typecodes::explicitly_linked_network_backpropagation:
-			return std::make_unique<ExplicitlyLinkedBackpropagationNeuralNetwork>(f);
-		case typecodes::matrix_layered_network:
-			return std::make_unique<MatrixLayeredNeuralNetwork>(f);
-		case typecodes::matrix_layered_network_backpropagation:
-			return std::make_unique<MatrixLayeredBackpropagationNeuralNetwork>(f);
+		case typecodes::explicitly_linked_network: {
+			auto ret = std::make_unique<ExplicitlyLinkedNeuralNetwork>(inputs, outputs);
+			f >> *ret;
+			return ret;
+		}
+		case typecodes::explicitly_linked_network_backpropagation: {
+			auto ret = std::make_unique<ExplicitlyLinkedBackpropagationNeuralNetwork>(inputs, outputs);
+			f >> *ret;
+			return ret;
+		}
+		case typecodes::matrix_layered_network: {
+			auto ret = std::make_unique<MatrixLayeredNeuralNetwork>(inputs, outputs);
+			f >> *ret;
+			return ret;
+		}
+		case typecodes::matrix_layered_network_backpropagation: {
+			auto ret = std::make_unique<MatrixLayeredBackpropagationNeuralNetwork>(inputs, outputs);
+			f >> *ret;
+			return ret;
+		}
 		default:
 			throw Exceptions::UnsupportedFileError();
 	}
