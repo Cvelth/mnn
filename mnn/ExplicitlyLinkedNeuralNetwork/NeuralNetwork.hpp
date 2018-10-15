@@ -13,7 +13,7 @@ namespace mnn {
 		NeuronContainer<std::shared_ptr<NeuronInterface>> m_hidden_neurons;
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
+		virtual std::istream& from_stream(std::istream &input) override;
 	public:
 		ExplicitlyLinkedNeuralNetwork(size_t input_number, size_t output_number);
 		virtual void process() override;
@@ -38,7 +38,7 @@ namespace mnn {
 		NeuronContainer<std::shared_ptr<BackpropagationNeuronInterface>> m_hidden_neurons;
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
+		virtual std::istream& from_stream(std::istream &input) override;
 	public:
 		ExplicitlyLinkedBackpropagationNeuralNetwork(size_t input_number, size_t output_number);
 		virtual void process() override;

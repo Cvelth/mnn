@@ -59,11 +59,9 @@ std::ostream& mnn::ExplicitlyLinkedNeuralNetwork::to_stream(std::ostream &output
 		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
 	for (auto &it : m_input_neurons)
 		output << *it;
-	output << short(typecodes::separator) << '\n';
-	for (auto &it : m_hidden_neurons)
-		output << *it;
-	output << short(typecodes::separator) << '\n';
 	for (auto &it : m_output_neurons)
+		output << *it;
+	for (auto &it : m_hidden_neurons)
 		output << *it;
 	return output;
 }
@@ -72,11 +70,108 @@ std::ostream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::to_stream(std::
 		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
 	for (auto &it : m_input_neurons)
 		output << *it;
-	output << short(typecodes::separator) << '\n';
 	for (auto &it : m_output_neurons)
 		output << *it;
-	output << short(typecodes::separator) << '\n';
 	for (auto &it : m_hidden_neurons)
 		output << *it;
 	return output;
+}
+
+#include <map>
+std::istream& mnn::ExplicitlyLinkedNeuralNetwork::from_stream(std::istream &input) {
+	std::map<size_t, std::shared_ptr<NeuronInterface>> neurons;
+	std::map<size_t, std::vector<std::pair<size_t, Value>>> links;
+
+	short type;
+	size_t id, current_id = -1;
+	Value value;
+
+	auto next_neuron = [&]() -> auto {
+		static size_t i = -1;
+		if (++i < m_input_neurons.size())
+			return m_input_neurons.at(i);
+		if (i < m_output_neurons.size() + m_input_neurons.size())
+			return m_output_neurons.at(i - m_input_neurons.size());
+		m_hidden_neurons.push_back(std::make_shared<Neuron>());
+		return m_hidden_neurons.back();
+	};
+
+	while (input >> type) {
+		switch (typecodes(type)) {
+			case typecodes::neuron:
+			case typecodes::neuron_backpropagation:
+				input >> current_id;
+				neurons.insert(std::make_pair(current_id, next_neuron()));
+				links.insert(std::make_pair(current_id, std::vector<std::pair<size_t, Value>>{}));
+				break;
+
+			case typecodes::link:
+			case typecodes::link_backpropagation:
+				if (current_id == -1)
+					throw Exceptions::UnsupportedFileError();
+				input >> id >> value;
+				links.at(current_id).push_back(std::make_pair(id, value));
+				break;
+
+			default:
+				throw Exceptions::UnsupportedFileError();
+		}
+	}
+
+	for (auto &neuron : neurons)
+		for (auto &link : links.at(neuron.first))
+			neuron.second->link(neurons.at(link.first),
+								link.second);
+	return input;
+}
+
+#include <map>
+std::istream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::from_stream(std::istream &input) {
+	std::map<size_t, std::shared_ptr<NeuronInterface>> neurons;
+	std::map<size_t, std::vector<std::tuple<size_t, Value, Value>>> links;
+
+	short type;
+	size_t id, current_id = -1;
+	Value weight, delta;
+
+	auto next_neuron = [&]() -> auto {
+		static size_t i = -1;
+		if (++i < m_input_neurons.size())
+			return m_input_neurons.at(i);
+		if (i < m_output_neurons.size() + m_input_neurons.size())
+			return m_output_neurons.at(i - m_input_neurons.size());
+		m_hidden_neurons.push_back(std::make_shared<BackpropagationNeuron>());
+		return m_hidden_neurons.back();
+	};
+
+	while (input >> type) {
+		switch (typecodes(type)) {
+			case typecodes::neuron:
+			case typecodes::neuron_backpropagation:
+				input >> current_id;
+				neurons.insert(std::make_pair(current_id, next_neuron()));
+				links.insert(std::make_pair(current_id, std::vector<std::tuple<size_t, Value, Value>>{}));
+				break;
+
+			case typecodes::link:
+			case typecodes::link_backpropagation:
+				if (current_id == -1)
+					throw Exceptions::UnsupportedFileError();
+				input >> id >> weight >> delta;
+				links.at(current_id).push_back(std::make_tuple(id, weight, delta));
+				break;
+
+			default:
+				throw Exceptions::UnsupportedFileError();
+		}
+	}
+
+	for (auto &neuron : neurons)
+		for (auto &link : links.at(neuron.first))
+			std::dynamic_pointer_cast<BackpropagationNeuron>(neuron.second)->link(
+				neurons.at(std::get<0>(link)),
+				std::get<1>(link),
+				std::get<2>(link)
+			);
+	return input;
 }
