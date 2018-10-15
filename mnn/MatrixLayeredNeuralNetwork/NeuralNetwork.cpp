@@ -86,3 +86,20 @@ void mnn::MatrixLayeredBackpropagationNeuralNetwork::backpropagate(NeuronContain
 		next = layer++;
 	}
 }
+
+#include "mnn/storage/Storage.hpp"
+std::ostream& mnn::MatrixLayeredNeuralNetwork::to_stream(std::ostream &output) const {
+	output << short(typecodes::matrix_layered_network) << ' '
+		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
+	for (auto &it : m_layers)
+		output << " " << *it;
+	return output;
+}
+std::ostream& mnn::MatrixLayeredBackpropagationNeuralNetwork::to_stream(std::ostream &output) const {
+	output << short(typecodes::matrix_layered_network_backpropagation) << ' '
+		<< m_inputs.size() << ' ' << m_outputs.size() << ' '
+		<< m_eta << ' ' << m_alpha << '\n';
+	for (auto &it : m_layers)
+		output << " " << *it << '\n';
+	return output;
+}
