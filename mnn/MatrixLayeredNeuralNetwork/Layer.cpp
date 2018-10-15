@@ -11,7 +11,7 @@ mnn::Layer::Layer(size_t const& size, size_t const& input_number, bool bias, Val
 	}
 	m_value.resize(size);
 }
-mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const& input_number, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) 
+mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const& input_number, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value)
 			: Layer(size, input_number, bias, minimum_weight_value, maximum_weight_value) {
 	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
 		m_deltas.push_back(NeuronContainer<Value>{});
@@ -34,4 +34,35 @@ mnn::NeuronContainer<mnn::Value> mnn::Layer::process(NeuronContainer<Value> cons
 		m_value.at(i) = normalize(m_value.at(i));
 	}
 	return m_value;
+}
+
+#include "mnn/storage/Storage.hpp"
+std::ostream& mnn::Layer::to_stream(std::ostream &output) const {
+	output << short(typecodes::layer) << ' ' 
+		<< m_weights.size() << ' ' 
+		<< m_weights.front().size() << ' ';
+	for (auto &row : m_weights)
+		for (auto &weight : row)
+			output << weight << ' ';
+	return output;
+}
+std::ostream& mnn::BackpropagationLayer::to_stream(std::ostream &output) const {
+	output << short(typecodes::layer_backpropagation) << ' '
+		<< m_weights.size() << ' '
+		<< m_weights.front().size() << ' ';
+	for (auto &row : m_weights)
+		for (auto &weight : row)
+			output << weight << ' ';
+	for (auto &row : m_deltas)
+		for (auto &delta : row)
+			output << delta << ' ';
+	return output;
+}
+std::istream& mnn::Layer::from_stream(std::istream &input) {
+
+	return input;
+}
+std::istream& mnn::BackpropagationLayer::from_stream(std::istream &input) {
+
+	return input;
 }
