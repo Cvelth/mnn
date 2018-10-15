@@ -101,8 +101,8 @@ std::istream& mnn::ExplicitlyLinkedNeuralNetwork::from_stream(std::istream &inpu
 			case typecodes::neuron:
 			case typecodes::neuron_backpropagation:
 				input >> current_id;
-				neurons.insert(std::make_pair(current_id, next_neuron()));
-				links.insert(std::make_pair(current_id, std::vector<std::pair<size_t, Value>>{}));
+				neurons.insert(std::pair(current_id, next_neuron()));
+				links.insert(std::pair(current_id, std::vector<std::pair<size_t, Value>>{}));
 				break;
 
 			case typecodes::link:
@@ -110,7 +110,7 @@ std::istream& mnn::ExplicitlyLinkedNeuralNetwork::from_stream(std::istream &inpu
 				if (current_id == -1)
 					throw Exceptions::UnsupportedFileError();
 				input >> id >> value;
-				links.at(current_id).push_back(std::make_pair(id, value));
+				links.at(current_id).push_back(std::pair(id, value));
 				break;
 
 			default:
@@ -149,8 +149,8 @@ std::istream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::from_stream(std
 			case typecodes::neuron:
 			case typecodes::neuron_backpropagation:
 				input >> current_id;
-				neurons.insert(std::make_pair(current_id, next_neuron()));
-				links.insert(std::make_pair(current_id, std::vector<std::tuple<size_t, Value, Value>>{}));
+				neurons.insert(std::pair(current_id, next_neuron()));
+				links.insert(std::pair(current_id, std::vector<std::tuple<size_t, Value, Value>>{}));
 				break;
 
 			case typecodes::link:
@@ -158,7 +158,7 @@ std::istream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::from_stream(std
 				if (current_id == -1)
 					throw Exceptions::UnsupportedFileError();
 				input >> id >> weight >> delta;
-				links.at(current_id).push_back(std::make_tuple(id, weight, delta));
+				links.at(current_id).push_back(std::tuple(id, weight, delta));
 				break;
 
 			default:
