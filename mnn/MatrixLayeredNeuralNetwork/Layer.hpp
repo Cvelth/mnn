@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "mnn/interfaces/Types.hpp"
 #include "mnn/exceptions.hpp"
 DefineNewMNNException(UnsupportedInputError);
@@ -11,6 +12,8 @@ namespace mnn {
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const;
 		virtual std::istream& from_stream(std::istream &input);
+
+		Layer() {}
 	public:
 		Layer(size_t const& size, size_t const& input_number, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
 
@@ -26,17 +29,29 @@ namespace mnn {
 		friend std::istream& operator>>(std::istream &s, Layer &l) {
 			return l.from_stream(s);
 		}
+		static std::shared_ptr<Layer> read(std::istream &s) {
+			auto ret = new Layer();
+			ret->from_stream(s);
+			return std::shared_ptr<Layer>(ret);
+		}
 	};
 
 	class MatrixLayeredBackpropagationNeuralNetwork;
-	class BackpropagationLayer : Layer {
+	class BackpropagationLayer : public Layer {
 		friend MatrixLayeredBackpropagationNeuralNetwork;
 	protected:
 		NeuronContainer<NeuronContainer<Value>> m_deltas;
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const override;
 		virtual std::istream& from_stream(std::istream &input) override;
+
+		BackpropagationLayer() {}
 	public:
 		BackpropagationLayer(size_t const& size, size_t const& input_number, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
+		static std::shared_ptr<BackpropagationLayer> read(std::istream &s) {
+			auto ret = new BackpropagationLayer();
+			ret->from_stream(s);
+			return std::shared_ptr<BackpropagationLayer>(ret);
+		}
 	};
 }

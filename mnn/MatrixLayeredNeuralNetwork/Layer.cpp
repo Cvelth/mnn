@@ -59,10 +59,42 @@ std::ostream& mnn::BackpropagationLayer::to_stream(std::ostream &output) const {
 	return output;
 }
 std::istream& mnn::Layer::from_stream(std::istream &input) {
+	short type;
+	input >> type;
+	if (type != short(typecodes::layer))
+		throw Exceptions::UnsupportedFileError();
 
+	size_t size;
+	input >> size;
+	m_weights.resize(size);
+	input >> size;
+	for (auto &row : m_weights)
+		row.resize(size);
+	for (auto &row : m_weights)
+		for (auto &weight : row)
+			input >> weight;
 	return input;
 }
 std::istream& mnn::BackpropagationLayer::from_stream(std::istream &input) {
+	short type;
+	input >> type;
+	if (type != short(typecodes::layer_backpropagation))
+		throw Exceptions::UnsupportedFileError();
 
+	size_t size;
+	input >> size;
+	m_weights.resize(size);
+	m_deltas.resize(size);
+	input >> size;
+	for (auto &row : m_weights)
+		row.resize(size);
+	for (auto &row : m_deltas)
+		row.resize(size);
+	for (auto &row : m_weights)
+		for (auto &weight : row)
+			input >> weight;
+	for (auto &row : m_deltas)
+		for (auto &delta : row)
+			input >> delta;
 	return input;
 }
