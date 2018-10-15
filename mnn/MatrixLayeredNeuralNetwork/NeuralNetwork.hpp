@@ -10,7 +10,7 @@ namespace mnn {
 		LayerContainer<std::shared_ptr<Layer>> m_layers;
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
+		virtual std::istream& from_stream(std::istream &input) override;
 	public:
 		using NeuralNetworkInterface::NeuralNetworkInterface;
 		virtual void process() override;
@@ -29,7 +29,7 @@ namespace mnn {
 		LayerContainer<std::shared_ptr<BackpropagationLayer>> m_layers;
 	protected:
 		virtual std::ostream& to_stream(std::ostream &output) const override;
-		virtual std::istream& from_stream(std::istream &input) override { return input; }
+		virtual std::istream& from_stream(std::istream &input) override;
 	public:
 		MatrixLayeredBackpropagationNeuralNetwork(size_t const& input_number, size_t const& output_number, Value const& eta = 0.15, Value const& alpha = 0.5);
 		virtual void process() override;

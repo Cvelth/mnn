@@ -90,7 +90,8 @@ void mnn::MatrixLayeredBackpropagationNeuralNetwork::backpropagate(NeuronContain
 #include "mnn/storage/Storage.hpp"
 std::ostream& mnn::MatrixLayeredNeuralNetwork::to_stream(std::ostream &output) const {
 	output << short(typecodes::matrix_layered_network) << ' '
-		<< m_inputs.size() << ' ' << m_outputs.size() << '\n';
+		<< m_inputs.size() << ' ' << m_outputs.size() << ' ' 
+		<< m_layers.size() << '\n';
 	for (auto &it : m_layers)
 		output << " " << *it;
 	return output;
@@ -98,8 +99,23 @@ std::ostream& mnn::MatrixLayeredNeuralNetwork::to_stream(std::ostream &output) c
 std::ostream& mnn::MatrixLayeredBackpropagationNeuralNetwork::to_stream(std::ostream &output) const {
 	output << short(typecodes::matrix_layered_network_backpropagation) << ' '
 		<< m_inputs.size() << ' ' << m_outputs.size() << ' '
+		<< m_layers.size() << ' '
 		<< m_eta << ' ' << m_alpha << '\n';
 	for (auto &it : m_layers)
 		output << " " << *it << '\n';
 	return output;
+}
+std::istream& mnn::MatrixLayeredNeuralNetwork::from_stream(std::istream &input) {
+	size_t size;
+	input >> size;
+	for (size_t i = 0; i < size; i++)
+		m_layers.push_back(Layer::read(input));
+	return input;
+}
+std::istream& mnn::MatrixLayeredBackpropagationNeuralNetwork::from_stream(std::istream &input) {
+	size_t size;
+	input >> size >> m_eta >> m_alpha;
+	for (size_t i = 0; i < size; i++)
+		m_layers.push_back(BackpropagationLayer::read(input));
+	return input;
 }
