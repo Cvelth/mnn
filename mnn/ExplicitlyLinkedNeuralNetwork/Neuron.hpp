@@ -45,6 +45,10 @@ namespace mnn {
 			m_links.push_back(ExplicitBackpropagationLink(i, weight));
 			changed();
 		}
+		virtual void link(std::shared_ptr<NeuronInterface> i, Value const& weight, Value const& delta = 0.0) {
+			m_links.push_back(ExplicitBackpropagationLink(i, weight, delta));
+			changed();
+		}
 		inline virtual void clear_links() override { m_links.clear(); changed(); }
 	};
 }
