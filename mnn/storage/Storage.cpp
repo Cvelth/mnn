@@ -14,9 +14,9 @@ std::unique_ptr<mnn::NeuralNetworkInterface> mnn::load_from_file(std::string fil
 	std::ifstream f(filename, std::ifstream::in);
 	if (!f) throw Exceptions::FileAccessError();
 	std::string version;
-	f >> version;
+	std::getline(f, version);
 	if (version != get_version()) {
-		throw Exceptions::UnsupportedFileError();
+		//throw Exceptions::UnsupportedFileError();
 	}
 
 	short type;
