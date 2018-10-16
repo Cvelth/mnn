@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EvolutionManagerInterface.hpp" />
     <ClInclude Include="ExplicitLink.hpp" />
     <ClInclude Include="NeuralNetworkInterface.hpp" />
     <ClInclude Include="NeuronInterface.hpp" />

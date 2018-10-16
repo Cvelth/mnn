@@ -5,6 +5,7 @@
     <ClInclude Include="Types.hpp" />
     <ClInclude Include="ExplicitLink.hpp" />
     <ClInclude Include="NeuronInterface.hpp" />
+    <ClInclude Include="EvolutionManagerInterface.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib.cpp" />
