@@ -11,6 +11,8 @@ namespace mnn {
 	using LinkContainer = std::vector<Type>;
 	template <typename Type>
 	using LayerContainer = std::vector<Type>;
+	template <typename Type>
+	using NetworkContainer = std::vector<Type>;
 }
 
 namespace mnn {
