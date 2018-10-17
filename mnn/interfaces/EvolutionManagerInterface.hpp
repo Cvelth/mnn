@@ -52,12 +52,19 @@ namespace mnn {
 
 		virtual void select() = 0;
 		virtual void fill(bool base_on_existing = true) = 0;
-		virtual void mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) = 0;
+		virtual void mutate(Value const& unit_mutation_chance, 
+							Value const& weight_mutation_chance,
+							Value const& mutated_value_minimum = Value(0),
+							Value const& mutated_value_maximum = Value(1)) = 0;
 
-		inline void next_generation(Value const& unit_mutation_chance, Value const& weight_mutation_chance) {
+		inline void next_generation(Value const& unit_mutation_chance, 
+									Value const& weight_mutation_chance,
+									Value const& mutated_value_minimum = Value(0),
+									Value const& mutated_value_maximum = Value(1)) {
 			select();
 			fill(true);
-			mutate(unit_mutation_chance, weight_mutation_chance);
+			mutate(unit_mutation_chance, weight_mutation_chance,
+				   mutated_value_minimum, mutated_value_maximum);
 		}
 	};
 }

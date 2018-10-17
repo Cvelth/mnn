@@ -48,7 +48,10 @@ namespace mnn {
 
 		virtual void fill(bool base_on_existing = true) override;
 		virtual void select() override;
-		virtual void mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) override;
+		virtual void mutate(Value const& unit_mutation_chance,
+							Value const& weight_mutation_chance,
+							Value const& mutated_value_minimum = Value(0),
+							Value const& mutated_value_maximum = Value(1)) override;
 
 		auto const& operator*() const { return m_population; }
 		auto& operator*() { return m_population; }

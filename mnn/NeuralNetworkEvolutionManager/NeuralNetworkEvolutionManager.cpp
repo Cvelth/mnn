@@ -1,4 +1,5 @@
 #include "NeuralNetworkEvolutionManager.hpp"
+#include "mnn/interfaces/NeuralNetworkInterface.hpp"
 #include <random>
 #include <algorithm>
 void mnn::NeuralNetworkEvolutionManager::fill(bool base_on_existing) {
@@ -43,6 +44,16 @@ void mnn::NeuralNetworkEvolutionManager::select() {
 			throw Exceptions::BrokenStateError();
 	}
 }
-void mnn::NeuralNetworkEvolutionManager::mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) {
+void mnn::NeuralNetworkEvolutionManager::mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance, 
+												Value const& mutated_value_minimum, Value const& mutated_value_maximum) {
+	static std::mt19937_64 g(std::random_device{}());
+	std::bernoulli_distribution bu(unit_mutation_chance), bw(weight_mutation_chance);
+	std::uniform_real_distribution dw(mutated_value_minimum, mutated_value_maximum);
 
+	for (auto &unit : m_population) 
+		if (bu(g))
+			unit.first->for_each_weight([&bw, &dw](auto &value) {
+				if (bw(g))
+					value = dw(g);
+			});
 }
