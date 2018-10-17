@@ -17,18 +17,34 @@ namespace mnn {
 		//using EvaluationFunction = /?/
 	protected:
 		std::pair<SelectionType, Value> m_selection_value;
+		size_t m_population_size;
+		const size_t m_input_number, m_output_number;
 	public:
-		EvolutionManagerInterface(SelectionType const& type = SelectionType::Number,
+		EvolutionManagerInterface(size_t const& population_size,
+								  size_t const& input_number,
+								  size_t const& output_number, 
+								  SelectionType const& type = SelectionType::Number,
 								  Value const& selection_value = Value(0.5))
-			: m_selection_value(type, selection_value) {}
+			: m_population_size(population_size), m_selection_value(type, selection_value),
+			m_input_number(input_number), m_output_number(output_number) {}
 
-		inline std::pair<SelectionType, Value>& selection_parameters(SelectionType const& type = SelectionType::Number,
-															  Value const& selection_value = Value(0.5)) {
-			return m_selection_value = std::pair(type, selection_value);
+		inline void selection_parameters(Value const& selection_value,
+										 SelectionType const& type = SelectionType::Number) {
+			m_selection_value = std::pair(type, selection_value);
+		}
+		inline void selection_parameters(SelectionType const& type,
+										 Value const& selection_value  = Value(0.5)) {
+			m_selection_value = std::pair(type, selection_value);
 		}
 		inline std::pair<SelectionType, Value> const& selection_parameters() const {
 			return m_selection_value;
 		}
+
+		inline void population_size(size_t const& size) { m_population_size = size; }
+		inline size_t const& population_size() const { return m_population_size; }
+
+		inline size_t const& input_number() const { return m_input_number; }
+		inline size_t const& output_number() const { return m_output_number; }
 
 		virtual void fill(bool base_on_existing = true) = 0;
 		virtual void select() = 0;
