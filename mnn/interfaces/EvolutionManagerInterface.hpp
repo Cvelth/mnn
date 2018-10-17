@@ -50,13 +50,13 @@ namespace mnn {
 		inline void evaluation_function(EvaluationFunction const& function) { m_evaluation_function = function; }
 		inline EvaluationFunction const& evaluation_function() const { return m_evaluation_function; }
 
-		virtual void fill(bool base_on_existing = true) = 0;
 		virtual void select() = 0;
-		virtual void mutate(Value unit_mutation_chance, Value weight_mutation_chance) = 0;
+		virtual void fill(bool base_on_existing = true) = 0;
+		virtual void mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) = 0;
 
-		inline void next_generation(Value unit_mutation_chance, Value weight_mutation_chance) {
-			fill(true);
+		inline void next_generation(Value const& unit_mutation_chance, Value const& weight_mutation_chance) {
 			select();
+			fill(true);
 			mutate(unit_mutation_chance, weight_mutation_chance);
 		}
 	};

@@ -26,8 +26,9 @@ void mnn::NeuralNetworkEvolutionManager::select() {
 	});
 
 	switch (m_selection_value.first) {
-		case SelectionType::Number:
-			m_population.resize(size_t(m_selection_value.second * m_population_size));
+		case SelectionType::Number:			
+			if (auto target_size = size_t(m_selection_value.second * m_population_size); m_population.size() > target_size)
+				m_population.resize(target_size);
 			break;
 		case SelectionType::Value:
 			if (!m_population.empty()) {
@@ -42,6 +43,6 @@ void mnn::NeuralNetworkEvolutionManager::select() {
 			throw Exceptions::BrokenStateError();
 	}
 }
-void mnn::NeuralNetworkEvolutionManager::mutate(Value unit_mutation_chance, Value weight_mutation_chance) {
+void mnn::NeuralNetworkEvolutionManager::mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) {
 
 }

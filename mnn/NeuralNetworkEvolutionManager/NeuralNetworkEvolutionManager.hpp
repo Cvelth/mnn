@@ -34,9 +34,12 @@ namespace mnn {
 									  BreedingFunction const& br_function,
 									  SelectionType const& type = SelectionType::Number,
 									  Value const& selection_value = Value(0.5))
-			: EvolutionManagerInterface(population_size, input_number, output_number,
+					: EvolutionManagerInterface(population_size, input_number, output_number,
 										ev_function, type, selection_value),
-			m_generation_function(gn_function), m_breeding_function(br_function) {}
+					m_generation_function(gn_function), m_breeding_function(br_function) {
+		
+			fill(false);
+		}
 
 		inline void generation_function(GenerationFunction const& function) { m_generation_function = function; }
 		inline GenerationFunction const& generation_function() const { return m_generation_function; }
@@ -45,7 +48,7 @@ namespace mnn {
 
 		virtual void fill(bool base_on_existing = true) override;
 		virtual void select() override;
-		virtual void mutate(Value unit_mutation_chance, Value weight_mutation_chance) override;
+		virtual void mutate(Value const& unit_mutation_chance, Value const& weight_mutation_chance) override;
 
 		auto const& operator*() const { return m_population; }
 		auto& operator*() { return m_population; }
