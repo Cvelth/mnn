@@ -128,9 +128,7 @@ std::shared_ptr<mnn::MatrixLayeredNeuralNetwork> mnn::MatrixLayeredNeuralNetwork
 	static std::mt19937_64 g(std::random_device{}());
 	std::bernoulli_distribution b(ratio);
 
-	auto ret = std::make_shared<mnn::MatrixLayeredNeuralNetwork>(n1.inputs().size(), n1.outputs().size());
-
-	auto layers_number = b(g) ? n1.layers().size() : n2.layers().size();
+	auto ret = std::make_shared<MatrixLayeredNeuralNetwork>(n1.inputs().size(), n1.outputs().size());
 	while (ret->layers().size() < n1.layers().size() && ret->layers().size() < n2.layers().size())
 		ret->layers().push_back(Layer::generate(
 			ret->layers().empty() ? ret->inputs().size() : ret->layers().back()->size(),
