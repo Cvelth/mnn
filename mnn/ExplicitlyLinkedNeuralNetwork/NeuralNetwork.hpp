@@ -27,6 +27,8 @@ namespace mnn {
 		
 		inline NeuronContainer<std::shared_ptr<NeuronInterface>>& output_neurons() { return m_output_neurons; }
 		inline NeuronContainer<std::shared_ptr<NeuronInterface>> const& output_neurons() const { return m_output_neurons; }
+	
+		static std::shared_ptr<ExplicitlyLinkedNeuralNetwork> generate(ExplicitlyLinkedNeuralNetwork const&, ExplicitlyLinkedNeuralNetwork const&, Value const& ratio = Value(0.5));
 	};
 
 	class BackpropagationNeuronInterface;
