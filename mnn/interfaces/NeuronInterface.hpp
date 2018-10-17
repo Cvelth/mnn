@@ -54,13 +54,7 @@ namespace mnn {
 			return n.to_stream(s);
 		}
 
-		/* Unimplemented from v1.0
-		virtual LinkContainer<ExplicitLink> links() const = 0;
-		inline virtual void update_links(LinkContainer<Link> const& c) = 0;
-
-		inline virtual void for_each_link(std::function<void(Link&)> lambda, bool firstToLast = true) = 0;
-		inline virtual void for_each_link(std::function<void(Link const&)> lambda, bool firstToLast = true) const = 0;
-		*/
+		virtual void for_each_weight(std::function<void(Value&)> lambda) = 0;
 	};
 
 	struct ExplicitBackpropagationLink;
@@ -88,10 +82,5 @@ namespace mnn {
 		virtual void calculateGradient(std::function<Value(std::function<Value(BackpropagationNeuronInterface&)>)> gradient_sum) = 0;
 		virtual void recalculateWeights() = 0;
 		virtual Value getWeightTo(BackpropagationNeuronInterface *neuron) = 0;
-
-		/* Unimplemented from v1.0
-		inline virtual void for_each_link(std::function<void(BackpropagationLink&)> lambda, bool firstToLast = true) = 0;
-		inline virtual void for_each_link(std::function<void(BackpropagationLink const&)> lambda, bool firstToLast = true) const = 0;
-		*/
 	};
 }

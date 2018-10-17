@@ -39,6 +39,15 @@ void mnn::BackpropagationNeuron::calculateGradient(std::function<Value(std::func
 	}) * normalization_derivative(value());
 }
 
+void mnn::Neuron::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &it : m_links)
+		lambda(it.weight);
+}
+void mnn::BackpropagationNeuron::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &it : m_links)
+		lambda(it.weight);
+}
+
 #include "mnn/storage/Storage.hpp"
 std::ostream& mnn::Neuron::to_stream(std::ostream &output) const {
 	output << " " << short(typecodes::neuron) << ' ' << id() << '\n';

@@ -19,6 +19,8 @@ namespace mnn {
 			changed();
 		}
 		inline virtual void clear_links() override { m_links.clear(); changed(); }
+
+		virtual void for_each_weight(std::function<void(Value&)> lambda) override;
 	};
 	class BackpropagationNeuron : public BackpropagationNeuronInterface {
 	protected:
@@ -50,5 +52,7 @@ namespace mnn {
 			changed();
 		}
 		inline virtual void clear_links() override { m_links.clear(); changed(); }
+
+		virtual void for_each_weight(std::function<void(Value&)> lambda) override;
 	};
 }
