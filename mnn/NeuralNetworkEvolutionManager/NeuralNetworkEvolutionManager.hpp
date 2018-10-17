@@ -21,7 +21,7 @@ namespace mnn {
 		)>;
 		using GenerationFunction = std::function<std::shared_ptr<NeuralNetworkInterface>()>;
 	protected:
-		NetworkContainer<std::shared_ptr<NeuralNetworkInterface>> m_population;
+		NetworkContainer<std::pair<std::shared_ptr<NeuralNetworkInterface>, Value>> m_population;
 
 		GenerationFunction m_generation_function;
 		BreedingFunction m_breeding_function;
