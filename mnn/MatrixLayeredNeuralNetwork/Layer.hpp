@@ -40,6 +40,8 @@ namespace mnn {
 
 		static std::shared_ptr<Layer> generate(size_t const& input_number, Layer const& l1, Layer const& l2, Value const& ratio = Value(0.5), Value const& default_value = Value(0.0));
 		static std::shared_ptr<Layer> generate(size_t const& input_number, Layer const& l, Value const& default_value = Value(0.0));
+
+		virtual void for_each_weight(std::function<void(Value&)> lambda);
 	};
 
 	class MatrixLayeredBackpropagationNeuralNetwork;

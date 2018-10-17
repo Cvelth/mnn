@@ -107,6 +107,12 @@ std::shared_ptr<mnn::Layer> mnn::Layer::generate(size_t const& input_number, Lay
 	return ret;
 }
 
+void mnn::Layer::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &row : m_weights)
+		for (auto &weight : row)
+			lambda(weight);
+}
+
 #include "mnn/storage/Storage.hpp"
 std::ostream& mnn::Layer::to_stream(std::ostream &output) const {
 	output << short(typecodes::layer) << ' ' 
