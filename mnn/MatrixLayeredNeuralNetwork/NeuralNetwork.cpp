@@ -18,6 +18,9 @@ void mnn::MatrixLayeredNeuralNetwork::process() {
 void mnn::MatrixLayeredNeuralNetwork::add_layer(size_t const& size, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) {
 	m_layers.push_back(std::make_shared<Layer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, minimum_weight_value, maximum_weight_value));
 }
+void mnn::MatrixLayeredNeuralNetwork::add_layer(size_t const& size, bool bias, std::function<Value(size_t, size_t)> const& weight_function) {
+	m_layers.push_back(std::make_shared<Layer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, weight_function));
+}
 
 mnn::MatrixLayeredBackpropagationNeuralNetwork::MatrixLayeredBackpropagationNeuralNetwork(size_t const& input_number, size_t const& output_number, 
 																						  Value const& eta, Value const& alpha)
@@ -40,6 +43,9 @@ void mnn::MatrixLayeredBackpropagationNeuralNetwork::process() {
 }
 void mnn::MatrixLayeredBackpropagationNeuralNetwork::add_layer(size_t const& size, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) {
 	m_layers.push_back(std::make_shared<BackpropagationLayer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, minimum_weight_value, maximum_weight_value));
+}
+void mnn::MatrixLayeredBackpropagationNeuralNetwork::add_layer(size_t const& size, bool bias, std::function<Value(size_t, size_t)> const& weight_function) {
+	m_layers.push_back(std::make_shared<BackpropagationLayer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, weight_function));
 }
 
 void mnn::MatrixLayeredBackpropagationNeuralNetwork::backpropagate(NeuronContainer<Value> const& _outputs) {
@@ -93,7 +99,7 @@ std::ostream& mnn::MatrixLayeredNeuralNetwork::to_stream(std::ostream &output) c
 		<< m_inputs.size() << ' ' << m_outputs.size() << ' ' 
 		<< m_layers.size() << '\n';
 	for (auto &it : m_layers)
-		output << " " << *it;
+		output << " " << *it << '\n';
 	return output;
 }
 std::ostream& mnn::MatrixLayeredBackpropagationNeuralNetwork::to_stream(std::ostream &output) const {

@@ -20,6 +20,7 @@ namespace mnn {
 		inline auto const& layers() const { return m_layers; }
 
 		void add_layer(size_t const& size, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
+		void add_layer(size_t const& size, bool bias, std::function<Value(size_t, size_t)> const& weight_function);
 	
 		static std::shared_ptr<MatrixLayeredNeuralNetwork> generate(MatrixLayeredNeuralNetwork const&, MatrixLayeredNeuralNetwork const&, Value const& ratio = Value(0.5));
 
@@ -45,6 +46,7 @@ namespace mnn {
 		inline auto const& layers() const { return m_layers; }
 
 		void add_layer(size_t const& size, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
+		void add_layer(size_t const& size, bool bias, std::function<Value(size_t, size_t)> const& weight_function);
 
 		virtual void for_each_weight(std::function<void(Value&)> lambda) override;
 	};
