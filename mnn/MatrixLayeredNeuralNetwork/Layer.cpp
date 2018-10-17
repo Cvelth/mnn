@@ -115,7 +115,7 @@ void mnn::Layer::for_each_weight(std::function<void(Value&)> lambda) {
 
 #include "mnn/storage/Storage.hpp"
 std::ostream& mnn::Layer::to_stream(std::ostream &output) const {
-	output << short(typecodes::layer) << ' ' 
+	output << short(typecodes::layer) << ' ' << m_bias 
 		<< m_weights.size() << ' ' 
 		<< m_weights.front().size() << ' ';
 	for (auto &row : m_weights)
@@ -124,7 +124,7 @@ std::ostream& mnn::Layer::to_stream(std::ostream &output) const {
 	return output;
 }
 std::ostream& mnn::BackpropagationLayer::to_stream(std::ostream &output) const {
-	output << short(typecodes::layer_backpropagation) << ' '
+	output << short(typecodes::layer_backpropagation) << ' ' << m_bias
 		<< m_weights.size() << ' '
 		<< m_weights.front().size() << ' ';
 	for (auto &row : m_weights)
@@ -140,6 +140,8 @@ std::istream& mnn::Layer::from_stream(std::istream &input) {
 	input >> type;
 	if (type != short(typecodes::layer))
 		throw Exceptions::UnsupportedFileError();
+
+	input >> m_bias;
 
 	size_t size;
 	input >> size;
@@ -157,6 +159,8 @@ std::istream& mnn::BackpropagationLayer::from_stream(std::istream &input) {
 	input >> type;
 	if (type != short(typecodes::layer_backpropagation))
 		throw Exceptions::UnsupportedFileError();
+
+	input >> m_bias;
 
 	size_t size;
 	input >> size;
