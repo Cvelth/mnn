@@ -16,10 +16,12 @@ namespace mnn {
 		virtual void process() override;
 		using NeuralNetworkInterface::process;
 
-		inline LayerContainer<std::shared_ptr<Layer>> layers() { return m_layers; }
-		inline LayerContainer<std::shared_ptr<Layer>> const& layers() const { return m_layers; }
+		inline auto& layers() { return m_layers; }
+		inline auto const& layers() const { return m_layers; }
 
 		void add_layer(size_t const& size, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
+	
+		static std::shared_ptr<MatrixLayeredNeuralNetwork> generate(MatrixLayeredNeuralNetwork const&, MatrixLayeredNeuralNetwork const&, Value const& ratio = Value(0.5));
 	};
 
 	class BackpropagationLayer;
@@ -37,8 +39,8 @@ namespace mnn {
 
 		virtual void backpropagate(NeuronContainer<Value> const& _outputs) override;
 
-		inline LayerContainer<std::shared_ptr<BackpropagationLayer>> layers() { return m_layers; }
-		inline LayerContainer<std::shared_ptr<BackpropagationLayer>> const& layers() const { return m_layers; }
+		inline auto& layers() { return m_layers; }
+		inline auto const& layers() const { return m_layers; }
 
 		void add_layer(size_t const& size, bool bias = true, Value const& minimum_weight_value = 0.0, Value const& maximum_weight_value = 1.0);
 	};

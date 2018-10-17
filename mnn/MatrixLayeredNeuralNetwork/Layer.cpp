@@ -20,6 +20,23 @@ mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const
 	}
 }
 
+mnn::Layer::Layer(size_t const& size, size_t const& input_number, bool bias, std::function<Value(size_t, size_t)> const& weight_function) {
+	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
+		m_weights.push_back(NeuronContainer<Value>{});
+		for (size_t j = 0; j < size; j++)
+			m_weights.back().push_back(weight_function(j, i));
+	}
+	m_value.resize(size);
+}
+mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const& input_number, bool bias, std::function<Value(size_t, size_t)> const& weight_function)
+			: Layer(size, input_number, bias, weight_function) {
+	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
+		m_deltas.push_back(NeuronContainer<Value>{});
+		for (size_t j = 0; j < size; j++)
+			m_deltas.back().push_back(Value(0.0));
+	}
+}
+
 mnn::NeuronContainer<mnn::Value> mnn::Layer::process(NeuronContainer<Value> const& inputs) {
 	if (inputs.size() != m_weights.size() && (!m_bias || inputs.size() + 1 != m_weights.size()))
 		throw Exceptions::UnsupportedInputError();
@@ -34,6 +51,60 @@ mnn::NeuronContainer<mnn::Value> mnn::Layer::process(NeuronContainer<Value> cons
 		m_value.at(i) = normalize(m_value.at(i));
 	}
 	return m_value;
+}
+
+size_t is_inside(size_t const& v, size_t const& b1, size_t const& b2) {
+	if (v < b1)
+		if (v < b2)
+			return 0b11;
+		else
+			return 0b01;
+	else
+		if (v < b2)
+			return 0b10;
+		else
+			return 0b00;
+};
+std::shared_ptr<mnn::Layer> mnn::Layer::generate(size_t const& input_number, Layer const& l1, Layer const& l2, Value const& ratio, Value const& d) {
+	static std::mt19937_64 g(std::random_device{}());
+	std::bernoulli_distribution b(ratio);
+	
+	auto ret = std::make_shared<Layer>(
+		b(g) ? l1.size() : l2.size(),
+		input_number,
+		b(g) ? l1.m_bias : l2.m_bias,
+		[&l1, &l2, &b, &d](size_t const& j, size_t const& i) -> Value {
+			switch (is_inside(i, l1.input_number(), l2.input_number())
+					& is_inside(j, l1.size(), l2.size())) {
+				case 0b11:
+					return b(g) ? l1.m_weights.at(i).at(j) : l2.m_weights.at(i).at(j);
+				case 0b10:
+					return l2.m_weights.at(i).at(j);
+				case 0b01:
+					return l1.m_weights.at(i).at(j);
+				default:
+					return d;
+			}
+		}
+	);
+
+	return ret;
+}
+
+std::shared_ptr<mnn::Layer> mnn::Layer::generate(size_t const& input_number, Layer const& l, Value const& d) {
+	auto ret = std::make_shared<Layer>(
+		l.size(),
+		input_number,
+		l.m_bias,
+		[&l, &d](size_t const& i, size_t const& j) -> Value {
+			if (i < l.input_number() && j < l.size())
+				return l.m_weights.at(i).at(j);
+			else
+				return d;
+		}
+	);
+
+	return ret;
 }
 
 #include "mnn/storage/Storage.hpp"

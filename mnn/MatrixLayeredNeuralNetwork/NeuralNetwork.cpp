@@ -16,7 +16,7 @@ void mnn::MatrixLayeredNeuralNetwork::process() {
 	}
 }
 void mnn::MatrixLayeredNeuralNetwork::add_layer(size_t const& size, bool bias, Value const& minimum_weight_value, Value const& maximum_weight_value) {
-	m_layers.push_back(std::make_shared<Layer>(size, m_layers.empty() ? m_inputs.size() : m_layers.size(), bias, minimum_weight_value, maximum_weight_value));
+	m_layers.push_back(std::make_shared<Layer>(size, m_layers.empty() ? m_inputs.size() : m_layers.back()->size(), bias, minimum_weight_value, maximum_weight_value));
 }
 
 mnn::MatrixLayeredBackpropagationNeuralNetwork::MatrixLayeredBackpropagationNeuralNetwork(size_t const& input_number, size_t const& output_number, 
@@ -118,4 +118,35 @@ std::istream& mnn::MatrixLayeredBackpropagationNeuralNetwork::from_stream(std::i
 	for (size_t i = 0; i < size; i++)
 		m_layers.push_back(BackpropagationLayer::read(input));
 	return input;
+}
+
+#include <random>
+std::shared_ptr<mnn::MatrixLayeredNeuralNetwork> mnn::MatrixLayeredNeuralNetwork::generate(MatrixLayeredNeuralNetwork const& n1, MatrixLayeredNeuralNetwork const& n2, Value const& ratio) {
+	if (n1.inputs().size() != n2.inputs().size() || n1.outputs().size() != n2.outputs().size())
+		throw Exceptions::UnsupportedInputError();
+
+	static std::mt19937_64 g(std::random_device{}());
+	std::bernoulli_distribution b(ratio);
+
+	auto ret = std::make_shared<mnn::MatrixLayeredNeuralNetwork>(n1.inputs().size(), n1.outputs().size());
+
+	auto layers_number = b(g) ? n1.layers().size() : n2.layers().size();
+	while (ret->layers().size() < n1.layers().size() && ret->layers().size() < n2.layers().size())
+		ret->layers().push_back(Layer::generate(
+			ret->layers().empty() ? ret->inputs().size() : ret->layers().back()->size(),
+			*n1.layers().at(ret->layers().size()),
+			*n2.layers().at(ret->layers().size())
+		));
+	while (ret->layers().size() < n1.layers().size())
+		ret->layers().push_back(Layer::generate(
+			ret->layers().empty() ? ret->inputs().size() : ret->layers().back()->size(),
+			*n1.layers().at(ret->layers().size())
+		));
+	while (ret->layers().size() < n2.layers().size())
+		ret->layers().push_back(Layer::generate(
+			ret->layers().empty() ? ret->inputs().size() : ret->layers().back()->size(),
+			*n2.layers().at(ret->layers().size())
+		));
+
+	return ret;
 }

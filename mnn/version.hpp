@@ -2,7 +2,7 @@
 #define Version_Major 2
 #define Version_Minor 0
 #define Version_Patch 0
-#define Version_Build 150
+#define Version_Build 151
 
 namespace mnn {
 	char const* get_version();
