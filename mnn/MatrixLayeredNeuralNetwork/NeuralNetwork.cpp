@@ -148,3 +148,12 @@ std::shared_ptr<mnn::MatrixLayeredNeuralNetwork> mnn::MatrixLayeredNeuralNetwork
 
 	return ret;
 }
+
+void mnn::MatrixLayeredNeuralNetwork::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &layer : m_layers)
+		layer->for_each_weight(lambda);
+}
+void mnn::MatrixLayeredBackpropagationNeuralNetwork::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &layer : m_layers)
+		layer->for_each_weight(lambda);
+}
