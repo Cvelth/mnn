@@ -20,7 +20,7 @@ mnn::BackpropagationLayer::BackpropagationLayer(size_t const& size, size_t const
 	}
 }
 
-mnn::Layer::Layer(size_t const& size, size_t const& input_number, bool bias, std::function<Value(size_t, size_t)> const& weight_function) {
+mnn::Layer::Layer(size_t const& size, size_t const& input_number, bool bias, std::function<Value(size_t, size_t)> const& weight_function) : m_bias(bias) {
 	for (size_t i = 0; i < (bias ? input_number + 1 : input_number); i++) {
 		m_weights.push_back(NeuronContainer<Value>{});
 		for (size_t j = 0; j < size; j++)
