@@ -181,3 +181,12 @@ std::shared_ptr<mnn::ExplicitlyLinkedNeuralNetwork> mnn::ExplicitlyLinkedNeuralN
 	//TO DO.
 	return nullptr;
 }
+
+void mnn::ExplicitlyLinkedNeuralNetwork::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &n : m_input_neurons)
+		n->for_each_weight(lambda);
+}
+void mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::for_each_weight(std::function<void(Value&)> lambda) {
+	for (auto &n : m_input_neurons)
+		n->for_each_weight(lambda);
+}

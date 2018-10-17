@@ -1,5 +1,6 @@
 #pragma once
 #include "mnn/interfaces/Types.hpp"
+#include <functional>
 #include <string>
 namespace mnn {
 	class NeuralNetworkInterface {
@@ -35,6 +36,8 @@ namespace mnn {
 			inputs(_inputs, normalize);
 			process();
 		}
+
+		virtual void for_each_weight(std::function<void(Value&)> lambda) = 0;
 
 		friend std::ostream& operator<<(std::ostream &s, NeuralNetworkInterface const& n) {
 			return n.to_stream(s);
