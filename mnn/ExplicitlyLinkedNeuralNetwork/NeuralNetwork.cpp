@@ -179,4 +179,5 @@ std::istream& mnn::ExplicitlyLinkedBackpropagationNeuralNetwork::from_stream(std
 #include <random>
 std::shared_ptr<mnn::ExplicitlyLinkedNeuralNetwork> mnn::ExplicitlyLinkedNeuralNetwork::generate(ExplicitlyLinkedNeuralNetwork const& n1, ExplicitlyLinkedNeuralNetwork const& n2, Value const& ratio) {
 	//TO DO.
+	return nullptr;
 }
